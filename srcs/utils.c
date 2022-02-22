@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/21 17:06:58 by lsidan           ###   ########.fr       */
+/*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
+/*   Updated: 2022/02/22 11:08:40 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-void	sh_loop(void)
+char	**get_env_var(char **env)
 {
-	char	*line;
-	char 	***c_line;
+	char	**path;
 	int		i;
-	int		j;
 
 	i = -1;
-	j = -1;	
-	while (1)
+	path = NULL;
+	while (env[++i])
 	{
-		ft_putstr_fd("$> ", STDOUT);
-		line = get_next_line(STDIN);
-		c_line = parser(line);
-		i = -1;
-		while (c_line[++i])
+		if (ft_strnstr(env[i], "PATH=", 5))
 		{
-			j = 0;
-			dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
-			while(c_line[i][j])
-				dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
+			path = ft_split(&env[i][5], ':');
+			if (!path)
+				return (NULL);
+			break ;
 		}
 	}
+	return (path);
 }
- 

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/21 17:06:58 by lsidan           ###   ########.fr       */
+/*   Created: 2022/02/18 17:36:41 by lsidan            #+#    #+#             */
+/*   Updated: 2022/02/18 17:43:16 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "../../incl/minishell.h"
 
-void	sh_loop(void)
+int	pwd(int fd)
 {
-	char	*line;
-	char 	***c_line;
-	int		i;
-	int		j;
+	char	*dir;
 
-	i = -1;
-	j = -1;	
-	while (1)
+	if (fd < 0 || fd > 99998)
+		return (1);
+	dir = getcwd((char *) NULL, 0);
+	if (!dir)
 	{
-		ft_putstr_fd("$> ", STDOUT);
-		line = get_next_line(STDIN);
-		c_line = parser(line);
-		i = -1;
-		while (c_line[++i])
-		{
-			j = 0;
-			dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
-			while(c_line[i][j])
-				dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
-		}
+		ft_putstr_fd("Error\n", STDERR);
+		return (1);
 	}
+	ft_putstr_fd(dir, fd);
+	ft_putchar_fd('\n', fd);
+	free (dir);
+	return (0);
 }
- 

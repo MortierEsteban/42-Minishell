@@ -1,9 +1,16 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -g
 
 SRCS	=	main.c \
 			srcs/loop.c \
+			srcs/utils.c \
+			srcs/builtin/echo.c \
+			srcs/builtin/pwd.c \
+			srcs/builtin/cd.c \
+			srcs/builtin/export.c \
+			srcs/parser/parse.c \
+			srcs/parser/utils.c
 
 OBJS	=	${SRCS:.c=.o}
 

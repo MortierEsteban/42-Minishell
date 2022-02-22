@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/17 13:45:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/22 10:56:06 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,23 @@
 
 # define STDIN 0
 # define STDOUT 1
+# define STDERR 2
+
+// typedef struct s_token
+// {
+// 	int		type;
+// 	char	*str;
+// }	t_tok;
 
 void	sh_loop(void);
+int		echo(char *str, int fd, int flag);
+int		pwd(int fd);
+int		cd(const char *str);
+int		export(char **env, int fd);
+char	***parser(char *str);
+void	ft_free_cmd(char **str);
+int		count_pipe(char *str);
+void	remove_n(char *str);
+char	**get_env_var(char **env);
 
 #endif

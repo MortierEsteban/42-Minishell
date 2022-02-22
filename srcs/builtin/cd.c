@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/21 17:06:58 by lsidan           ###   ########.fr       */
+/*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
+/*   Updated: 2022/02/18 17:48:11 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "../../incl/minishell.h"
 
-void	sh_loop(void)
+int	cd(const char *str)
 {
-	char	*line;
-	char 	***c_line;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;	
-	while (1)
+	if (!str)
 	{
-		ft_putstr_fd("$> ", STDOUT);
-		line = get_next_line(STDIN);
-		c_line = parser(line);
-		i = -1;
-		while (c_line[++i])
-		{
-			j = 0;
-			dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
-			while(c_line[i][j])
-				dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
-		}
+		ft_putstr_fd("cd : Error\n", STDERR);
+		return (1);
 	}
+	if (chdir(str) == -1)
+	{
+		ft_putstr_fd("cd : Invalid or incorrect path\n", STDERR);
+		return (1);
+	}
+	return (0);
 }
- 

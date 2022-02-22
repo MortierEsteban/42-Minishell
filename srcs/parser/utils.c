@@ -1,39 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/21 17:06:58 by lsidan           ###   ########.fr       */
+/*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
+/*   Updated: 2022/02/22 10:34:06 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "../../incl/minishell.h"
 
-void	sh_loop(void)
+void	ft_free_cmd(char **str)
 {
-	char	*line;
-	char 	***c_line;
-	int		i;
-	int		j;
+	int	i;
 
 	i = -1;
-	j = -1;	
-	while (1)
+	while (str[++i])
+		free(str[i]);
+	free(str);
+}
+
+int	count_pipe(char *str)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = 0;
+	while (str[++i])
 	{
-		ft_putstr_fd("$> ", STDOUT);
-		line = get_next_line(STDIN);
-		c_line = parser(line);
-		i = -1;
-		while (c_line[++i])
+		if (str[i] == '|')
+			j++;
+	}
+	if (!j)
+		return (-1);
+	return (j);
+}
+
+void	remove_n(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str && str[++i])
+	{
+		if (str[i] == '\n')
 		{
-			j = 0;
-			dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
-			while(c_line[i][j])
-				dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
+			str[i] = '\0';
+			return ;
 		}
 	}
 }
- 
