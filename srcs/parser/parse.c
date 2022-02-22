@@ -6,47 +6,11 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/22 10:33:59 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/22 14:51:20 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
-
-// int	check_d_quote(char *str)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if (str[i] == '"')
-// 			return (1);
-// 	}
-// 	return (0);
-// }
-
-// int	check_s_quote(char *str)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if (str[i] == '\'')
-// 			return (1);
-// 	}
-// 	return (0);
-// }
-
-// char	*ft_check_quote(char *str)
-// {
-// 	char	*lol;
-
-// 	free(str);
-// 	lol = malloc(sizeof(char) * 10);
-// 	lol = "COUCOU";
-// 	return (lol);
-// }
 
 void	no_pipe(char ***s_cmd_line, char *str)
 {
@@ -85,7 +49,13 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 char	***parser(char *str)
 {
 	char	***s_cmd_line;
+	char	*txt;
+	int		i;
+	int		j;
 
+	i = -1;
+	j = 0;
+	txt = NULL;
 	remove_n(str);
 	dprintf(1, "STR = %s\nC_P = %d\n", str, count_pipe(str));
 	if (count_pipe(str) == -1)
@@ -97,6 +67,25 @@ char	***parser(char *str)
 	{
 		s_cmd_line = (char ***) malloc(sizeof(char **) * count_pipe(str) + 1);
 		parse_pipe(s_cmd_line, str);
+	}
+	while (s_cmd_line[++i])
+	{
+		j = 1;
+		if (!ft_strcmp(s_cmd_line[i][0], "echo") && \
+			!ft_strcmp(s_cmd_line[i][1], "-n"))
+		{
+			while (s_cmd_line[i][++j])
+			{
+				if (!txt)
+				{
+					txt = ft_strjoin(s_cmd_line[i][j], "");
+					continue ;
+				}
+				txt = ft_strjoin(txt, " ");
+				txt = ft_strjoin (txt, s_cmd_line[i][j]);
+			}
+			dprintf(1, "%s\n", txt);
+		}
 	}
 	return (s_cmd_line);
 }

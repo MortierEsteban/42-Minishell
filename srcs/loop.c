@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/21 17:06:58 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/02/22 14:51:47 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	sh_loop(void)
 			while(c_line[i][j])
 				dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
 		}
+		return ;
 	}
 }
  
