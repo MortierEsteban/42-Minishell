@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 09:44:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 14:18:05 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int	main(int ac, char **av, char **env)
 	// pwd(STDIN);
 	// export(env, STDIN);
 	// ft_free_cmd(path);
+	usleep(20);
+	gc_destroy();
 	return (0);
 }

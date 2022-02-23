@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 11:42:27 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 13:08:41 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	count_pipe(char *str)
 				i++;
 		}
 		if (str[i] == '|')
+		{
+			str[i] = 3;
 			j++;
+		}
 	}
 	if (!j)
 		return (-1);
