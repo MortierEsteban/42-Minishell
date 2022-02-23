@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 09:44:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 13:15:53 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **env)
 	// path = get_env_var(env);
 	// while (path && path[++i])
 	// 	dprintf(1, "%s\n", path[i]);
-	sh_loop();
+	sh_loop(env);
 	// pwd(STDIN);
 	// cd("../");
 	// pwd(STDIN);

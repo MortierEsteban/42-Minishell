@@ -1,16 +1,17 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -g #-fsanitize=address
 
-SRCS	=	main.c \
-			srcs/loop.c \
-			srcs/utils.c \
-			srcs/builtin/echo.c \
-			srcs/builtin/pwd.c \
-			srcs/builtin/cd.c \
-			srcs/builtin/export.c \
-			srcs/parser/parse.c \
-			srcs/parser/utils.c
+SRCS	=	main.c					\
+			srcs/loop.c				\
+			srcs/utils.c			\
+			srcs/builtin/echo.c		\
+			srcs/builtin/pwd.c		\
+			srcs/builtin/cd.c		\
+			srcs/builtin/export.c	\
+			srcs/parser/parse.c		\
+			srcs/parser/utils.c		\
+			pipex/main.c			\
 
 OBJS	=	${SRCS:.c=.o}
 

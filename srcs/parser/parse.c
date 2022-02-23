@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 11:31:34 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 14:54:54 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ char	***parser(char *str)
 	i = -1;
 	j = 0;
 	txt = NULL;
+	dprintf(1, "STR = |%s|\nC_P = %d\n", str, count_pipe(str));
+	if (!ft_strcmp(str, "\n"))
+		return (NULL);
 	remove_n(str);
-	dprintf(1, "STR = %s\nC_P = %d\n", str, count_pipe(str));
 	if (count_pipe(str) == -1)
 	{
 		s_cmd_line = gc_malloc(sizeof(char **) * 2);
