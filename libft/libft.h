@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:19:32 by lsidan            #+#    #+#             */
-/*   Updated: 2022/01/20 15:13:26 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/02/23 09:40:25 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char	*s1, const char	*s2);
 int		ft_isspace(unsigned char c);
+void	*gc_malloc(unsigned long size);
+int		gc_free(void *ptr);
+void	gc_destroy(void);
 
 #endif

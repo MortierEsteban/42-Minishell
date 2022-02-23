@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 13:48:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/01/20 16:19:40 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/02/23 10:09:49 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_join(char *a, char *b)
 
 	i = ft_strlen_p(a);
 	j = ft_strlenn(b);
-	s = malloc(i + j + 1);
+	s = gc_malloc(i + j + 1);
 	if (s)
 	{
 		i = -1;
@@ -58,7 +58,7 @@ char	*ft_join(char *a, char *b)
 			j++;
 		s[i + j] = '\0';
 	}
-	free(a);
+	gc_free(a);
 	return (s);
 }
 

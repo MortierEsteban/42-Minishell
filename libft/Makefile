@@ -1,6 +1,6 @@
 NAME	= 	libft.a
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra 
+CFLAGS	=	-Wall -Werror -Wextra
 SRCS	= 	ft_char_str/ft_atoi.c \
 			ft_char_str/ft_strchr.c \
 			ft_char_str/ft_strdup.c \
@@ -34,6 +34,7 @@ SRCS	= 	ft_char_str/ft_atoi.c \
 			ft_mem/ft_memcpy.c \
 			ft_mem/ft_memmove.c \
 			ft_mem/ft_memset.c \
+			ft_mem/ft_gc_malloc.c \
 			ft_printf/srcs/ft_printf.c \
 			ft_printf/srcs/ft_process.c \
 			ft_printf/srcs/ft_printf_put.c \

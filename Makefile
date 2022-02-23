@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g
+CFLAGS	=	-Wall -Werror -Wextra -g3 -fsanitize=address
 
 SRCS	=	main.c \
 			srcs/loop.c \
@@ -23,7 +23,7 @@ all: libft $(NAME)
 		printf	"\033[2K\r\033[0;33m[BUILD - $(NAME)]\033[0m $<\e[0m"
 
 $(NAME): $(OBJS)
-		$(CC) $(OBJS) -L libft -l ft -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) -L libft -l ft -o $(NAME)
 		@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)\e[0m"
 
 libft:

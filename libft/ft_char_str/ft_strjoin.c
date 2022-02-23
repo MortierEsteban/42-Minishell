@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 10:25:12 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/22 12:09:24 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 09:47:46 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	i = 0;
 	j = 0;
-	new = (char *) malloc((len * sizeof(char) + 1));
+	new = (char *) gc_malloc((len * sizeof(char) + 1));
 	if (new == NULL)
 		return (NULL);
 	while (s1[i])

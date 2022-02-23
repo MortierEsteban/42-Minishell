@@ -19,10 +19,10 @@ static char	**ft_malloc_error(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		gc_free(tab[i]);
 		i++;
 	}
-	free(tab);
+	gc_free(tab);
 	return (NULL);
 }
 
@@ -83,7 +83,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	nb_strs = ft_get_nb_strs(s, c);
-	tab = (char **)malloc(sizeof(char *) * (nb_strs + 1));
+	tab = (char **)gc_malloc(sizeof(char *) * (nb_strs + 1));
 	if (!tab)
 		return (NULL);
 	i = -1;
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 	while (++i < nb_strs)
 	{
 		ft_get_next_str(&next_str, &next_str_len, c);
-		tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1));
+		tab[i] = (char *)gc_malloc(sizeof(char) * (next_str_len + 1));
 		if (!tab[i])
 			return (ft_malloc_error(tab));
 		ft_strlcpy(tab[i], next_str, next_str_len + 1);

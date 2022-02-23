@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/22 10:34:06 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 11:42:27 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	count_pipe(char *str)
 	j = 0;
 	while (str[++i])
 	{
+		if (str[i] == '"')
+		{
+			i++;
+			while (str[i] != '"')
+				i++;
+		}
 		if (str[i] == '|')
 			j++;
 	}
