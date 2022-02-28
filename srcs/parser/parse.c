@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/28 09:58:12 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 14:52:43 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,30 @@ char	***parser(char *str)
 	return (s_cmd_line);
 }
 
+int	check_redir(char *str)
+{
+	int	i;
+
+	i = -1;
+	dprintf(1, "%s\n", str);
+	while (str[++i])
+	{
+		if (str[i] == '<')
+		{
+			if (str[i + 1] == '<')
+				return (2);
+			return (1);
+		}
+		if (str[i] == '>')
+		{
+			if (str[i + 1] == '>')
+				return (4);
+			return (3);
+		}
+	}
+	return (0);
+}
+
 void	echo_parser(char ***s_cmd_line)
 {
 	int		i;
@@ -86,12 +110,23 @@ void	echo_parser(char ***s_cmd_line)
 
 	txt = NULL;
 	i = -1;
+	j = -1;
+	while (s_cmd_line[++i])
+	{
+		while (s_cmd_line[i][++j])
+		{
+			if (check_redir(s_cmd_line[i][j]))
+				return ;
+		}
+	}
+	i = -1;
 	while (s_cmd_line && s_cmd_line[++i])
 	{
 		if (!ft_strncmp(s_cmd_line[i][0], "echo", 4) && \
 			!ft_strncmp(s_cmd_line[i][1], "-n", 2))
 		{
 			j = 1;
+			txt = NULL;
 			while (s_cmd_line[i][++j])
 			{
 				if (!txt)
@@ -102,13 +137,15 @@ void	echo_parser(char ***s_cmd_line)
 				txt = ft_strjoin(txt, " ");
 				txt = ft_strjoin (txt, s_cmd_line[i][j]);
 			}
-			dprintf(1, "%s\n", txt);
+			s_cmd_line[i][2] = ft_strdup(txt);
+			s_cmd_line[i][3] = NULL;
+			gc_free(txt);
 		}
-		else if (!ft_strncmp(*s_cmd_line[i], "echo", 4) && \
+		else if (!ft_strncmp(s_cmd_line[i][0], "echo", 4) && \
 			ft_strncmp(s_cmd_line[i][1], "-n", 2) != 0)
 		{
 			j = 0;
-				txt = NULL;
+			txt = NULL;
 			while (s_cmd_line[i][++j])
 			{
 				if (!txt)
@@ -119,17 +156,9 @@ void	echo_parser(char ***s_cmd_line)
 				txt = ft_strjoin(txt, " ");
 				txt = ft_strjoin (txt, s_cmd_line[i][j]);
 			}
-			dprintf(1, "%p\n", s_cmd_line);
-			s_cmd_line[i][1] = txt;
+			s_cmd_line[i][1] = ft_strdup(txt);
+			s_cmd_line[i][2] = NULL;
+			gc_free(txt);
 		}
 	}
 }
-
-			// k = 2;
-			// if (s_cmd_line[i][k])
-			// {
-			// 	while (s_cmd_line[i][k])
-			// 		gc_free(s_cmd_line[i][k++]);
-			// 	s_cmd_line[i][2] = NULL;
-			// }
-			// dprintf(1, "%s\n", txt);

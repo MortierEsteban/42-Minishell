@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:18:52 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/04 14:40:59 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 10:25:15 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 	char		*s2;
 
 	i = 0;
-	s2 = (char *) malloc((ft_strlen(s1) + 1) * sizeof(char));
+	s2 = (char *) gc_malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (s2 == NULL)
 		return (NULL);
 	else
