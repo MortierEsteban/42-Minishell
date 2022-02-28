@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra #-g -fsanitize=address
 
 SRCS	=	main.c \
 			srcs/loop.c \
@@ -10,6 +10,7 @@ SRCS	=	main.c \
 			srcs/builtin/cd.c \
 			srcs/builtin/export.c \
 			srcs/parser/parse.c \
+			srcs/parser/split.c \
 			srcs/parser/utils.c
 
 OBJS	=	${SRCS:.c=.o}
@@ -18,7 +19,7 @@ RM		=	rm -f
 
 all: libft $(NAME)
 
-%.o:	%.c incl/minishell.h Makefile
+%.o:	%.c incl/minishell.h Makefile libft/libft.a
 		$(CC) $(CFLAGS) -c $< -o $@
 		printf	"\033[2K\r\033[0;33m[BUILD - $(NAME)]\033[0m $<\e[0m"
 

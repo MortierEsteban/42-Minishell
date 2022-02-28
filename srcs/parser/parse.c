@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/28 14:52:43 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 20:48:15 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	no_pipe(char ***s_cmd_line, char *str)
 		dprintf(1, "Oops something went wrong.\n");
 		return ;
 	}
-	*s_cmd_line++ = ft_split(str, ' ');
+	*s_cmd_line++ = split(str, ' ');
 	if (!*s_cmd_line)
 		return ;
 	*s_cmd_line = NULL;
@@ -36,7 +36,7 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 		dprintf(1, "Oops something went wrong.\n");
 		return ;
 	}
-	cmd_line = ft_split(str, 3);
+	cmd_line = split(str, '|');
 	if (!cmd_line)
 		return ;
 	while (cmd_line && cmd_line[++i])
@@ -44,7 +44,7 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 	i = 0;
 	while (cmd_line && cmd_line[i])
 	{
-		s_cmd_line[i] = ft_split(cmd_line[i], ' ');
+		s_cmd_line[i] = split(cmd_line[i], ' ');
 		if (!s_cmd_line[i])
 			return ;
 		i++;
@@ -70,6 +70,16 @@ char	***parser(char *str)
 		s_cmd_line = gc_malloc(sizeof(char **) * 2);
 		no_pipe(s_cmd_line, str);
 	}
+	else if (c_p == -2)
+	{
+		dprintf(1, "===\n/!\\ : Missing s_quotes\n===\n");
+		return (NULL);
+	}
+	else if (c_p == -3)
+	{
+		dprintf(1, "===\n/!\\ : Missing d_quotes\n===\n");
+		return (NULL);
+	}
 	else
 	{
 		s_cmd_line = gc_malloc(sizeof(char **) * (c_p + 2));
@@ -83,7 +93,6 @@ int	check_redir(char *str)
 	int	i;
 
 	i = -1;
-	dprintf(1, "%s\n", str);
 	while (str[++i])
 	{
 		if (str[i] == '<')
@@ -113,6 +122,7 @@ void	echo_parser(char ***s_cmd_line)
 	j = -1;
 	while (s_cmd_line[++i])
 	{
+		j = -1;
 		while (s_cmd_line[i][++j])
 		{
 			if (check_redir(s_cmd_line[i][j]))
