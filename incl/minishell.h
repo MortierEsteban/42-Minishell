@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 11:59:51 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 10:08:48 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -25,12 +26,6 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-
-// typedef struct s_token
-// {
-// 	int		type;
-// 	char	*str;
-// }	t_tok;
 
 void	sh_loop(void);
 int		echo(char *str, int fd, int flag);
@@ -42,5 +37,6 @@ void	ft_free_cmd(char **str);
 int		count_pipe(char *str);
 void	remove_n(char *str);
 char	**get_env_var(char **env);
+void	echo_parser(char ***s_cmd_line);
 
 #endif

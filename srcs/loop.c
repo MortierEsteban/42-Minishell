@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 14:55:53 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 09:48:53 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ void	sh_loop(void)
 	i = -1;
 	j = -1;
 	k = 0;
-	while (k != 1)
+	while (k != 3)
 	{
 		ft_putstr_fd("$> ", STDOUT);
 		line = get_next_line(STDIN);
 		c_line = parser(line);
+		echo_parser(c_line);
 		i = -1;
 		while (c_line && c_line[++i])
 		{
@@ -36,6 +37,7 @@ void	sh_loop(void)
 			while(c_line[i][++j])
 				dprintf(1, "SPLITTED = %s\n", c_line[i][j]);
 		}
+		k++;
 	}
 }
  
