@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/28 21:02:48 by lsidan           ###   ########.fr       */
-=======
-/*   Updated: 2022/02/28 10:13:26 by emortier         ###   ########.fr       */
->>>>>>> nsm
+/*   Updated: 2022/03/01 15:35:16 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +36,13 @@ void	sh_loop(void)
 	int		j;
 	int		k;
 
+	(void) env;
 	i = -1;
 	j = -1;
 	k = 0;
 	while (k != -1)
 	{
+		usleep(60);
 		ft_putstr_fd("$> ", STDOUT);
 		line = get_next_line(STDIN);
 		if (!line)
@@ -68,9 +66,7 @@ void	sh_loop(void)
 		}
 		k++;
 	}
-<<<<<<< HEAD
-=======
 	gc_destroy();
->>>>>>> nsm
+
 }
  

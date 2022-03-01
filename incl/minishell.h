@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
 /*   Updated: 2022/03/01 09:58:51 by lsidan           ###   ########lyon.fr   */
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
 # include "../libft/libft.h"
 
 # define STDIN 0
@@ -56,5 +57,13 @@ char	**get_env_var(void);
 int		count_pipe(char *str);
 int		remove_n(char *str);
 void	ft_free_cmd(char **str);
+
+//PIPEX//
+void	pipes_error(void);
+int		nb_cmds(char ***args);
+void	ft_exec(char **args, char **env);
+int		pipex_process(char ***args, char **env);
+char	*ft_check_path(char **args, char **env);
+void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit);
 
 #endif

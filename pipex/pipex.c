@@ -5,38 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 10:06:30 by lsidan           ###   ########lyon.fr   */
+/*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
+/*   Updated: 2022/03/01 15:38:38 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "incl/minishell.h"
+#include "../incl/minishell.h"
 
-int	main(int ac, char **av, char **env)
+int	pipex_process(char ***args, char **env)
 {
-	int		i;
-	int		j;
-	// char	***path;
+	int	memory[2];
+	int	pipe_exit;
+	int	cmdsnb;
+	int	i;
 
-	(void) ac;
-	(void) av;
-	(void) env;
+	memory[0] = dup(STDIN);
+	memory[1] = dup(STDOUT);
+	cmdsnb = nb_cmds(args) - 1;
+	pipe_exit = 0;
 	i = -1;
-	j = -1;
-	// path = create_var_tab(env);
-	// while (path && path[++i])
-	// {
-	// 	j = -1;
-	// 	while (path[i][++j])
-	// 		dprintf(1, "%s\n", path[i][j]);
-	// }
-	sh_loop();
-	// pwd(STDIN);
-	// cd("../");
-	// pwd(STDIN);
-	// export(env, STDIN);
-	// ft_free_cmd(path);
-	usleep(20);
-	gc_destroy();
+	while (++i <= cmdsnb)
+	{
+		ft_pipex_dup(i, cmdsnb, memory, &pipe_exit);
+		ft_exec(args[i], env);
+	}
+	dup2 (memory[0], STDIN);
 	return (0);
 }
