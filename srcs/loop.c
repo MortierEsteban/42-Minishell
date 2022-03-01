@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 15:35:16 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:26:41 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_cmd(char ***c_line)
 	gc_free(c_line);
 }
 
-void	sh_loop(void)
+void	sh_loop(char **env)
 {
 	char	*line;
 	char 	***c_line;
@@ -67,6 +67,5 @@ void	sh_loop(void)
 		k++;
 	}
 	gc_destroy();
-
 }
  

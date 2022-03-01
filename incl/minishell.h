@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 09:58:51 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 16:19:37 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		is_charset(char c, char *charset);
 void	skip_char(char *s, int *i, char *charset);
 
 // LOOP
-void	sh_loop(void);
+void	sh_loop(char **env);
 
 //BUILT-IN
 int		echo(char *str, int fd, int flag);

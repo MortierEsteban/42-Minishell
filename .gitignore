@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 *test*
-
+minishell
 # Object files
 *.o
 *.ko

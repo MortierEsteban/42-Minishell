@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 10:06:30 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 16:20:21 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char **av, char **env)
 	// 	while (path[i][++j])
 	// 		dprintf(1, "%s\n", path[i][j]);
 	// }
-	sh_loop();
+	sh_loop(env);
 	// pwd(STDIN);
 	// cd("../");
 	// pwd(STDIN);
