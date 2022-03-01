@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 14:51:28 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:39:52 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	remove_n(char *str);
 char	**get_env_var(char **env);
 
 //PIPEX//
-int		pipex_process(char ***args, char **env);
-int		nb_cmds(char **args);
+void	pipes_error(void);
+int		nb_cmds(char ***args);
 void	ft_exec(char **args, char **env);
-void	pipes_error(int *pipes[2], int i);
+int		pipex_process(char ***args, char **env);
 char	*ft_check_path(char **args, char **env);
+void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit);
 
 #endif

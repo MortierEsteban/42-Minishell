@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 14:54:54 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:21:06 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 	cmd_line = ft_split(str, '|');
 	if (!cmd_line)
 		return ;
-	while (cmd_line && cmd_line[++i])
-		dprintf(1, "CMD SPLIT : %s\n", cmd_line[i]);
+	// while (cmd_line && cmd_line[++i])
+	// 	dprintf(1, "CMD SPLIT : %s\n", cmd_line[i]);
 	i = 0;
 	while (cmd_line && cmd_line[i])
 	{
@@ -56,7 +56,9 @@ char	***parser(char *str)
 	i = -1;
 	j = 0;
 	txt = NULL;
-	dprintf(1, "STR = |%s|\nC_P = %d\n", str, count_pipe(str));
+	if (!str)
+		return (NULL);
+	// dprintf(1, "STR = |%s|\nC_P = %d\n", str, count_pipe(str));
 	if (!ft_strcmp(str, "\n"))
 		return (NULL);
 	remove_n(str);
@@ -86,7 +88,7 @@ char	***parser(char *str)
 				txt = ft_strjoin(txt, " ");
 				txt = ft_strjoin (txt, s_cmd_line[i][j]);
 			}
-			dprintf(1, "%s\n", txt);
+			// dprintf(1, "%s\n", txt);
 		}
 		else if (!ft_strcmp(s_cmd_line[i][0], "echo") && \
 			ft_strcmp(s_cmd_line[i][1], "-n") != 0)
@@ -102,7 +104,7 @@ char	***parser(char *str)
 				txt = ft_strjoin(txt, " ");
 				txt = ft_strjoin (txt, s_cmd_line[i][j]);
 			}
-			dprintf(1, "%s\n", txt);
+			// dprintf(1, "%s\n", txt);
 		}
 	}
 	return (s_cmd_line);

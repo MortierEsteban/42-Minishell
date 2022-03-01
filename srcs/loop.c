@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/28 10:13:26 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:35:16 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	sh_loop(char **env)
 		// }
 		if (c_line)
 		{
-			dprintf(1, "JUST ENTERED \n");
 			pipex_process(c_line, env);
 			// c_line = NULL;
+			return;
 		}
 	}
 	gc_destroy();
