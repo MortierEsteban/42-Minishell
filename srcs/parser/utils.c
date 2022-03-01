@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/23 11:42:27 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/01 09:04:55 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,29 @@ int	count_pipe(char *str)
 
 	i = -1;
 	j = 0;
-	while (str[++i])
+	while (str && str[++i])
 	{
 		if (str[i] == '"')
 		{
 			i++;
-			while (str[i] != '"')
+			while (str && str[i] != '"' && i <= ft_strlen(str))
+			{
+				if (i == ft_strlen(str))
+					return (-2);
 				i++;
+			}
 		}
-		if (str[i] == '|')
+		else if (str[i] == '\'')
+		{
+			i++;
+			while (str && str[i] != '\'' && i <= ft_strlen(str))
+			{
+				if (i == ft_strlen(str))
+					return (-3);
+				i++;
+			}
+		}
+		else if (str[i] == '|')
 			j++;
 	}
 	if (!j)
@@ -45,7 +59,7 @@ int	count_pipe(char *str)
 	return (j);
 }
 
-void	remove_n(char *str)
+int	remove_n(char *str)
 {
 	int	i;
 
@@ -54,8 +68,20 @@ void	remove_n(char *str)
 	{
 		if (str[i] == '\n')
 		{
-			str[i] = '\0';
-			return ;
+			str[i] = 0;
+			return (1);
 		}
 	}
+	return (0);
+}
+
+char	**ft_malloc_error(char **tab)
+{
+	unsigned int	i;
+
+	i = -1;
+	while (tab[++i])
+		gc_free(tab[i]);
+	gc_free(tab);
+	return (NULL);
 }

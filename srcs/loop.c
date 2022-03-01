@@ -12,38 +12,61 @@
 
 #include "../incl/minishell.h"
 
-void	sh_loop(char **env)
+void	free_cmd(char ***c_line)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (c_line[++i])
+	{
+		j = -1;
+		while (c_line[i][++j])
+			gc_free(c_line[i][j]);
+		gc_free(c_line[i]);
+	}
+	gc_free(c_line);
+}
+
+void	sh_loop(void)
 {
 	char	*line;
 	char 	***c_line;
 	int		i;
 	int		j;
+	int		k;
 
 	(void) env;
 	i = -1;
-	j = -1;	
-	c_line = NULL;
-	while (1)
+	j = -1;
+	k = 0;
+	while (k != -1)
 	{
 		usleep(60);
 		ft_putstr_fd("$> ", STDOUT);
 		line = get_next_line(STDIN);
+		if (!line)
+			return ;
+		if (!ft_strcmp("exit\n", line))
+			return ;
 		c_line = parser(line);
-		i = -1;
-		// while (c_line[++i])
-		// {
-		// 	j = 0;
-		// 	dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
-		// 	while(c_line[i][j])
-		// 		dprintf(1, "SPLITTED = %s\n", c_line[i][j++]);
-		// }
 		if (c_line)
-		{
-			pipex_process(c_line, env);
-			// c_line = NULL;
-			return;
+		{	
+			echo_parser(c_line);
+			i = -1;
+			while (c_line && c_line[++i])
+			{
+				j = -1;
+				dprintf(1, ">>>>>>>>> cmd %d : <<<<<<<<<\n", i);
+				while(c_line[i][++j])
+					dprintf(1, "SPLITTED = %s\n", c_line[i][j]);
+			}
+			free_cmd(c_line);
+			gc_free(line);
 		}
+		k++;
 	}
 	gc_destroy();
+
 }
  

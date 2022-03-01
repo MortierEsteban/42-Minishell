@@ -15,8 +15,11 @@
 void	no_pipe(char ***s_cmd_line, char *str)
 {
 	if (!s_cmd_line)
+	{
+		dprintf(1, "Oops something went wrong.\n");
 		return ;
-	*s_cmd_line++ = ft_split(str, ' ');
+	}
+	*s_cmd_line++ = split(str, ' ');
 	if (!*s_cmd_line)
 		return ;
 	*s_cmd_line = NULL;
@@ -29,8 +32,11 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 
 	i = -1;
 	if (!s_cmd_line)
+	{
+		dprintf(1, "Oops something went wrong.\n");
 		return ;
-	cmd_line = ft_split(str, '|');
+	}
+	cmd_line = split(str, '|');
 	if (!cmd_line)
 		return ;
 	// while (cmd_line && cmd_line[++i])
@@ -38,7 +44,7 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 	i = 0;
 	while (cmd_line && cmd_line[i])
 	{
-		s_cmd_line[i] = ft_split(cmd_line[i], ' ');
+		s_cmd_line[i] = split(cmd_line[i], ' ');
 		if (!s_cmd_line[i])
 			return ;
 		i++;
@@ -46,66 +52,158 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 	s_cmd_line[i] = NULL;
 }
 
+char	***create_var_tab(char **env)
+{
+	int		i;
+	char	***var;
+
+	i = -1;
+	while (env[++i])
+		i++;
+	var = gc_malloc(sizeof(char *) * (i + 2));
+	var[i] = 0;
+	i = -1;
+	while (env[++i])
+	{
+		var[i] = ft_split(env[i], '=');
+		dprintf(1, "%s\n", *var[i]);
+	}
+	return (var);
+}
+
+// int	expand(char *str)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (str[++i])
+// 	{
+// 		if (str[i] == '"')
+// 		{
+// 			while (str[++i] && str[i] != '"')
+// 			{
+// 				if (str[i] == '$')
+// 					dprintf(1, "Nice\n");
+// 			}
+// 		}
+// 	}
+// 	return (1);
+// }
+
 char	***parser(char *str)
 {
 	char	***s_cmd_line;
-	char	*txt;
-	int		i;
-	int		j;
+	int		c_p;
 
-	i = -1;
-	j = 0;
-	txt = NULL;
-	if (!str)
+	c_p = count_pipe(str);
+	if (!str || !ft_strncmp("\n", str, 1))
 		return (NULL);
-	// dprintf(1, "STR = |%s|\nC_P = %d\n", str, count_pipe(str));
-	if (!ft_strcmp(str, "\n"))
-		return (NULL);
-	remove_n(str);
-	if (count_pipe(str) == -1)
+	if (remove_n(str))
+		dprintf(1, "STR = %s\nC_P = %d\n", str, c_p);
+	if (c_p == -1)
 	{
 		s_cmd_line = gc_malloc(sizeof(char **) * 2);
 		no_pipe(s_cmd_line, str);
 	}
+	else if (c_p == -2)
+	{
+		dprintf(1, "===\n/!\\ : Missing d_quotes\n===\n");
+		return (NULL);
+	}
+	else if (c_p == -3)
+	{
+		dprintf(1, "===\n/!\\ : Missing s_quotes\n===\n");
+		return (NULL);
+	}
 	else
 	{
-		s_cmd_line = gc_malloc(sizeof(char **) * (count_pipe(str) + 2));
+		s_cmd_line = gc_malloc(sizeof(char **) * (c_p + 2));
 		parse_pipe(s_cmd_line, str);
 	}
-	while (s_cmd_line && s_cmd_line[++i])
+	return (s_cmd_line);
+}
+
+int	check_redir(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
 	{
-		if (!ft_strcmp(s_cmd_line[i][0], "echo") && \
-			!ft_strcmp(s_cmd_line[i][1], "-n"))
+		if (str[i] == '<')
 		{
-			j = 1;
-			while (s_cmd_line[i][++j])
-			{
-				if (!txt)
-				{
-					txt = ft_strjoin(s_cmd_line[i][j], "");
-					continue ;
-				}
-				txt = ft_strjoin(txt, " ");
-				txt = ft_strjoin (txt, s_cmd_line[i][j]);
-			}
-			// dprintf(1, "%s\n", txt);
+			if (str[i + 1] == '<')
+				return (2);
+			return (1);
 		}
-		else if (!ft_strcmp(s_cmd_line[i][0], "echo") && \
-			ft_strcmp(s_cmd_line[i][1], "-n") != 0)
+		if (str[i] == '>')
 		{
-			j = 0;
-			while (s_cmd_line[i][++j])
-			{
-				if (!txt)
-				{
-					txt = ft_strjoin(s_cmd_line[i][j], "");
-					continue ;
-				}
-				txt = ft_strjoin(txt, " ");
-				txt = ft_strjoin (txt, s_cmd_line[i][j]);
-			}
-			// dprintf(1, "%s\n", txt);
+			if (str[i + 1] == '>')
+				return (4);
+			return (3);
 		}
 	}
-	return (s_cmd_line);
+	return (0);
+}
+
+void	echo_parser(char ***s_cmd_line)
+{
+	int		i;
+	int		j;
+	char	*txt;
+
+	txt = NULL;
+	i = -1;
+	j = -1;
+	while (s_cmd_line[++i])
+	{
+		j = -1;
+		while (s_cmd_line[i][++j])
+		{
+			if (check_redir(s_cmd_line[i][j]))
+				return ;
+		}
+	}
+	i = -1;
+	while (s_cmd_line && s_cmd_line[++i])
+	{
+		if (!ft_strncmp(s_cmd_line[i][0], "echo", 4) && \
+			!ft_strncmp(s_cmd_line[i][1], "-n", 2))
+		{
+			j = 1;
+			txt = NULL;
+			while (s_cmd_line[i][++j])
+			{
+				if (!txt)
+				{
+					txt = ft_strjoin(s_cmd_line[i][j], "");
+					continue ;
+				}
+				txt = ft_strjoin(txt, " ");
+				txt = ft_strjoin (txt, s_cmd_line[i][j]);
+			}
+			s_cmd_line[i][2] = ft_strdup(txt);
+			s_cmd_line[i][3] = NULL;
+			gc_free(txt);
+		}
+		else if (!ft_strncmp(s_cmd_line[i][0], "echo", 4) && \
+			ft_strncmp(s_cmd_line[i][1], "-n", 2) != 0)
+		{
+			j = 0;
+			txt = NULL;
+			while (s_cmd_line[i][++j])
+			{
+				if (!txt)
+				{
+					txt = ft_strjoin(s_cmd_line[i][j], "");
+					continue ;
+				}
+				txt = ft_strjoin(txt, " ");
+				txt = ft_strjoin (txt, s_cmd_line[i][j]);
+			}
+			s_cmd_line[i][1] = ft_strdup(txt);
+			s_cmd_line[i][2] = NULL;
+			gc_free(txt);
+		}
+	}
 }

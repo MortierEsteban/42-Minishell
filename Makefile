@@ -21,12 +21,12 @@ RM		=	rm -f
 
 all: libft $(NAME)
 
-%.o:	%.c incl/minishell.h Makefile
-		${CC} ${CFLAGS} -c $< -o $@
+%.o:	%.c incl/minishell.h Makefile libft/libft.a
+		$(CC) $(CFLAGS) -c $< -o $@
 		printf	"\033[2K\r\033[0;33m[BUILD - $(NAME)]\033[0m $<\e[0m"
 
 $(NAME): $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -L libft -l ft -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) -l readline -L libft -l ft -o $(NAME)
 		@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)\e[0m"
 
 libft:

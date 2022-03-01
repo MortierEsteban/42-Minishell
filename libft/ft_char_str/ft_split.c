@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 16:23:17 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/07 12:2 by lsidan           	  ###   ########.fr       */
+/*   Created: 2021/11/06 17:34:37 by lsidan            #+#    #+#             */
+/*   Updated: 2022/02/28 20:48:49 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static char	**ft_malloc_error(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		gc_free(tab[i]);
+		free(tab[i]);
 		i++;
 	}
-	gc_free(tab);
+	free(tab);
 	return (NULL);
 }
 
@@ -83,7 +83,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	nb_strs = ft_get_nb_strs(s, c);
-	tab = (char **)gc_malloc(sizeof(char *) * (nb_strs + 1));
+	tab = (char **)malloc(sizeof(char *) * (nb_strs + 1));
 	if (!tab)
 		return (NULL);
 	i = -1;
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 	while (++i < nb_strs)
 	{
 		ft_get_next_str(&next_str, &next_str_len, c);
-		tab[i] = (char *)gc_malloc(sizeof(char) * (next_str_len + 1));
+		tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1));
 		if (!tab[i])
 			return (ft_malloc_error(tab));
 		ft_strlcpy(tab[i], next_str, next_str_len + 1);
