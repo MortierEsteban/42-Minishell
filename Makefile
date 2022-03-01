@@ -11,6 +11,7 @@ SRCS	=	main.c \
 			srcs/builtin/export.c \
 			srcs/parser/parse.c \
 			srcs/parser/split.c \
+			srcs/parser/split_utils.c \
 			srcs/parser/utils.c
 
 OBJS	=	${SRCS:.c=.o}

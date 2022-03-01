@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/28 20:47:30 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/01 09:04:55 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	count_pipe(char *str)
 	return (j);
 }
 
-void	remove_n(char *str)
+int	remove_n(char *str)
 {
 	int	i;
 
@@ -68,10 +68,11 @@ void	remove_n(char *str)
 	{
 		if (str[i] == '\n')
 		{
-			str[i] = '\0';
-			return ;
+			str[i] = 0;
+			return (1);
 		}
 	}
+	return (0);
 }
 
 char	**ft_malloc_error(char **tab)

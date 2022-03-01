@@ -6,51 +6,21 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 20:46:08 by lsidan            #+#    #+#             */
-/*   Updated: 2022/02/28 21:13:36 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/01 08:57:21 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-static int	is_charset(char c, char *charset)
-{
-	int	i;
-
-	i = -1;
-	while (charset[++i])
-	{
-		if (c == charset[i])
-			return (1);
-	}
-	return (0);
-}
-
-static int	w_len(char *str, char *charset)
-{
-	int		i;
-	char	c;
-
-	i = -1;
-	c = 0;
-	while (str[++i])
-	{
-		if (!c && (str[i] == '\'' || str[i] == '"'))
-			c = str[i];
-		else if (c == str[i])
-			c = 0;
-		if (!c && is_charset(str[i], charset))
-			return (i);
-	}
-	return (i);
-}
-
-static void	skip_char(char *s, int *i, char *charset)
+static void	check_quote(char *s, char *c, int *i)
 {
 	int	j;
 
 	j = *i;
-	while (s[j] && s[j] == charset[0])
-		j++;
+	if (!*c && (s[j] == '\'' || s[j] == '\"'))
+			*c = s[j];
+	else if (*c == s[j])
+			*c = 0;
 	*i = j;
 }
 
@@ -61,15 +31,12 @@ static int	count_w(char *s, char *charset)
 	char	c;
 
 	w = 0 ;
-	i = -1;
+	i = 0;
 	c = 0;
 	skip_char(s, &i, charset);
-	while (s[++i])
+	while (s && s[i])
 	{
-		if (!c && (s[i] == '\'' || s[i] == '\"'))
-			c = s[i];
-		else if (c == s[i])
-			c = 0;
+		check_quote(s, &c, &i);
 		if (is_charset(s[i], charset) && !c && ft_strlen(s + 1) > 0)
 		{
 			w++;
@@ -77,25 +44,11 @@ static int	count_w(char *s, char *charset)
 				i++;
 			continue ;
 		}
+		i++;
 	}
 	if (s[i - 1] != c)
 		w++;
 	return (w);
-}
-
-static char	*strdup_pimp(char *str, int len)
-{
-	char	*dst;
-	int		i;
-
-	i = -1;
-	dst = gc_malloc((len + 1) * sizeof(char));
-	if (!dst)
-		return (0);
-	while (++i < len && str[i])
-		dst[i] = str[i];
-	dst[i] = 0;
-	return (dst);
 }
 
 char	**split(char const *s, char c)
