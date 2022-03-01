@@ -1,1 +1,0 @@
-echo coucou | cat main.c | grep a .gitignore main.c
