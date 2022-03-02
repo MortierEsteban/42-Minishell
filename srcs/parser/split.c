@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 20:46:08 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 08:57:21 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 10:57:15 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void	check_quote(char *s, char *c, int *i)
 
 	j = *i;
 	if (!*c && (s[j] == '\'' || s[j] == '\"'))
-			*c = s[j];
+		*c = s[j];
 	else if (*c == s[j])
-			*c = 0;
+		*c = 0;
 	*i = j;
 }
 
@@ -63,6 +63,7 @@ char	**split(char const *s, char c)
 	charset[0] = c;
 	charset[1] = '\0';
 	nb_w = count_w((char *)s, charset);
+	dprintf(1, "nb_w = %d\n", nb_w);
 	splitted = (char **) gc_malloc(sizeof(char *) * (nb_w + 1));
 	if (!splitted)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 14:21:06 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:58:19 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parse_pipe(char ***s_cmd_line, char *str)
 	i = 0;
 	while (cmd_line && cmd_line[i])
 	{
-		s_cmd_line[i] = split(cmd_line[i], ' ');
+		s_cmd_line[i] = ft_split(cmd_line[i], ' ');
 		if (!s_cmd_line[i])
 			return ;
 		i++;
