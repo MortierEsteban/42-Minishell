@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 16:30:51 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:33:20 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	sh_loop(char **env)
 	int		j;
 	int		k;
 
-	(void) env;
 	i = -1;
 	j = -1;
 	k = 0;
@@ -61,6 +60,7 @@ void	sh_loop(char **env)
 				while(c_line[i][++j])
 					dprintf(1, "SPLITTED = %s\n", c_line[i][j]);
 			}
+			pipex_process(c_line, env);
 			free_cmd(c_line);
 			gc_free(line);
 		}

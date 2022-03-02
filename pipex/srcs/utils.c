@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/01 16:24:27 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:38:09 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int	nb_cmds(char ***args)
 	return (i);
 }
 
-char	*ft_check_path(char **args, char **env)
+char	*ft_check_path(char **args)
 {
 	int		i;
 	char	**path;
 
 	i = -1;
-	(void) env;
 	path = NULL;
 	path = get_env_var();
 	if (path == NULL)

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/01 15:41:14 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:40:38 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit)
 	close (pipes[1]);
 }
 
-void	ft_exec(char **args, char **env)
+void	ft_exec(char **args, char **env, int diff)
 {
 	pid_t	forks;
 	char	*path;
@@ -36,10 +36,12 @@ void	ft_exec(char **args, char **env)
 	forks = fork();
 	if (forks == 0)
 	{
-		path = ft_check_path(args, env);
+		path = ft_check_path(args);
 		if (path)
 			if (execve(path, args, env) == -1)
 				dprintf(2, "ERROR WHILE LAUNCHING BINARY\n");
 	}
+	else if (!diff)
+		wait (NULL);
 	return ;
 }

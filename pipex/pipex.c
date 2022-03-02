@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/01 15:38:38 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:39:51 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	pipex_process(char ***args, char **env)
 	while (++i <= cmdsnb)
 	{
 		ft_pipex_dup(i, cmdsnb, memory, &pipe_exit);
-		ft_exec(args[i], env);
+		ft_exec(args[i], env, cmdsnb - i);
 	}
 	dup2 (memory[0], STDIN);
 	return (0);

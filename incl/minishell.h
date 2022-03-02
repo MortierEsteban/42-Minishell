@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 16:19:37 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:39:34 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	ft_free_cmd(char **str);
 //PIPEX//
 void	pipes_error(void);
 int		nb_cmds(char ***args);
-void	ft_exec(char **args, char **env);
+char	*ft_check_path(char **args);
+void	ft_exec(char **args, char **env, int diff);
 int		pipex_process(char ***args, char **env);
-char	*ft_check_path(char **args, char **env);
 void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit);
 
 #endif
