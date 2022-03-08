@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/07 21:04:07 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/08 11:13:54 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # define STDOUT 1
 # define STDERR 2
 
-//STATE = 0 -> '>'
-//STATE = 1 -> '>>'
-//STATE = 2 -> '<'
-//STATE = 3 -> '<<'
+//STATE_OUT = 1 -> '>'
+//STATE_OUT = 2 -> '>>'
+//STATE_IN = 1 -> '<'
+//STATE_IN = ? -> '<<'
 
 typedef struct s_cmd
 {
