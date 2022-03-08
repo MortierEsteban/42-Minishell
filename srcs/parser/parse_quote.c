@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/03 20:25:09 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/08 11:21:28 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ char	*parse_quote(char *str)
 	int		j;
 	int		quot;
 	char	*new;
+	char	tmp[100];
+	char 	*env;
+	int		len;
 
 	if (!str)
 		return (NULL);
@@ -27,8 +30,24 @@ char	*parse_quote(char *str)
 	j = 0;
 	while (str && str[i])
 	{
-		// if (str[i] == '$')
-		// 	i += echospecial(str, envp, i + 1);
+		if (str[i] == '$' && (quot == 0 || quot == 2))
+		{
+			i++;
+			while (str && str[i] && str[i] != ' ')
+			{
+				tmp[j] = str[i];
+				i++;
+				j++;
+			}
+			tmp[j] = 0;
+			env = getenv(tmp);
+			len = ft_strlen(env);
+			new = gc_malloc(sizeof(char) * (len + ft_strlen(str) + 1));
+			ft_strlcat(new, env, len + 1);
+			ft_strlcat(new + len, str + i, ft_strlen(str + i) + 1);
+			dprintf(1, "== %s ==\n", new);
+			j = 0;
+		}
 		if (str[i] == '\'' && quot == 0)
 			quot = 1;
 		else if (str[i] == '\"' && quot == 0)

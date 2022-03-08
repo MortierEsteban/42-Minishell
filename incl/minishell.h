@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 13:10:12 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:22:50 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # define STDOUT 1
 # define STDERR 2
 
-//STATE = 0 -> '>'
-//STATE = 1 -> '>>'
-//STATE = 2 -> '<'
-//STATE = 3 -> '<<'
+//STATE_OUT = 1 -> '>'
+//STATE_OUT = 2 -> '>>'
+//STATE_IN = 1 -> '<'
+//STATE_IN = ? -> '<<'
 
 typedef struct s_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 09:17:19 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 11:08:03 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ char	*redir(char *str, t_cmd *cmd)
 	char	*new;
 	char	*tmp;
 	char	c;
+	char	d;
 
 	i = 0;
 	c = 0;
+	d = 0;
 	dprintf(1, "OLD = |%s|\n", str);
 	new = NULL;
 	while (str[i])
@@ -61,8 +63,12 @@ char	*redir(char *str, t_cmd *cmd)
 			if (!new)
 				new = strdup_pimp(str, i);
 			c = str[i++];
+			dprintf(1, "== %c ==\n", c);
 			if (str[i] == c)
+			{
 				i++;
+				d = str[i];
+			}
 			j = i;
 			while (str && str[j])
 			{
@@ -72,7 +78,7 @@ char	*redir(char *str, t_cmd *cmd)
 			}
 			tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
 			dprintf(1, "J = %d\nTMP = %s\n", j, tmp);
-			if (c == '<' && str[i + 1] != '<')
+			if (c == '<' && !d)
 			{
 				if (!cmd->input)
 				{
@@ -87,7 +93,7 @@ char	*redir(char *str, t_cmd *cmd)
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
 			}
-			else if (c == '<' && str[i + 1] == '<')
+			else if (c == '<' && d)
 			{
 				if (!cmd->h_doc)
 				{
@@ -101,7 +107,7 @@ char	*redir(char *str, t_cmd *cmd)
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
 			}
-			else if (c == '>' && str[i + 1] != '>')
+			else if (c == '>' && !d)
 			{
 				if (!cmd->output)
 				{
@@ -116,7 +122,7 @@ char	*redir(char *str, t_cmd *cmd)
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
 			}
-			else if (c == '>' && str[i + 1] == '>')
+			else if (c == '>' && d)
 			{
 				if (!cmd->apppend)
 				{
@@ -131,6 +137,7 @@ char	*redir(char *str, t_cmd *cmd)
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
 			}
+			d = 0;
 			i = --j;
 		}
 		i++;
@@ -225,29 +232,6 @@ t_cmd	*parser(char *str)
 	return (s_cmd_line);
 }
 
-int	check_redir(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '<')
-		{
-			if (str[i + 1] == '<')
-				return (2);
-			return (1);
-		}
-		if (str[i] == '>')
-		{
-			if (str[i + 1] == '>')
-				return (4);
-			return (3);
-		}
-	}
-	return (0);
-}
-
 void	echo_parser(t_cmd *s_cmd_line)
 {
 	int		i;
@@ -279,54 +263,3 @@ void	echo_parser(t_cmd *s_cmd_line)
 		}
 	}
 }
-
-// int	expand(char *str)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if (str[i] == '"')
-// 		{
-// 			while (str[++i] && str[i] != '"')
-// 			{
-// 				if (str[i] == '$')
-// 					dprintf(1, "Nice\n");
-// 			}
-// 		}
-// 	}
-// 	return (1);
-// }
-
-// char	***parser(char *str)
-// {
-// 	char	***s_cmd_line;
-// 	int		c_p;
-
-// 	if (!str || !ft_strncmp(" ", str, 1) || !ft_strncmp("", str, 1))
-// 		return (NULL);
-// 	c_p = count_pipe(str);
-// 	remove_n(str);
-// 	if (c_p == -1)
-// 	{
-// 		s_cmd_line = gc_malloc(sizeof(char **) * 2);
-// 		no_pipe(s_cmd_line, str);
-// 	}
-// 	else if (c_p == -2)
-// 	{
-// 		dprintf(1, "===\n/!\\ : Missing d_quotes\n===\n");
-// 		return (NULL);
-// 	}
-// 	else if (c_p == -3)
-// 	{
-// 		dprintf(1, "===\n/!\\ : Missing s_quotes\n===\n");
-// 		return (NULL);
-// 	}
-// 	else
-// 	{
-// 		s_cmd_line = gc_malloc(sizeof(char **) * (c_p + 2));
-// 		parse_pipe(s_cmd_line, str);
-// 	}
-// 	return (s_cmd_line);
-// }
