@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 09:32:19 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/09 10:49:27 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 20:10:19 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (start >= (unsigned int) ft_strlen(s))
 	{
-		new = (char *) malloc(sizeof(char) + 1);
+		new = (char *) gc_malloc(sizeof(char) + 1);
 		if (!new)
 			return (NULL);
 		new[0] = '\0';
@@ -30,7 +30,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	if (len > (size_t) ft_strlen(s))
 		len = (size_t) ft_strlen(s) + 1;
-	new = (char *) malloc(len * sizeof(char) + 1);
+	new = (char *) gc_malloc(len * sizeof(char) + 1);
 	if (!new)
 		return (NULL);
 	while (s[i] && i < len)

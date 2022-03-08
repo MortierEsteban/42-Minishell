@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 20:46:08 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/02 10:57:15 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/06 08:55:24 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ static void	check_quote(char *s, char *c, int *i)
 	*i = j;
 }
 
-static int	count_w(char *s, char *charset)
+int	count_w(char *s, char *charset)
 {
 	int		w;
 	int		i;
 	char	c;
 
-	w = 0 ;
+	w = 0;
 	i = 0;
 	c = 0;
 	skip_char(s, &i, charset);
-	while (s && s[i])
+	while (s && i <= ft_strlen(s) && s[i])
 	{
 		check_quote(s, &c, &i);
 		if (is_charset(s[i], charset) && !c && ft_strlen(s + 1) > 0)
@@ -46,7 +46,7 @@ static int	count_w(char *s, char *charset)
 		}
 		i++;
 	}
-	if (s[i - 1] != c)
+	if (s[i - 1] != charset[0])
 		w++;
 	return (w);
 }
@@ -63,7 +63,6 @@ char	**split(char const *s, char c)
 	charset[0] = c;
 	charset[1] = '\0';
 	nb_w = count_w((char *)s, charset);
-	dprintf(1, "nb_w = %d\n", nb_w);
 	splitted = (char **) gc_malloc(sizeof(char *) * (nb_w + 1));
 	if (!splitted)
 		return (0);

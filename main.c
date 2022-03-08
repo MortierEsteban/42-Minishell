@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/07 16:20:46 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/08 09:23:18 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,10 @@ void	ft_ctrlc(int sig)
 
 int	main(int ac, char **av, char **env)
 {
-	int		i;
-	int		j;
-	// char	***path;
-
 	(void) ac;
 	(void) av;
 	(void) env;
-	i = -1;
-	j = -1;
-	// path = create_var_tab(env);
-	// while (path && path[++i])
-	// {
-	// 	j = -1;
-	// 	while (path[i][++j])
-	// 		dprintf(1, "%s\n", path[i][j]);
-	// }
+	// export(env, STDOUT);
 	sh_loop(env);
 	signal(SIGINT, ft_ctrlc);
 	// pwd(STDIN);
