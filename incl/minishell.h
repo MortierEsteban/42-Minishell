@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/02 10:39:34 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:19:25 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
 # include "../libft/libft.h"
-
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
