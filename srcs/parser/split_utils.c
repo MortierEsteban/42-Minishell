@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 08:37:32 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 08:56:41 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:38:49 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,7 @@ void	skip_char(char *s, int *i, char *charset)
 
 int	is_charset(char c, char *charset)
 {
-	int	i;
-
-	i = -1;
-	while (charset[++i])
-	{
-		if (c == charset[i])
-			return (1);
-	}
+	if (c == charset[0])
+		return (1);
 	return (0);
 }

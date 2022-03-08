@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 18:40:15 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/08 19:05:09 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/07 20:10:49 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
 
-	new = malloc(sizeof(t_list));
+	new = gc_malloc(sizeof(t_list));
 	if (!new)
 		return (NULL);
 	new->content = content;

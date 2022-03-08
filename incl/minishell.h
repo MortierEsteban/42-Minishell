@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/02 10:39:34 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/07 21:04:07 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,28 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+//STATE = 0 -> '>'
+//STATE = 1 -> '>>'
+//STATE = 2 -> '<'
+//STATE = 3 -> '<<'
+
+typedef struct s_cmd
+{
+	char	**cmd;
+	int		state_in;
+	t_list	*input;
+	t_list	*h_doc;
+	int		state_out;
+	t_list	*output;
+	t_list	*apppend;
+}	t_cmd;
 
 //ENV VAR
 char	***create_var_tab(char **env);
@@ -48,17 +65,20 @@ int		cd(const char *str);
 int		export(char **env, int fd);
 
 //PARSING
-char	***parser(char *str);
-void	echo_parser(char ***s_cmd_line);
+t_cmd	*parser(char *str);
+void	echo_parser(t_cmd *s_cmd_line);
+char	*parse_quote(char *str);
+char	*redir(char *str, t_cmd *cmd);
 
 //UTILS
 char	**ft_malloc_error(char **tab);
-char	**get_env_var(void);
+char	**get_path(void);
+char	*get_env_var(char *var);
 int		count_pipe(char *str);
 int		remove_n(char *str);
-void	ft_free_cmd(char **str);
+void	free_cmd(t_cmd	*c_line);
 
-//PIPEX//
+//PIPEX
 void	pipes_error(void);
 int		nb_cmds(char ***args);
 char	*ft_check_path(char **args);
