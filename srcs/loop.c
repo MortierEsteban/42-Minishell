@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 09:14:13 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 13:21:32 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	sh_loop(char **env)
 	char	*prompt;
 	char	*tmp;
 	t_cmd	*c_line;
-	int		i;
-	int		j;
+	// int		i;
+	// int		j;
 
 	(void) env;
 	c_line = NULL;
@@ -83,34 +83,36 @@ void	sh_loop(char **env)
 			return (free(line));
 		else
 			c_line = parser(line);
-		if (c_line)
-		{
-			i = 0;
-			while (c_line && c_line[i].cmd)
-			{
-				j = 0;
-				dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-				while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-				{
-					dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j]);
-					j++;
-				}
-				dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-				print(c_line[i].input);
-				dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-				print(c_line[i].output);
-				dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
-				print(c_line[i].apppend);
-				dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-				print(c_line[i].h_doc);
-				i++;
-			}
-			echo_parser(c_line);
-			// pipex_process(c_line, env);
-			ft_lstclear(&c_line->input, gc_free);
-			ft_lstclear(&c_line->output, gc_free);
-			free_cmd(c_line);
-		}
+		// echo_parser(c_line);
+		pipex_process(c_line, env);
+		ft_lstclear(&c_line->input, gc_free);
+		ft_lstclear(&c_line->apppend, gc_free);
+		ft_lstclear(&c_line->h_doc, gc_free);
+		ft_lstclear(&c_line->output, gc_free);
+		free_cmd(c_line);
 		free(line);
 	}
 }
+
+		// if (c_line)
+		// {
+		// 	i = 0;
+		// 	while (c_line && c_line[i].cmd)
+		// 	{
+		// 		j = 0;
+		// 		dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
+		// 		while (c_line && c_line[i].cmd && c_line[i].cmd[j])
+		// 		{
+		// 			dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j]);
+		// 			j++;
+		// 		}
+		// 		dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].input);
+		// 		dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].output);
+		// 		dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].apppend);
+		// 		dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].h_doc);
+		// 		i++;
+		// 	}

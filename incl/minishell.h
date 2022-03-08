@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 09:22:42 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:10:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,14 @@ void	free_cmd(t_cmd	*c_line);
 
 //PIPEX
 void	pipes_error(void);
-int		nb_cmds(char ***args);
+int		nb_cmds(t_cmd *args);
 char	*ft_check_path(char **args);
 void	ft_exec(char **args, char **env, int diff);
-int		pipex_process(char ***args, char **env);
-void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit);
+int		pipex_process(t_cmd *args, char **env);
+void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 
+//REDIR
+int		*redir_handler(t_cmd cmd, int *pipe_exit);
+int		*ft_redirects(t_cmd args);
+void	ft_touch_files(char *filename);
 #endif

@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -g# -fsanitize=address
 
 SRCS	=	main.c						\
 			srcs/loop.c					\
@@ -17,6 +17,8 @@ SRCS	=	main.c						\
 			pipex/pipex.c				\
 			pipex/srcs/exec.c			\
 			pipex/srcs/utils.c			\
+			redir/redir.c 				\
+			redir/utils.c 				\
 
 OBJS	=	${SRCS:.c=.o}
 OBJS_DIR	= objs/
@@ -30,6 +32,7 @@ $(OBJS_DIR)%.o:	%.c incl/minishell.h Makefile libft/libft.a
 		@mkdir -p $(OBJS_DIR)
 		@mkdir -p $(OBJS_DIR)pipex
 		@mkdir -p $(OBJS_DIR)pipex/srcs
+		@mkdir -p $(OBJS_DIR)redir
 		@mkdir -p $(OBJS_DIR)srcs
 		@mkdir -p $(OBJS_DIR)srcs/parser
 		@mkdir -p $(OBJS_DIR)srcs/builtin
