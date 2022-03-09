@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 19:04:38 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:08:24 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,120 +35,12 @@ void	no_pipe(t_cmd *s_cmd_line, char *str)
 	s_cmd_line[1].cmd = NULL;
 }
 
-char	*redir(char *str, t_cmd *cmd)
+void	init_lst(t_cmd *cmd, int i)
 {
-	int		i;
-	int		j;
-	t_list	*l_tmp;
-	char	*new;
-	char	*tmp;
-	char	c;
-	char	d;
-	char	e;
-
-	i = 0;
-	c = 0;
-	d = 0;
-	new = NULL;
-	while (str[i])
-	{
-		if (!new && str[i] != '<' && str[i] != '>')
-			new = strdup_pimp(str, 1);
-		else if (str[i] != '<' && str[i] != '>')
-			new = ft_strljoin(new, &str[i], 1);
-		if (str[i] == '"' || str[i] == '\'')
-		{
-			c = str[i++];
-			while (str && str[i] && str[i] != c)
-				new = ft_strljoin(new, &str[i++], 1);
-			new = ft_strljoin(new, &str[i], 1);
-		}
-		else if (str[i] == '<' || str[i] == '>')
-		{
-			c = str[i++];
-			if (str[i] == c)
-			{
-				i++;
-				d = str[i];
-			}
-			while (ft_isspace(str[i]))
-				i++;
-			j = i;
-			while (str && str[j])
-			{
-				if (str[j] == '"' || str[j] == '\'')
-				{
-					e = str[j++];
-					while (str && str[j] && str[j] != e)
-						j++;
-				}
-				else if (str[j] == '<' || str[j] == '>' || str[j] == ' ')
-					break ;
-				j++;
-			}
-			tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
-			if (c == '<' && !d)
-			{
-				if (!cmd->input)
-				{
-					cmd->state_in = 1;
-					cmd->input = ft_lstnew((void *) tmp);
-				}
-				else
-				{
-					cmd->state_in = 1;
-					l_tmp = ft_lstlast(cmd->input);
-					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
-				}
-			}
-			else if (c == '<' && d)
-			{
-				if (!cmd->h_doc)
-				{
-					cmd->h_doc = ft_lstnew((void *) tmp);
-				}
-				else
-				{
-					l_tmp = ft_lstlast(cmd->h_doc);
-					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
-				}
-			}
-			else if (c == '>' && !d)
-			{
-				if (!cmd->output)
-				{
-					cmd->state_out = 1;
-					cmd->output = ft_lstnew((void *) tmp);
-				}
-				else
-				{
-					cmd->state_out = 1;
-					l_tmp = ft_lstlast(cmd->output);
-					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
-				}
-			}
-			else if (c == '>' && d)
-			{
-				if (!cmd->apppend)
-				{
-					cmd->state_out = 2;
-					cmd->apppend = ft_lstnew((void *) tmp);
-				}
-				else
-				{
-					cmd->state_out = 2;
-					l_tmp = ft_lstlast(cmd->apppend);
-					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
-				}
-			}
-			d = 0;
-			i = --j;
-		}
-		i++;
-	}
-	if (new)
-		return (new);
-	return (str);
+	cmd[i].input = NULL;
+	cmd[i].apppend = NULL;
+	cmd[i].h_doc = NULL;
+	cmd[i].output = NULL;
 }
 
 void	parse_pipe(t_cmd *s_cmd_line, char *str)
@@ -159,20 +51,14 @@ void	parse_pipe(t_cmd *s_cmd_line, char *str)
 
 	i = -1;
 	if (!s_cmd_line)
-	{
-		dprintf(1, "Oops something went wrong.\n");
-		return ;
-	}
+		return (ft_putstr_fd("Oops something went wrong.\n", 2));
 	cmd_line = split(str, '|');
 	if (!cmd_line)
 		return ;
 	i = 0;
 	while (cmd_line && cmd_line[i])
 	{
-		s_cmd_line[i].input = NULL;
-		s_cmd_line[i].apppend = NULL;
-		s_cmd_line[i].h_doc = NULL;
-		s_cmd_line[i].output = NULL;
+		init_lst(s_cmd_line, i);
 		cmd_line[i] = redir(cmd_line[i], &s_cmd_line[i]);
 		s_cmd_line[i].cmd = split(cmd_line[i], ' ');
 		j = -1;
@@ -200,51 +86,13 @@ t_cmd	*parser(char *str)
 		no_pipe(s_cmd_line, str);
 	}
 	else if (c_p == -2)
-	{
-		dprintf(1, "===\n/!\\ : Missing d_quotes\n===\n");
 		return (NULL);
-	}
 	else if (c_p == -3)
-	{
-		dprintf(1, "===\n/!\\ : Missing s_quotes\n===\n");
 		return (NULL);
-	}
 	else
 	{
 		s_cmd_line = gc_malloc(sizeof(t_cmd) * (c_p + 2));
 		parse_pipe(s_cmd_line, str);
 	}
 	return (s_cmd_line);
-}
-
-void	echo_parser(t_cmd *s_cmd_line)
-{
-	int		i;
-	int		j;
-	char	*txt;
-
-	txt = NULL;
-	i = -1;
-	j = -1;
-	while (s_cmd_line && s_cmd_line[++i].cmd)
-	{
-		if (s_cmd_line[i].cmd[0] && s_cmd_line[i].cmd[1])
-		{
-			j = 0;
-			txt = NULL;
-			while (s_cmd_line[i].cmd[++j])
-			{
-				if (!txt)
-				{
-					txt = ft_strjoin(s_cmd_line[i].cmd[j], "");
-					continue ;
-				}
-				txt = ft_strjoin(txt, " ");
-				txt = ft_strjoin (txt, s_cmd_line[i].cmd[j]);
-			}
-			s_cmd_line[i].cmd[1] = ft_strdup(txt);
-			s_cmd_line[i].cmd[2] = NULL;
-			gc_free(txt);
-		}
-	}
 }
