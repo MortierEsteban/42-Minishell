@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:33:27 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:50:11 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	join_args(t_cmd *s_cmd_line);
 char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
 char	*parse_quote(char *str);
 void	init_lst(t_cmd *cmd, int i);
+char	*pre_parse_quote(char *str);
 
 //REDIR
 char	*redir(char *str, t_cmd *cmd);

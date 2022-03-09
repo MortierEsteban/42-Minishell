@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:28:52 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 20:26:44 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 	{
 		c = str[i++];
 		if (str[i] == c)
-			d = str[++i];
+			d = str[i++];
 		while (ft_isspace(str[i]))
 			i++;
+		if (str[i] == '<' || str[i] == '>')
+			return (ft_putstr_fd("cassé", 2));
 		j = len_filename(str, i);
 		tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
 		which_case(cmd, tmp, c, &d);
@@ -85,12 +87,8 @@ char	*redir(char *str, t_cmd *cmd)
 {
 	int		i;
 	char	*new;
-	char	c;
-	char	d;
 
 	i = 0;
-	c = 0;
-	d = 0;
 	new = NULL;
 	while (str[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:25:28 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:48:20 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	which_case(t_cmd *cmd, char *tmp, char c, char *d)
 	t_list	*l_tmp;
 
 	l_tmp = NULL;
+	if (!ft_strcmp(tmp, ""))
+		return (ft_putstr_fd("cassé", 2));
 	if (c == '<' && !*d)
 		input_case(cmd, tmp, l_tmp);
 	else if (c == '<' && *d)

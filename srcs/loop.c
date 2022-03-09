@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 15:01:01 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 20:43:38 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ char	*parse_home_path(char *path)
 	return (new);
 }
 
+void	parse_list(t_list *head)
+{
+	t_list	*current;
+
+	if (!head)
+		return ;
+	current = head;
+	while (current)
+	{
+		current->content = parse_quote(current->content);
+		current = current->next;
+	}	
+}
+
 void	print(t_list *head)
 {
 	t_list	*current;
@@ -66,6 +80,23 @@ void	print(t_list *head)
 	}
 }
 
+void	print_debug(t_cmd *c_line, int i)
+{
+	int	j;
+
+	j = 0;
+	dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
+	while (c_line && c_line[i].cmd && c_line[i].cmd[j])
+		dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j++]);
+	j = 0;
+	dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
+	print(c_line[i].input);
+	dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
+	print(c_line[i].output);
+	dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
+	print(c_line[i].h_doc);
+}
+
 void	sh_loop(char **env)
 {
 	char	*line;
@@ -73,9 +104,8 @@ void	sh_loop(char **env)
 	char	*tmp;
 	t_cmd	*c_line;
 	int		i;
-	int		j;
 
-	i = 0;
+	i = -1;
 	(void) env;
 	c_line = NULL;
 	while (1)
@@ -94,24 +124,16 @@ void	sh_loop(char **env)
 			c_line = parser(line);
 		if (c_line)
 		{
-			join_args(c_line);
-			while (c_line && c_line[i].cmd)
+			// join_args(c_line);
+			while (c_line && c_line[++i].cmd)
 			{
-				j = 0;
-				dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-				while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-					dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j++]);
-				dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-				print(c_line[i].input);
-				dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-				print(c_line[i].output);
-				dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-				print(c_line[i].h_doc);
-				i++;
+				parse_list(c_line[i].input);
+				parse_list(c_line[i].output);
+				parse_list(c_line[i].h_doc);
+				print_debug(c_line, i);
 			}
-			i = 0;
+			i = -1;
 			pipex_process(c_line, env);
-			// echo(c_line->cmd[1]);
 			free_cmd(c_line);
 		}
 		free(line);
