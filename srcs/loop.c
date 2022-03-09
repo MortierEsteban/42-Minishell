@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:35:59 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:37:42 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	sh_loop(char **env)
 	char	*prompt;
 	char	*tmp;
 	t_cmd	*c_line;
-	int		i;
-	int		j;
+	// int		i;
+	// int		j;
 
-	i = 0;
+	// i = 0;
 	(void) env;
 	c_line = NULL;
 	while (1)
@@ -115,8 +115,8 @@ void	sh_loop(char **env)
 		// 		print(c_line[i].h_doc);
 		// 		i++;
 		// 	}
-			// pipex_process(c_line, env);
-			echo(c_line->cmd[1]);
+			pipex_process(c_line, env);
+			// echo(c_line->cmd[1]);
 			free_cmd(c_line);
 		}
 		free(line);

@@ -6,11 +6,19 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/09 13:15:40 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:49:23 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+void	ft_closer(int *redir, int pipes[2])
+{
+	close (pipes[1]);
+	close (pipes[0]);
+	close (redir[1]);
+	gc_free (redir);
+}
 
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 {
@@ -23,11 +31,11 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	redir_fd = redir_handler(args[i], pipe_exit);
 	cmdsnb = nb_cmds(args) -1;
 	dup2(redir_fd[0], STDIN);
-	close (redir_fd[0]);
+	if (redir_fd[0] != 0)
+		close (redir_fd[0]);
 	if (*pipe_exit != 0)
 		close (*pipe_exit);
 	*pipe_exit = dup (pipes[0]);
-	close (pipes[0]);
 	if (redir_fd[1] == -1)
 	{
 		if (i != cmdsnb)
@@ -36,9 +44,7 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 			redir_fd[1] = memory[1];
 	}
 	dup2(redir_fd[1], STDOUT);
-	close (pipes[1]);
-	close (redir_fd[1]);
-	gc_free (redir_fd);
+	ft_closer(redir_fd, pipes);
 }
 
 void	ft_exec(char **args, char **env, int diff)
