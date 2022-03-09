@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:17 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:22:47 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ void	free_cmd(t_cmd	*c_line)
 	int	i;
 	int	j;
 
-	ft_lstclear(&c_line->input, gc_free);
-	ft_lstclear(&c_line->apppend, gc_free);
-	ft_lstclear(&c_line->h_doc, gc_free);
-	ft_lstclear(&c_line->output, gc_free);
 	i = -1;
 	if (!c_line)
 		return ;
@@ -29,6 +25,8 @@ void	free_cmd(t_cmd	*c_line)
 		j = -1;
 		while (c_line[i].cmd[++j])
 			gc_free(c_line[i].cmd[j]);
+		c_line[i].state_in = 0;
+		c_line[i].state_out = 0;
 		gc_free(c_line[i].cmd);
 	}
 	gc_free(c_line);
@@ -121,26 +119,3 @@ void	sh_loop(char **env)
 		gc_destroy();
 	}
 }
-
-		// if (c_line)
-		// {
-		// 	i = 0;
-		// 	while (c_line && c_line[i].cmd)
-		// 	{
-		// 		j = 0;
-		// 		dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-		// 		while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-		// 		{
-		// 			dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j]);
-		// 			j++;
-		// 		}
-		// 		dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-		// 		print(c_line[i].input);
-		// 		dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-		// 		print(c_line[i].output);
-		// 		dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
-		// 		print(c_line[i].apppend);
-		// 		dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-		// 		print(c_line[i].h_doc);
-		// 		i++;
-		// 	}

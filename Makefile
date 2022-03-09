@@ -12,6 +12,9 @@ SRCS	=	main.c						\
 			srcs/parser/parse.c			\
 			srcs/parser/parse_quote.c	\
 			srcs/parser/utils.c			\
+			srcs/parser/join.c			\
+			srcs/parser/redir_utils.c	\
+			srcs/parser/redir.c			\
 			srcs/parser/split.c			\
 			srcs/parser/split_utils.c	\
 			pipex/pipex.c				\

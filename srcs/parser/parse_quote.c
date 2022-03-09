@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 09:11:10 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 11:56:03 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,3 @@ char	*parse_quote(char *str)
 	}
 	return (new);
 }
-
-		// if (str[i] == '$' && (quot == 0 || quot == 2))
-		// {
-		// 	i++;
-		// 	while (str && str[i] && str[i] != ' ')
-		// 	{
-		// 		tmp[j] = str[i];
-		// 		i++;
-		// 		j++;
-		// 	}
-		// 	tmp[j] = 0;
-		// 	env = getenv(tmp);
-		// 	len = ft_strlen(env);
-		// 	new = gc_malloc(sizeof(char) * (len + ft_strlen(str) + 1));
-		// 	ft_strlcat(new, env, len + 1);
-		// 	ft_strlcat(new + len, str + i, ft_strlen(str + i) + 1);
-		// 	dprintf(1, "== %s ==\n", new);
-		// 	j = 0;
-		// }
