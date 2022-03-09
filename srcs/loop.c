@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:17:58 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:29:59 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	sh_loop(char **env)
 			c_line = parser(line);
 		if (c_line)
 		{
-			join_args(c_line);
+			// join_args(c_line);
 			while (c_line && c_line[i].cmd)
 			{
 				j = 0;
