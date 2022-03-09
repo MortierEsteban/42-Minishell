@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/08 09:44:46 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:17:10 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	nb_cmds(t_cmd *args)
 	int	i;
 
 	i = -1;
-	while (args[++i].cmd)
+	while (args && args[++i].cmd)
 	{
 	}
 	return (i);
@@ -46,7 +46,7 @@ char	*ft_check_path(char **args)
 	i = -1;
 	while (path[++i])
 	{
-		if (close ((open (path[i], O_RDONLY))) != -1)
+		if (!access(path[i], F_OK | R_OK | X_OK))
 			return (path[i]);
 	}
 	return (NULL);

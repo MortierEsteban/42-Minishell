@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/09 13:29:59 by lsidan           ###   ########.fr       */
+=======
+/*   Updated: 2022/03/09 13:22:47 by emortier         ###   ########.fr       */
+>>>>>>> 48abaddcda2f0a05a3e1d9bef25e74adc58702a4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +76,10 @@ void	sh_loop(char **env)
 	char	*prompt;
 	char	*tmp;
 	t_cmd	*c_line;
-	int		i;
-	int		j;
+	// int		i;
+	// int		j;
 
-	i = 0;
+	// i = 0;
 	(void) env;
 	c_line = NULL;
 	while (1)

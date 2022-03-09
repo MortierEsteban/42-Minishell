@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:17:32 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:25:28 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	append_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 	if (!cmd->input)
 	{
 		cmd->state_out = 2;
-		cmd->input = ft_lstnew((void *) tmp);
+		cmd->output = ft_lstnew((void *) tmp);
 	}
 	else
 	{
 		cmd->state_out = 2;
-		l_tmp = ft_lstlast(cmd->input);
+		l_tmp = ft_lstlast(cmd->output);
 		ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 	}
 }

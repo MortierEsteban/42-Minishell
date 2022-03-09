@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/08 13:20:32 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:24:42 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 void	ft_touch_files(char *filename)
 {
-	char	**touch;
+	int	fd;
 
-	touch = gc_malloc(sizeof(char *) * 3);
-	if (!touch)
-		return ;
-	touch[2] = NULL;
-	touch[0] = ft_strdup("touch");
-	touch[1] = ft_strdup(filename);
-	ft_exec(touch, 0, 42);
-	gc_free(touch[0]);
-	gc_free(touch[1]);
-	gc_free(touch);
+	fd = 0;
+	if (access(filename, F_OK))
+		fd = open(filename, O_CREAT, 0777);
+	close (fd);
 }
 
 int	*ft_redirects(t_cmd args)
 {
 	int	*fds;
-	(void) args;
 
 	fds = gc_malloc(sizeof(int) * 2);
 	fds[0] = -1;
@@ -40,15 +33,13 @@ int	*ft_redirects(t_cmd args)
 		fds[0] = open((ft_lstlast(args.input))->content, O_RDONLY);
 	while (args.output && args.output->next)
 	{
-		dprintf(1, "SA MERE");
 		ft_touch_files(args.output->content);
 		args.output = args.output->next;
 	}
-	if (args.output)
-		ft_touch_files(args.output->content);
-	if (args.state_out == 1)
-		fds[1] = open(args.output->content, O_WRONLY);
+	if (args.state_out == 1 && ft_strcmp(args.output->content, ""))
+		fds[1] = open(args.output->content, O_RDWR | O_CREAT | O_TRUNC, 0777);
 	else if (args.state_out == 2)
-		fds[1] = open(args.output->content, O_APPEND);
+		fds[1] = open(args.output->content, \
+		O_APPEND | O_WRONLY | O_CREAT, 0777);
 	return (fds);
 }

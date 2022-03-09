@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/08 14:08:56 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:15:40 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,23 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 		pipes_error ();
 	redir_fd = redir_handler(args[i], pipe_exit);
 	cmdsnb = nb_cmds(args) -1;
-	dup2(*pipe_exit, STDIN);
+	dup2(redir_fd[0], STDIN);
+	close (redir_fd[0]);
 	if (*pipe_exit != 0)
 		close (*pipe_exit);
 	*pipe_exit = dup (pipes[0]);
-	dprintf(1, "0 = %d , 1 = %d\n", redir_fd[0], redir_fd[1]);
-	if (i != cmdsnb)
-		dup2(pipes[1], STDOUT);
-	else
-		dup2(memory[1], STDOUT);
 	close (pipes[0]);
+	if (redir_fd[1] == -1)
+	{
+		if (i != cmdsnb)
+			redir_fd[1] = pipes[1];
+		else
+			redir_fd[1] = memory[1];
+	}
+	dup2(redir_fd[1], STDOUT);
 	close (pipes[1]);
-	// gc_free (redir_fd);
+	close (redir_fd[1]);
+	gc_free (redir_fd);
 }
 
 void	ft_exec(char **args, char **env, int diff)
@@ -42,7 +47,6 @@ void	ft_exec(char **args, char **env, int diff)
 	char	*path;
 
 	forks = fork();
-	dprintf(1, "\n\n DIFF de (%s) =%d\n",args[0], diff);
 	if (forks == 0)
 	{
 		path = ft_check_path(args);
@@ -51,6 +55,6 @@ void	ft_exec(char **args, char **env, int diff)
 				dprintf(2, "ERROR WHILE LAUNCHING BINARY\n");
 	}
 	else if (!diff)
-		wait(NULL);
+		waitpid(forks, 0, 0);
 	return ;
 }
