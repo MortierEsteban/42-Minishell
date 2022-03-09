@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g #-fsanitize=descriptors
+CFLAGS	=	-Wall -Werror -Wextra #-g -fsanitize=address
 
 SRCS	=	main.c						\
 			srcs/loop.c					\

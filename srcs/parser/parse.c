@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:18:51 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:43:54 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	no_pipe(t_cmd *s_cmd_line, char *str)
 		dprintf(1, "Oops something went wrong.\n");
 		return ;
 	}
-	s_cmd_line[0].input = NULL;
-	s_cmd_line[0].h_doc = NULL;
-	s_cmd_line[0].output = NULL;
+	init_lst(s_cmd_line, 0);
 	str = redir(str, &s_cmd_line[0]);
 	s_cmd_line[0].cmd = split(str, ' ');
 	if (!s_cmd_line)

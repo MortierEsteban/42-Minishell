@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:54:59 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:33:49 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_ctrlc(int sig)
 {
 	(void)sig;
-	printf("minishell>");
+	printf("minishell>\n");
 }
 
 int	main(int ac, char **av, char **env)

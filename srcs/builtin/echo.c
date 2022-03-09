@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:19:35 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:35:35 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char *ft_get_optns(char *arg)
 	char	*optns;
 
 	i = 0;
-	while (arg[i] == '')
+	while (arg[i] == ' ')
 	if (arg[i] != '\0' && i - 1 > 0 && arg[i - 1] != ' ')
 		i = ft_rewind(i, arg);
 	optns = ft_substr(arg, 0, i);

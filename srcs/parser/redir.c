@@ -6,23 +6,29 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:08:39 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:28:52 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-int	cpy_str(char *str, char **new, int *i, char *c)
+int	cpy_str(char *str, char **new, int *i)
 {
+	char	c;
+
 	if (!*new && str[*i] != '<' && str[*i] != '>')
 		*new = strdup_pimp(str, 1);
 	else if (str[*i] != '<' && str[*i] != '>')
 		*new = ft_strljoin(*new, &str[*i], 1);
 	if (str[*i] == '"' || str[*i] == '\'')
 	{
-		*c = str[*i++];
-		while (str && str[*i] && str[*i] != *c)
-			*new = ft_strljoin(*new, &str[*i++], 1);
+		c = str[*i];
+		*i += 1;
+		while (str && str[*i] && str[*i] != c)
+		{	
+			*new = ft_strljoin(*new, &str[*i], 1);
+			*i += 1;
+		}
 		*new = ft_strljoin(*new, &str[*i], 1);
 		return (1);
 	}
@@ -60,7 +66,7 @@ void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 	i = *k;
 	j = 0;
 	d = 0;
-	if (!cpy_str(str, new, &i, &c) && (str[i] == '<' || str[i] == '>'))
+	if (!cpy_str(str, new, &i) && (str[i] == '<' || str[i] == '>'))
 	{
 		c = str[i++];
 		if (str[i] == c)
