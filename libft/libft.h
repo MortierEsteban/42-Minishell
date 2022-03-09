@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:19:32 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/07 20:45:18 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/08 16:42:40 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int		ft_isspace(unsigned char c);
 void	*gc_malloc(unsigned long size);
 int		gc_free(void *ptr);
 void	gc_destroy(void);
+char	*ft_strljoin(char const *s1, char const *s2, size_t len);
 
 #endif

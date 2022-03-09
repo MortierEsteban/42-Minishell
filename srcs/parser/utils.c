@@ -6,48 +6,30 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/01 09:04:55 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 18:53:46 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-void	ft_free_cmd(char **str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		free(str[i]);
-	free(str);
-}
-
 int	count_pipe(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	c;
 
 	i = -1;
 	j = 0;
 	while (str && str[++i])
 	{
-		if (str[i] == '"')
+		if (str[i] == '"' || str[i] == '\'')
 		{
-			i++;
-			while (str && str[i] != '"' && i <= ft_strlen(str))
+			c = str[i++];
+			while (str && str[i] && str[i] != c \
+					&& i <= ft_strlen(str))
 			{
 				if (i == ft_strlen(str))
 					return (-2);
-				i++;
-			}
-		}
-		else if (str[i] == '\'')
-		{
-			i++;
-			while (str && str[i] != '\'' && i <= ft_strlen(str))
-			{
-				if (i == ft_strlen(str))
-					return (-3);
 				i++;
 			}
 		}

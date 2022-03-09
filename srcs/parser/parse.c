@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 11:08:03 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 19:04:38 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,51 +44,59 @@ char	*redir(char *str, t_cmd *cmd)
 	char	*tmp;
 	char	c;
 	char	d;
+	char	e;
 
 	i = 0;
 	c = 0;
 	d = 0;
-	dprintf(1, "OLD = |%s|\n", str);
 	new = NULL;
 	while (str[i])
 	{
+		if (!new && str[i] != '<' && str[i] != '>')
+			new = strdup_pimp(str, 1);
+		else if (str[i] != '<' && str[i] != '>')
+			new = ft_strljoin(new, &str[i], 1);
 		if (str[i] == '"' || str[i] == '\'')
 		{
 			c = str[i++];
 			while (str && str[i] && str[i] != c)
-				i++;
+				new = ft_strljoin(new, &str[i++], 1);
+			new = ft_strljoin(new, &str[i], 1);
 		}
 		else if (str[i] == '<' || str[i] == '>')
 		{
-			if (!new)
-				new = strdup_pimp(str, i);
 			c = str[i++];
-			dprintf(1, "== %c ==\n", c);
 			if (str[i] == c)
 			{
 				i++;
 				d = str[i];
 			}
+			while (ft_isspace(str[i]))
+				i++;
 			j = i;
 			while (str && str[j])
 			{
-				if (str[j] == '<' || str[j] == '>')
+				if (str[j] == '"' || str[j] == '\'')
+				{
+					e = str[j++];
+					while (str && str[j] && str[j] != e)
+						j++;
+				}
+				else if (str[j] == '<' || str[j] == '>' || str[j] == ' ')
 					break ;
 				j++;
 			}
 			tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
-			dprintf(1, "J = %d\nTMP = %s\n", j, tmp);
 			if (c == '<' && !d)
 			{
 				if (!cmd->input)
 				{
-					dprintf(1, "INPUT : %s\n", tmp);
+					cmd->state_in = 1;
 					cmd->input = ft_lstnew((void *) tmp);
 				}
 				else
 				{
 					cmd->state_in = 1;
-					dprintf(1, "INPUT : %s\n", tmp);
 					l_tmp = ft_lstlast(cmd->input);
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
@@ -97,12 +105,10 @@ char	*redir(char *str, t_cmd *cmd)
 			{
 				if (!cmd->h_doc)
 				{
-					dprintf(1, "H_DOC : %s\n", tmp);
 					cmd->h_doc = ft_lstnew((void *) tmp);
 				}
 				else
 				{
-					dprintf(1, "H_DOC : %s\n", tmp);
 					l_tmp = ft_lstlast(cmd->h_doc);
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
@@ -111,13 +117,12 @@ char	*redir(char *str, t_cmd *cmd)
 			{
 				if (!cmd->output)
 				{
-					dprintf(1, "OUTPUT : %s\n", tmp);
+					cmd->state_out = 1;
 					cmd->output = ft_lstnew((void *) tmp);
 				}
 				else
 				{
 					cmd->state_out = 1;
-					dprintf(1, "OUTPUT : %s\n", tmp);
 					l_tmp = ft_lstlast(cmd->output);
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
@@ -126,13 +131,12 @@ char	*redir(char *str, t_cmd *cmd)
 			{
 				if (!cmd->apppend)
 				{
-					dprintf(1, "APPEND : %s\n", tmp);
+					cmd->state_out = 2;
 					cmd->apppend = ft_lstnew((void *) tmp);
 				}
 				else
 				{
 					cmd->state_out = 2;
-					dprintf(1, "APPEND : %s\n", tmp);
 					l_tmp = ft_lstlast(cmd->apppend);
 					ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 				}
@@ -181,31 +185,12 @@ void	parse_pipe(t_cmd *s_cmd_line, char *str)
 	s_cmd_line[i].cmd = NULL;
 }
 
-char	***create_var_tab(char **env)
-{
-	int		i;
-	char	***var;
-
-	i = -1;
-	while (env[++i])
-		i++;
-	var = gc_malloc(sizeof(char *) * (i + 2));
-	var[i] = 0;
-	i = -1;
-	while (env[++i])
-	{
-		var[i] = ft_split(env[i], '=');
-		dprintf(1, "%s\n", *var[i]);
-	}
-	return (var);
-}
-
 t_cmd	*parser(char *str)
 {
 	t_cmd	*s_cmd_line;
 	int		c_p;
 
-	if (!str || !ft_strncmp(" ", str, 1) || !ft_strncmp("", str, 1))
+	if (!str || !ft_strncmp("", str, 1) || is_onlyspace(str))
 		return (NULL);
 	c_p = count_pipe(str);
 	remove_n(str);

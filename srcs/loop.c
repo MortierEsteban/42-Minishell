@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 15:09:27 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:13:16 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	free_cmd(t_cmd	*c_line)
 	int	i;
 	int	j;
 
+	ft_lstclear(&c_line->input, gc_free);
+	ft_lstclear(&c_line->apppend, gc_free);
+	ft_lstclear(&c_line->h_doc, gc_free);
+	ft_lstclear(&c_line->output, gc_free);
 	i = -1;
 	if (!c_line)
 		return ;
@@ -34,16 +38,19 @@ char	*parse_home_path(char *path)
 {
 	char	*home_path;
 	char	*new;
+	char	*color;
 
 	if (!path)
 		return (NULL);
 	home_path = getenv("HOME");
-	dprintf(1, "%s\n", home_path);
 	if (!*(path + ft_strlen(home_path)))
 		new = ft_strdup("~");
 	else
 		new = ft_strjoin("~", path + ft_strlen(home_path));
-	new = ft_strjoin(new, " > ");
+	color = ft_strdup("\033[0;36m");
+	new = ft_strjoin(color, new);
+	new = ft_strjoin(new, " ❯ ");
+	new = ft_strjoin(new, "\033[0m");
 	return (new);
 }
 
@@ -70,6 +77,7 @@ void	sh_loop(char **env)
 	// int		i;
 	// int		j;
 
+	i = 0;
 	(void) env;
 	c_line = NULL;
 	while (1)
@@ -107,13 +115,10 @@ void	sh_loop(char **env)
 			// 	i++;
 			// }
 			pipex_process(c_line, env);
-			ft_lstclear(&c_line->input, gc_free);
-			ft_lstclear(&c_line->apppend, gc_free);
-			ft_lstclear(&c_line->h_doc, gc_free);
-			ft_lstclear(&c_line->output, gc_free);
 			free_cmd(c_line);
 		// }
 		free(line);
+		gc_destroy();
 	}
 }
 

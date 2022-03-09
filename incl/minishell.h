@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 13:22:50 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:56:30 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*get_env_var(char *var);
 int		count_pipe(char *str);
 int		remove_n(char *str);
 void	free_cmd(t_cmd	*c_line);
+int		is_onlyspace(char *str);
 
 //PIPEX
 void	pipes_error(void);
