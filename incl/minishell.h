@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 11:13:54 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 18:54:39 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*get_env_var(char *var);
 int		count_pipe(char *str);
 int		remove_n(char *str);
 void	free_cmd(t_cmd	*c_line);
+int		is_onlyspace(char *str);
 
 //PIPEX
 void	pipes_error(void);
