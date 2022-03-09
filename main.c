@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 09:26:17 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:54:59 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	(void) env;
-	sh_loop(env);
 	signal(SIGINT, ft_ctrlc);
+	sh_loop(env);
 	usleep(20);
 	gc_destroy();
 	return (0);

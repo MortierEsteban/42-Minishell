@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/09 13:24:42 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:34:05 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	*ft_redirects(t_cmd args)
 	}
 	if (args.state_out == 1 && ft_strcmp(args.output->content, ""))
 		fds[1] = open(args.output->content, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	else if (args.state_out == 2)
+	else if (args.state_out == 2 && ft_strcmp(args.output->content, ""))
 		fds[1] = open(args.output->content, \
 		O_APPEND | O_WRONLY | O_CREAT, 0777);
 	return (fds);
