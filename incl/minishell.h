@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:22:55 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:12:05 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_cmd	*parser(char *str);
 void	join_args(t_cmd *s_cmd_line);
 char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
 char	*parse_quote(char *str);
+void	init_lst(t_cmd *cmd, int i);
 
 //REDIR
 char	*redir(char *str, t_cmd *cmd);
@@ -75,7 +76,7 @@ void	which_case(t_cmd *cmd, char *tmp, char c, char *d);
 void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
 char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
-int		cpy_str(char *str, char **new, int *i, char *c);
+int		cpy_str(char *str, char **new, int *i);
 
 //UTILS
 char	**ft_malloc_error(char **tab);
