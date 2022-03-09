@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:12:05 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:33:27 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	skip_char(char *s, int *i, char *charset);
 void	sh_loop(char **env);
 
 //BUILT-IN
-int		echo(char *str, int fd, int flag);
+int		echo(char *str);
 int		pwd(int fd);
 int		cd(const char *str);
 int		export(char **env, int fd);
