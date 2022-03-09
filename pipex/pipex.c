@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/08 18:22:32 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:14:42 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int	pipex_process(t_cmd *args, char **env)
 	dup2 (memory[1], STDOUT);
 	close (memory[0]);
 	close (memory[1]);
+	if (pipe_exit != 0)
+		close (pipe_exit);
 	return (0);
 }
