@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 10:13:16 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:37:17 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	sh_loop(char **env)
 	// int		i;
 	// int		j;
 
-	i = 0;
+	// i = 0;
 	(void) env;
 	c_line = NULL;
 	while (1)
@@ -91,32 +91,32 @@ void	sh_loop(char **env)
 			return (free(line));
 		else
 			c_line = parser(line);
-		// if (c_line)
-		// {
+		if (c_line)
+		{
 		// 	i = 0;
 		// 	echo_parser(c_line);
-			// while (c_line && c_line[i].cmd)
-			// {
-			// 	j = 0;
-			// 	dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-			// 	while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-			// 	{
-			// 		dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j]);
-			// 		j++;
-			// 	}
-				// dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-				// print(c_line[i].input);
-				// dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-				// print(c_line[i].output);
-				// dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
-				// print(c_line[i].apppend);
-				// dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-				// print(c_line[i].h_doc);
-			// 	i++;
-			// }
+		// 	while (c_line && c_line[i].cmd)
+		// 	{
+		// 		j = 0;
+		// 		dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
+		// 		while (c_line && c_line[i].cmd && c_line[i].cmd[j])
+		// 		{
+		// 			dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j]);
+		// 			j++;
+		// 		}
+		// 		dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].input);
+		// 		dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].output);
+		// 		dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].apppend);
+		// 		dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
+		// 		print(c_line[i].h_doc);
+		// 		i++;
+		// 	}
 			pipex_process(c_line, env);
 			free_cmd(c_line);
-		// }
+		}
 		free(line);
 		gc_destroy();
 	}
