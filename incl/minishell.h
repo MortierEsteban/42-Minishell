@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:09:33 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:17:47 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_cmd
 	t_list	*h_doc;
 	int		state_out;
 	t_list	*output;
-	t_list	*apppend;
 }	t_cmd;
 
 //ENV VAR

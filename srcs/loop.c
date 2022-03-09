@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 12:20:50 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:17:58 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	sh_loop(char **env)
 				print(c_line[i].input);
 				dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
 				print(c_line[i].output);
-				dprintf(1, ">>>>>>>>> APPEND %d : <<<<<<<<<\n", i);
-				print(c_line[i].apppend);
 				dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
 				print(c_line[i].h_doc);
 				i++;

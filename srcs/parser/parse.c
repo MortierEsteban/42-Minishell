@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:08:24 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:18:51 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	no_pipe(t_cmd *s_cmd_line, char *str)
 		return ;
 	}
 	s_cmd_line[0].input = NULL;
-	s_cmd_line[0].apppend = NULL;
 	s_cmd_line[0].h_doc = NULL;
 	s_cmd_line[0].output = NULL;
 	str = redir(str, &s_cmd_line[0]);
@@ -38,7 +37,6 @@ void	no_pipe(t_cmd *s_cmd_line, char *str)
 void	init_lst(t_cmd *cmd, int i)
 {
 	cmd[i].input = NULL;
-	cmd[i].apppend = NULL;
 	cmd[i].h_doc = NULL;
 	cmd[i].output = NULL;
 }

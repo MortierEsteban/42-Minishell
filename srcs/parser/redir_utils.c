@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:06:50 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:17:32 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void	output_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 
 void	append_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 {
-	if (!cmd->apppend)
+	if (!cmd->input)
 	{
 		cmd->state_out = 2;
-		cmd->apppend = ft_lstnew((void *) tmp);
+		cmd->input = ft_lstnew((void *) tmp);
 	}
 	else
 	{
 		cmd->state_out = 2;
-		l_tmp = ft_lstlast(cmd->apppend);
+		l_tmp = ft_lstlast(cmd->input);
 		ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 	}
 }
