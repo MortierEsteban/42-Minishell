@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/03 09:41:00 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/08 09:44:46 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	pipes_error(void)
 	write (1, "There was an error while trying to use pipe.\n", 45);
 }
 
-int	nb_cmds(char ***args)
+int	nb_cmds(t_cmd *args)
 {
 	int	i;
 
 	i = -1;
-	while (args[++i])
+	while (args[++i].cmd)
 	{
 	}
 	return (i);

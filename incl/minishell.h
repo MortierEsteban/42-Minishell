@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 18:54:39 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 09:56:30 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
 # include <signal.h>
 # include "../libft/libft.h"
-
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
@@ -81,10 +81,14 @@ int		is_onlyspace(char *str);
 
 //PIPEX
 void	pipes_error(void);
-int		nb_cmds(char ***args);
+int		nb_cmds(t_cmd *args);
 char	*ft_check_path(char **args);
 void	ft_exec(char **args, char **env, int diff);
-int		pipex_process(char ***args, char **env);
-void	ft_pipex_dup(int i, int cmdsnb, int memory[2], int *pipe_exit);
+int		pipex_process(t_cmd *args, char **env);
+void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 
+//REDIR
+int		*redir_handler(t_cmd cmd, int *pipe_exit);
+int		*ft_redirects(t_cmd args);
+void	ft_touch_files(char *filename);
 #endif
