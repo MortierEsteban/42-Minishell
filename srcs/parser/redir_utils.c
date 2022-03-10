@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 20:48:20 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/10 09:06:34 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	output_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 
 void	append_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 {
-	if (!cmd->input)
+	if (!cmd->output)
 	{
 		cmd->state_out = 2;
 		cmd->output = ft_lstnew((void *) tmp);
@@ -68,20 +68,19 @@ void	append_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 	}
 }
 
-void	which_case(t_cmd *cmd, char *tmp, char c, char *d)
+void	which_case(t_cmd *cmd, char *tmp, char c, char d)
 {
 	t_list	*l_tmp;
 
 	l_tmp = NULL;
 	if (!ft_strcmp(tmp, ""))
 		return (ft_putstr_fd("cassé", 2));
-	if (c == '<' && !*d)
+	if (c == '<' && !d)
 		input_case(cmd, tmp, l_tmp);
-	else if (c == '<' && *d)
+	else if (c == '<' && d)
 		heredoc_case(cmd, tmp, l_tmp);
-	else if (c == '>' && !*d)
+	else if (c == '>' && !d)
 		output_case(cmd, tmp, l_tmp);
-	else if (c == '>' && *d)
+	else if (c == '>' && d)
 		append_case(cmd, tmp, l_tmp);
-	*d = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 11:14:19 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:31:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*parse_home_path(char *path)
 		new = ft_strjoin("~", path + ft_strlen(home_path));
 	color = ft_strdup("\033[0;36m");
 	new = ft_strjoin(color, new);
+	gc_free(color);
 	new = ft_strjoin(new, " ❯ ");
 	new = ft_strjoin(new, "\033[0m");
 	return (new);
