@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 11:10:09 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:30:26 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,21 @@ void	ft_exec(char **args, char **env, int diff)
 		if (path)
 		{
 			if (execve(path, args, env) == -1)
+			{
 				g_ret_val = 0;
+				return ;
+			}
 			else
 				g_ret_val = 1;
 		}
+		else
+			dprintf(2, "TROUBLE WHEN FINDING BINARY");
+		
 	}
 	else if (!diff)
 	{
 		if (!ft_check_path(args))
-			kill (forks, SIGKILL);
+			kill (forks, SIGTERM);
 		waitpid(forks, 0, 0);
 	}
 	return ;
