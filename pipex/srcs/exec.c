@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 14:45:58 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:31:13 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	ft_exec(char **args, char **env, int diff)
 	{
 		waitpid(forks, &stat, 0);
 		g_ex_status = WEXITSTATUS(stat);
-		dprintf(2, "EXIT STAT = %d\n", g_ex_status);
 	}
 	return ;
 }
