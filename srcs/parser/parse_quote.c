@@ -6,13 +6,11 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 20:46:59 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:16:03 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
-
-void	shinra_tensei(char *str, int quot, int *i, char **new);
 
 char	*pre_parse_quote(char *str)
 {
@@ -27,8 +25,9 @@ char	*pre_parse_quote(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		shinra_tensei(str, quot, &i, &new);
-		if (str[i] == '\'' && quot == 0)
+		if (shinra_tensei(str, quot, &i, &new))
+			continue ;
+		else if (str[i] == '\'' && quot == 0)
 			quot = 1;
 		else if (str[i] == '\"' && quot == 0)
 			quot = 2;
@@ -41,7 +40,7 @@ char	*pre_parse_quote(char *str)
 	return (new);
 }
 
-void	shinra_tensei(char *str, int quot, int *i, char **new)
+int	shinra_tensei(char *str, int quot, int *i, char **new)
 {
 	int		j;
 	char	*tmp;
@@ -49,11 +48,13 @@ void	shinra_tensei(char *str, int quot, int *i, char **new)
 
 	tmp = NULL;
 	tmp2 = NULL;
-	if (str[*i] == '$' && (quot == 0 || quot == 2))
+	j = *i;
+	if (str[j] == '$' && (quot == 0 || quot == 2))
 	{
-		j = *i;
+		if (str[j + 1] == '?')
+			return (0 * dprintf(1, "EXIT VALUE :"));
 		while (str && str[j] && str[j] != '/' && \
-				str[j] != ' ' && str[j] != '"')
+				str[j] != ' ' && str[j] != '"' && str[j] != '\'')
 		{
 			if (!tmp)
 				tmp = ft_strdup("");
@@ -64,8 +65,12 @@ void	shinra_tensei(char *str, int quot, int *i, char **new)
 		tmp2 = getenv(tmp);
 		if (tmp2)
 			*new = ft_strjoin(*new, tmp2);
+		gc_free(tmp);
+		gc_free(tmp2);
 		*i = j;
+		return (1);
 	}
+	return (0);
 }
 
 char	*parse_quote(char *str)
@@ -81,8 +86,11 @@ char	*parse_quote(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		shinra_tensei(str, quot, &i, &new);
-		if (str[i] == '\'' && quot == 0)
+		if (str[i] == '~' && quot == 0)
+			new = ft_strjoin(new, getenv("HOME"));
+		else if (shinra_tensei(str, quot, &i, &new))
+			continue ;
+		else if (str[i] == '\'' && quot == 0)
 			quot = 1;
 		else if (str[i] == '\"' && quot == 0)
 			quot = 2;

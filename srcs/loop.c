@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 20:43:38 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:57:46 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*parse_home_path(char *path)
 		new = ft_strjoin("~", path + ft_strlen(home_path));
 	color = ft_strdup("\033[0;36m");
 	new = ft_strjoin(color, new);
+	gc_free(color);
 	new = ft_strjoin(new, " ❯ ");
 	new = ft_strjoin(new, "\033[0m");
 	return (new);
@@ -130,7 +131,7 @@ void	sh_loop(char **env)
 				parse_list(c_line[i].input);
 				parse_list(c_line[i].output);
 				parse_list(c_line[i].h_doc);
-				print_debug(c_line, i);
+				// print_debug(c_line, i);
 			}
 			i = -1;
 			pipex_process(c_line, env);

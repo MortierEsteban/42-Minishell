@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 20:26:44 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/10 09:04:56 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 			return (ft_putstr_fd("cassé", 2));
 		j = len_filename(str, i);
 		tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
-		which_case(cmd, tmp, c, &d);
+		which_case(cmd, tmp, c, d);
 		i = --j;
 	}
+	d = 0;
 	*k = i;
 }
 
