@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 14:47:24 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:50:44 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,40 @@ int	ft_rewind(int i, char *arg)
 		return (i);
 }
 
-char *ft_get_optns(char *arg)
+int ft_get_optns(char *arg)
 {
 	int		i;
+	int		j;
 	char	*optns;
+	char	*tmp;
 
 	i = 0;
-	while (arg[i] == ' ')
-	if (arg[i] != '\0' && i - 1 > 0 && arg[i - 1] != ' ')
-		i = ft_rewind(i, arg);
-	optns = ft_substr(arg, 0, i);
+	optns = ft_strdup("");
+	while (arg[i])
+	{
+		j = i + 1;
+		if (arg[i] == '-')
+		{
+			while (arg[j] == 'n')
+				j++;
+			if (arg[j] == ' ')
+			{
+				tmp = ft_substr(arg, i, j);
+				dprintf(1, "tmp = |%s|\n", tmp);
+				optns = ft_strjoin(optns, tmp);
+			}
+			else
+				break ;
+		}
+		i = j;
+	}
 	dprintf(2, "optns = %s\n", optns);
-	return (optns);
+	return (j);
 }
 
 char	*parse_n(char *arg)
 {
-	char *optns;
+	int optns;
 
 	optns = ft_get_optns(arg);
 	return (arg);
@@ -43,8 +60,7 @@ char	*parse_n(char *arg)
 
 int	echo(char *str)
 {
-	if (!str)
-		return (1);
+	dprintf(1, "args = |%s|\n", str);
 	parse_n(str);
 	return (0);
 }

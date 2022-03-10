@@ -6,11 +6,13 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/09 14:49:23 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:10:09 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+int	g_ret_val = -1;
 
 void	ft_closer(int *redir, int pipes[2])
 {
@@ -57,10 +59,18 @@ void	ft_exec(char **args, char **env, int diff)
 	{
 		path = ft_check_path(args);
 		if (path)
+		{
 			if (execve(path, args, env) == -1)
-				dprintf(2, "ERROR WHILE LAUNCHING BINARY\n");
+				g_ret_val = 0;
+			else
+				g_ret_val = 1;
+		}
 	}
 	else if (!diff)
+	{
+		if (!ft_check_path(args))
+			kill (forks, SIGKILL);
 		waitpid(forks, 0, 0);
+	}
 	return ;
 }
