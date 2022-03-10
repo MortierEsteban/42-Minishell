@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 13:37:57 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/10 17:48:39 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	shinra_tensei(char *str, int quot, int *i, char **new)
 	return (0);
 }
 
-char	*parse_quote(char *str)
+char	*parse_quote(char *str, int p_s)
 {
 	int		i;
 	int		quot;
@@ -86,9 +86,9 @@ char	*parse_quote(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '~' && quot == 0)
+		if (p_s && str[i] == '~' && quot == 0)
 			new = ft_strjoin(new, getenv("HOME"));
-		else if (shinra_tensei(str, quot, &i, &new))
+		else if (p_s && shinra_tensei(str, quot, &i, &new))
 			continue ;
 		else if (str[i] == '\'' && quot == 0)
 			quot = 1;

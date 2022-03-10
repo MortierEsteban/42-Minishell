@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 17:21:55 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:54:08 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_heredoc(t_cmd arg, int memory[2])
 		dup2(memory[1], STDOUT);
 		while (arg.h_doc->next)
 		{
-			dprintf(2, "current = %s\n", arg.h_doc->content);
+			dprintf(2, "current = %s\n", (char *) arg.h_doc->content);
 			line = readline("<");
 			if (!ft_strcmp(line, arg.h_doc->content))
 				arg.h_doc = arg.h_doc->next;
@@ -37,14 +37,14 @@ int	ft_heredoc(t_cmd arg, int memory[2])
 		}
 		while (42)
 		{
-			dprintf(2, "Current = |%s|\n", arg.h_doc->content);
+			dprintf(2, "Current = |%s|\n", (char *) arg.h_doc->content);
 			line = readline("final<");
 			tmp = ft_strdup(line);
 			free(line);
 			line = tmp;
-			line = parse_quote(line);
 			if (ft_strcmp(line, arg.h_doc->content))
 			{
+				line = pre_parse_quote(line);
 				ft_putstr_fd(line, pipes[1]);
 				ft_putchar_fd('\n', pipes[1]);
 			}
