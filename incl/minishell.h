@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 11:31:21 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:47:10 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@
 //STATE_OUT = 2 -> '>>'
 //STATE_IN = 1 -> '<'
 //STATE_IN = ? -> '<<'
+# ifndef G_EX_STATUS
+#  define G_EX_STATUS
 
+extern unsigned char	g_ex_status;
+
+# endif
 typedef struct s_cmd
 {
 	char	**cmd;
@@ -98,7 +103,7 @@ int		pipex_process(t_cmd *args, char **env);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 
 //REDIR
-int		*redir_handler(t_cmd cmd, int *pipe_exit);
-int		*ft_redirects(t_cmd args);
+int	*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2]);
+int	*ft_redirects(t_cmd args, int memory[2]);
 void	ft_touch_files(char *filename);
 #endif

@@ -6,14 +6,13 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 11:30:51 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:45:58 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-int	g_ret_val = -1;
-
+unsigned char	g_ex_status = 0;
 void	ft_closer(int *redir, int pipes[2])
 {
 	close (pipes[1]);
@@ -30,7 +29,7 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 
 	if (pipe(pipes) == -1)
 		pipes_error ();
-	redir_fd = redir_handler(args[i], pipe_exit);
+	redir_fd = redir_handler(args[i], pipe_exit, memory);
 	cmdsnb = nb_cmds(args) -1;
 	dup2(redir_fd[0], STDIN);
 	if (redir_fd[0] != 0)
@@ -53,6 +52,7 @@ void	ft_exec(char **args, char **env, int diff)
 {
 	pid_t	forks;
 	char	*path;
+	int		stat;
 
 	forks = fork();
 	if (forks == 0)
@@ -61,21 +61,16 @@ void	ft_exec(char **args, char **env, int diff)
 		if (path)
 		{
 			if (execve(path, args, env) == -1)
-			{
-				g_ret_val = 0;
-				return ;
-			}
-			else
-				g_ret_val = 1;
+				g_ex_status = 1;
 		}
 		else
-			dprintf(2, "TROUBLE WHEN FINDING BINARY");
+			exit (0);
 	}
 	else if (!diff)
 	{
-		if (!ft_check_path(args))
-			kill (forks, SIGTERM);
-		waitpid(forks, 0, 0);
+		waitpid(forks, &stat, 0);
+		g_ex_status = WEXITSTATUS(stat);
+		dprintf(2, "EXIT STAT = %d\n", g_ex_status);
 	}
 	return ;
 }
