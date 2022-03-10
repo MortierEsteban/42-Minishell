@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 14:47:10 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:17:06 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@
 //STATE_OUT = 1 -> '>'
 //STATE_OUT = 2 -> '>>'
 //STATE_IN = 1 -> '<'
-//STATE_IN = ? -> '<<'
+//STATE_IN = 2 -> '<<'
+
 # ifndef G_EX_STATUS
 #  define G_EX_STATUS
 
 extern unsigned char	g_ex_status;
 
 # endif
+
 typedef struct s_cmd
 {
 	char	**cmd;

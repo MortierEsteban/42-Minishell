@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 09:06:34 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/10 12:15:45 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@ void	input_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 void	heredoc_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 {
 	if (!cmd->h_doc)
+	{
+		cmd->state_in = 2;
 		cmd->h_doc = ft_lstnew((void *) tmp);
+	}
 	else
 	{
+		cmd->state_in = 2;
 		l_tmp = ft_lstlast(cmd->h_doc);
 		ft_lstadd_back(&l_tmp, ft_lstnew((void *) tmp));
 	}
