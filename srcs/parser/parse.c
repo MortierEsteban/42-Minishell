@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 13:43:54 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 20:12:44 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	no_pipe(t_cmd *s_cmd_line, char *str)
 	}
 	init_lst(s_cmd_line, 0);
 	str = redir(str, &s_cmd_line[0]);
+	str = pre_parse_quote(str);
 	s_cmd_line[0].cmd = split(str, ' ');
 	if (!s_cmd_line)
 		return ;
@@ -50,19 +51,17 @@ void	parse_pipe(t_cmd *s_cmd_line, char *str)
 		return (ft_putstr_fd("Oops something went wrong.\n", 2));
 	cmd_line = split(str, '|');
 	if (!cmd_line)
-		return ;
-	i = 0;
-	while (cmd_line && cmd_line[i])
+		return (ft_putstr_fd("Oops something went wrong.\n", 2));
+	while (cmd_line && cmd_line[++i])
 	{
 		init_lst(s_cmd_line, i);
 		cmd_line[i] = redir(cmd_line[i], &s_cmd_line[i]);
 		s_cmd_line[i].cmd = split(cmd_line[i], ' ');
+		if (!s_cmd_line[i].cmd)
+			return (ft_putstr_fd("Oops something went wrong.\n", 2));
 		j = -1;
 		while (s_cmd_line[i].cmd[++j])
 			s_cmd_line[i].cmd[j] = parse_quote(s_cmd_line[i].cmd[j]);
-		if (!s_cmd_line[i].cmd)
-			return ;
-		i++;
 	}
 	s_cmd_line[i].cmd = NULL;
 }
@@ -75,15 +74,12 @@ t_cmd	*parser(char *str)
 	if (!str || !ft_strncmp("", str, 1) || is_onlyspace(str))
 		return (NULL);
 	c_p = count_pipe(str);
-	remove_n(str);
 	if (c_p == -1)
 	{
 		s_cmd_line = gc_malloc(sizeof(t_cmd) * 2);
 		no_pipe(s_cmd_line, str);
 	}
 	else if (c_p == -2)
-		return (NULL);
-	else if (c_p == -3)
 		return (NULL);
 	else
 	{

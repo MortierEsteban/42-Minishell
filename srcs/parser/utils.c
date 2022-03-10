@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/08 18:53:46 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/09 16:35:58 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ int	count_pipe(char *str)
 		if (str[i] == '"' || str[i] == '\'')
 		{
 			c = str[i++];
+			if (i == ft_strlen(str))
+				return (-2);
 			while (str && str[i] && str[i] != c \
 					&& i <= ft_strlen(str))
-			{
-				if (i == ft_strlen(str))
+				if (++i == ft_strlen(str))
 					return (-2);
-				i++;
-			}
 		}
 		else if (str[i] == '|')
 			j++;
