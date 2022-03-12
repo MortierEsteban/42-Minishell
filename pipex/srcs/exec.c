@@ -6,13 +6,14 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 16:31:13 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/12 12:45:08 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
 unsigned char	g_ex_status = 0;
+
 void	ft_closer(int *redir, int pipes[2])
 {
 	close (pipes[1]);
@@ -61,7 +62,10 @@ void	ft_exec(char **args, char **env, int diff)
 		if (path)
 		{
 			if (execve(path, args, env) == -1)
+			{
+				dprintf(2, "minishell: Failed to launch binary\n");
 				g_ex_status = 1;
+			}
 		}
 		else
 			exit (0);

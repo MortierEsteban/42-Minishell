@@ -3,25 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 17:55:17 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/03 13:53:40 by lsidan           ###   ########lyon.fr   */
+/*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
+/*   Updated: 2022/03/12 17:04:26 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-int	export(char **env, int fd)
+char	**ft_envcpy(char **env)
 {
-	int	i;
+	char	**cpy;
+	int		i;
 
+	i = 0;
+	while (env[i])
+		i++;
+	cpy = gc_malloc(sizeof(char *) * i + 1);
+	if (!cpy)
+		return (NULL);
 	i = -1;
 	while (env[++i])
+		cpy[i] = ft_strdup(env[i]);
+	cpy[i] = NULL;
+	return (cpy);
+}
+
+int	ft_export(char **env, t_cmd cmd)
+{
+	char	**sorted;
+	int		i;
+
+	(void)cmd;
+	sorted = ft_sort_env(env);
+	i = -1;
+	while (sorted[++i])
 	{
-		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(env[i], fd);
-		ft_putchar_fd('\n', fd);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(sorted[i], 1);
+		ft_putstr_fd("\n", 1);
 	}
 	return (0);
 }

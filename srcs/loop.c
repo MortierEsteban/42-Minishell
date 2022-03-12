@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 17:55:59 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/12 12:48:01 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*parse_home_path(char *path)
 	if (!path)
 		return (NULL);
 	home_path = getenv("HOME");
+	dprintf(1, "Ret_val of prev = %d\n", g_ex_status);
 	if (!*(path + ft_strlen(home_path)))
 		new = ft_strdup("~");
 	else
@@ -131,7 +132,7 @@ void	sh_loop(char **env)
 				parse_list(c_line[i].input);
 				parse_list(c_line[i].output);
 				parse_list(c_line[i].h_doc);
-				print_debug(c_line, i);
+				// print_debug(c_line, i);
 			}
 			i = -1;
 			pipex_process(c_line, env);

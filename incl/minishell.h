@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 17:49:21 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:27:43 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <readline/history.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <dirent.h>
 # include "../libft/libft.h"
 # define STDIN 0
 # define STDOUT 1
@@ -62,13 +64,15 @@ int		is_charset(char c, char *charset);
 void	skip_char(char *s, int *i, char *charset);
 
 // LOOP
+char	*parse_home_path(char *path);
 void	sh_loop(char **env);
 
 //BUILT-IN
 int		echo(char *str);
 int		pwd(int fd);
 int		cd(const char *str);
-int		export(char **env, int fd);
+int		ft_export(char **env, t_cmd cmd);
+int		ft_bexit(char **cmd);
 
 //PARSING
 t_cmd	*parser(char *str);
