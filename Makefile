@@ -8,6 +8,8 @@ SRCS	=	main.c						\
 			srcs/builtin/echo.c			\
 			srcs/builtin/pwd.c			\
 			srcs/builtin/cd.c			\
+			srcs/builtin/exit.c			\
+			srcs/builtin/env.c			\
 			srcs/builtin/export.c		\
 			srcs/parser/parse.c			\
 			srcs/parser/parse_quote.c	\
