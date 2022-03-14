@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/12 12:43:42 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:12:10 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	nb_cmds(t_cmd *args)
 	}
 	return (i);
 }
+
 int	ft_isadir(char *cmd)
 {
 	DIR	*dirname;
@@ -60,7 +61,7 @@ char	*ft_here_type(char *cmd)
 		tmp = ft_strjoin(tmp, ": No such file or directory\n");
 	ft_putstr_fd(tmp, 2);
 	gc_free (tmp);
-	return(NULL);
+	return (NULL);
 }
 
 char	*ft_check_path(char **args)
@@ -86,6 +87,7 @@ char	*ft_check_path(char **args)
 		if (!access(path[i], F_OK | R_OK | X_OK))
 			return (path[i]);
 	}
+	g_ex_status = 127;
 	ft_putstr_fd("minishell: command not found\n", 2);
 	return (NULL);
 }

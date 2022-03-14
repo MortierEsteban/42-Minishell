@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/14 13:18:40 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:37:07 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ int	ft_export(char **env, t_cmd cmd)
 	int		i;
 
 	(void)cmd;
-	sorted = ft_sort_env(env);
+	(void) env;
+	sorted = NULL;
+	// sorted = ft_sort_env(env);
 	i = -1;
 	if (cmd.cmd[1] == NULL)
 	{
