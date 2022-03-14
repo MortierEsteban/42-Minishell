@@ -6,11 +6,27 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 17:48:39 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/14 10:29:56 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+void	s_machine_quote(int *quot, char *str, int i);
+
+void	s_machine_quote(int *quot, char *str, int i)
+{
+	int	_q;
+
+	_q = *quot;
+	if (str[i] == '\'' && !_q)
+		_q = 1;
+	else if (str[i] == '\"' && !_q)
+		_q = 2;
+	else if ((str[i] == '\"' && _q == 2) || (str[i] == '\'' && _q == 1))
+		_q = 0;
+	*quot = _q;
+}
 
 char	*pre_parse_quote(char *str)
 {
@@ -27,12 +43,7 @@ char	*pre_parse_quote(char *str)
 	{
 		if (shinra_tensei(str, quot, &i, &new))
 			continue ;
-		else if (str[i] == '\'' && quot == 0)
-			quot = 1;
-		else if (str[i] == '\"' && quot == 0)
-			quot = 2;
-		else if ((str[i] == '\"' && quot == 2) || (str[i] == '\'' && quot == 1))
-			quot = 0;
+		s_machine_quote(&quot, str, i);
 		new = ft_strljoin(new, &str[i], 1);
 		i++;
 	}
@@ -40,34 +51,46 @@ char	*pre_parse_quote(char *str)
 	return (new);
 }
 
+char	*get_env_name(char *str, int *j)
+{
+	int		_j;
+	char	*tmp;
+
+	tmp = NULL;
+	_j = *j;
+	while (str && str[_j] && stop(str[_j], TABLE))
+	{
+		if (!tmp)
+			tmp = ft_strdup("");
+		else
+			tmp = ft_strljoin(tmp, &str[_j], 1);
+		_j++;
+	}
+	*j = _j;
+	return (tmp);
+}
+
 int	shinra_tensei(char *str, int quot, int *i, char **new)
 {
-	int		j;
 	char	*tmp;
 	char	*tmp2;
 
 	tmp = NULL;
 	tmp2 = NULL;
-	j = *i;
-	if (str[j] == '$' && (quot == 0 || quot == 2))
+	if (str[*i] == '$' && (quot == 0 || quot == 2))
 	{
-		if (str[j + 1] == '?')
-			return (0 * dprintf(1, "EXIT VALUE :"));
-		while (str && str[j] && str[j] != '/' && \
-				str[j] != ' ' && str[j] != '"' && str[j] != '\'')
+		if (str[*i + 1] == '?')
 		{
-			if (!tmp)
-				tmp = ft_strdup("");
-			else
-				tmp = ft_strljoin(tmp, &str[j], 1);
-			j++;
+			*new = ft_strjoin(*new, ft_itoa(g_ex_status));
+			*i += 2;
+			return (1);
 		}
+		tmp = get_env_name(str, i);
 		tmp2 = getenv(tmp);
 		if (tmp2)
 			*new = ft_strjoin(*new, tmp2);
 		gc_free(tmp);
 		gc_free(tmp2);
-		*i = j;
 		return (1);
 	}
 	return (0);
@@ -90,13 +113,8 @@ char	*parse_quote(char *str, int p_s)
 			new = ft_strjoin(new, getenv("HOME"));
 		else if (p_s && shinra_tensei(str, quot, &i, &new))
 			continue ;
-		else if (str[i] == '\'' && quot == 0)
-			quot = 1;
-		else if (str[i] == '\"' && quot == 0)
-			quot = 2;
-		else if ((str[i] == '\"' && quot == 2) || (str[i] == '\'' && quot == 1))
-			quot = 0;
-		else if ((str[i] == '\"' && quot == 1) || (str[i] == '\'' && quot == 2)
+		s_machine_quote(&quot, str, i);
+		if ((str[i] == '\"' && quot == 1) || (str[i] == '\'' && quot == 2)
 			|| (str[i] != '\"' && str[i] != '\''))
 			new = ft_strljoin(new, &str[i], 1);
 		i++;

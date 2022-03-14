@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/12 15:27:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:18:27 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ extern unsigned char	g_ex_status;
 
 # endif
 
+# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$"
+
 typedef struct s_cmd
 {
 	char	**cmd;
@@ -57,15 +59,15 @@ typedef struct s_cmd
 char	***create_var_tab(char **env);
 
 // SPLIT
+void	skip_char(char *s, int *i, char *charset);
 char	**split(char const *s, char c);
 char	*strdup_pimp(char *str, int len);
-int		w_len(char *str, char *charset);
 int		is_charset(char c, char *charset);
-void	skip_char(char *s, int *i, char *charset);
+int		w_len(char *str, char *charset);
 
 // LOOP
-char	*parse_home_path(char *path);
 void	sh_loop(char **env);
+char	*parse_home_path(char *path);
 
 //BUILT-IN
 int		echo(char *str);
@@ -77,39 +79,41 @@ int		ft_bexit(char **cmd);
 //PARSING
 t_cmd	*parser(char *str);
 void	join_args(t_cmd *s_cmd_line);
-char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
-char	*parse_quote(char *str, int p_s);
+void	s_machine_quote(int *quot, char *str, int i);
 void	init_lst(t_cmd *cmd, int i);
+char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
 char	*pre_parse_quote(char *str);
+char	*parse_quote(char *str, int p_s);
 int		shinra_tensei(char *str, int quot, int *i, char **new);
 
 //REDIR
-char	*redir(char *str, t_cmd *cmd);
 void	which_case(t_cmd *cmd, char *tmp, char c, char d);
 void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
+char	*redir(char *str, t_cmd *cmd);
 char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
 int		cpy_str(char *str, char **new, int *i);
 
 //UTILS
+void	free_cmd(t_cmd	*c_line);
 char	**ft_malloc_error(char **tab);
 char	**get_path(void);
 char	*get_env_var(char *var);
 int		count_pipe(char *str);
 int		remove_n(char *str);
-void	free_cmd(t_cmd	*c_line);
 int		is_onlyspace(char *str);
 
 //PIPEX
 void	pipes_error(void);
-int		nb_cmds(t_cmd *args);
-char	*ft_check_path(char **args);
 void	ft_exec(char **args, char **env, int diff);
-int		pipex_process(t_cmd *args, char **env);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
+char	*ft_check_path(char **args);
+int		nb_cmds(t_cmd *args);
+int		pipex_process(t_cmd *args, char **env);
+int		stop(char c, char *table);
 
 //REDIR
-int	*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2]);
-int	*ft_redirects(t_cmd args, int memory[2]);
 void	ft_touch_files(char *filename);
+int		*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2]);
+int		*ft_redirects(t_cmd args, int memory[2]);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:42:51 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/11 10:34:25 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/14 09:20:20 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_itoa(int nb)
 
 	nb1 = nb;
 	digits = ft_count_digits(nb);
-	str = (char *)malloc(digits * sizeof(char) + 1);
+	str = (char *)gc_malloc(digits * sizeof(char) + 1);
 	if (str == NULL)
 		return (NULL);
 	if (nb == 0)
