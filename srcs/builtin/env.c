@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:55:17 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 13:21:44 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:17:38 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ int	ft_env(char **env, int fd)
 	i = -1;
 	while (env[++i])
 	{
-		ft_putstr_fd(env[i], fd);
-		ft_putchar_fd('\n', fd);
+		if (ft_strchr(env[i], '='))
+		{
+			ft_putstr_fd(env[i], fd);
+			ft_putchar_fd('\n', fd);
+		}
 	}
 	return (0);
 }

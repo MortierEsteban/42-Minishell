@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/14 14:06:32 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:07:33 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_exec(char **args, char **env, int diff)
 			if (execve(path, args, env) == -1)
 			{
 				dprintf(2, "minishell: Failed to launch binary\n");
-				g_ex_status = 1;
+				g_ex_status = 126;
 			}
 		}
 		else

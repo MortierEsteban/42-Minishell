@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/14 14:34:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:15:34 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	print_debug(t_cmd *c_line, int i)
 	print(c_line[i].h_doc);
 }
 
-void	sh_loop(char **env)
+void	sh_loop(char ***env)
 {
 	char	*line;
 	char	*prompt;

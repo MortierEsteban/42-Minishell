@@ -6,19 +6,19 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 12:09:03 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:17:30 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-int	ft_sort_built(t_cmd arg, char **env)
+int	ft_sort_built(t_cmd arg, char ***env)
 {
 	int	status;
 
 	status = 1;
 	if (!ft_strcmp(arg.cmd[0], "exit"))
-		status = ft_bexit(arg.cmd, env);
+		status = ft_bexit(arg.cmd, *env);
 	if (!ft_strcmp(arg.cmd[0], "pwd"))
 		status = pwd(1);
 	if (!ft_strcmp(arg.cmd[0], "export"))
@@ -26,11 +26,11 @@ int	ft_sort_built(t_cmd arg, char **env)
 	if (!ft_strcmp(arg.cmd[0], "cd"))
 		status = cd(arg.cmd[1]);
 	if (!ft_strcmp(arg.cmd[0], "env"))
-		status = ft_env(env, 1);
+		status = ft_env(*env, 1);
 	return (status);
 }
 
-int	pipex_process(t_cmd *args, char **env)
+int	pipex_process(t_cmd *args, char ***env)
 {
 	int	memory[2];
 	int	pipe_exit;
@@ -47,7 +47,7 @@ int	pipex_process(t_cmd *args, char **env)
 	{
 		ft_pipex_dup(i, args, memory, &pipe_exit);
 		if (ft_sort_built(args[i], env))
-			ft_exec(args[i].cmd, env, cmdsnb - i);
+			ft_exec(args[i].cmd, *env, cmdsnb - i);
 	}
 	dup2 (memory[0], STDIN);
 	dup2 (memory[1], STDOUT);

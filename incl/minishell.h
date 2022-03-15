@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 12:34:19 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:28:01 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_cmd
 char	***create_var_tab(char **env);
 int		ft_find_var(char **env, char *var);
 
-
 // SPLIT
 void	skip_char(char *s, int *i, char *charset);
 char	**split(char const *s, char c);
@@ -68,18 +67,24 @@ int		is_charset(char c, char *charset);
 int		w_len(char *str, char *charset);
 
 // LOOP
-void	sh_loop(char **env);
+void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
 
 //BUILT-IN
 int		echo(char *str);
 int		pwd(int fd);
 int		cd(const char *str);
-int		ft_export(char **env, t_cmd cmd);
-char	**ft_envcpy(char **env);
+int		ft_export(char ***env, t_cmd cmd);
 int		ft_bexit(char **cmd, char **env);
 int		ft_env(char **env, int fd);
 
+//BUILT-IN-TRASH
+char	**ft_envcpy(char **env);
+char	**ft_resize_env(char **env, int nb);
+void	ft_free_sorted(char **env);
+char	*ft_strdup_nogc(char *s1);
+char	**ft_sort_env(char **env);
+char	**ft_add_quotes(char **sorted);
 
 //PARSING
 t_cmd	*parser(char *str);
@@ -114,7 +119,7 @@ void	ft_exec(char **args, char **env, int diff);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 char	*ft_check_path(char **args);
 int		nb_cmds(t_cmd *args);
-int		pipex_process(t_cmd *args, char **env);
+int		pipex_process(t_cmd *args, char ***env);
 int		stop(char c, char *table);
 
 //REDIR

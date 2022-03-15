@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 12:06:06 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:12:20 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void ft_exit_free(int	nb, char **env)
 	exit (nb);
 }
 
-int	ft_atoi_exit(const char *str, char **env)
+int	ft_atol_exit(const char *str, char **env)
 {
-	int	i;
-	int	nb;
-	int	sign;
+	int			i;
+	long int	nb;
+	int			sign;
 
 	i = 0;
 	sign = 1;
@@ -72,7 +72,7 @@ int	ft_bexit(char **cmd, char **env)
 	else if (nb_args == 1)
 		exit(0);
 	else
-		ft_atoi_exit(cmd[1], env);
+		ft_atol_exit(cmd[1], env);
 	g_ex_status = 1;
 	return (0);
 }
