@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:16:37 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 17:23:41 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:45:04 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_remove_env(char ***env, int pos)
 		if (i == pos)
 		{
 			j = -1;
+			free((*env)[i]);
 			continue ;
 		}
 		new_env[i + j] = ft_strdup_nogc((*env)[i]);
@@ -40,14 +41,23 @@ int	ft_unset(char ***env, t_cmd cmd )
 {
 	int		i;
 	int		pos;
+	char	*error;
 
 	i = -1;
 	while (cmd.cmd[++i])
 	{
-		pos = ft_find_var(*env, cmd.cmd[i]);
-		if (pos == -1)
+		if (parse_env_name(cmd.cmd[i]))
+		{
+			error = ft_strjoin("minishell: unset: `", cmd.cmd[i]);
+			error = ft_strjoin(error, "'`: not a valid identifier\n");
+			ft_putstr_fd(error, 2);
+			gc_free (error);
 			continue ;
-		ft_remove_env(env, pos);
+		}
+		pos = ft_find_var(*env, cmd.cmd[i]);
+		if (pos != -1)
+			ft_remove_env(env, pos);
 	}
 	return (0);
 }
+//bash: unset: `salut2=': not a valid identifier

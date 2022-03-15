@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 17:57:09 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:40:42 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,25 @@ char	**ft_sort_env(char **env)
 	return (sorted);
 }
 
+int	parse_env_name(char *varname)
+{
+	int	i;
+
+	i = -1;
+	if (!varname)
+		return (1);
+	if (ft_isdigit(varname[0]))
+		return (1);
+	while (varname[++i])
+		if (!stop(varname[i], TABLE))
+			return (1);
+	return (0);
+}
+
 int	ft_cmp_env_varname(char *env, char *var)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (env[i] && var[i] && var[i] != '=' && env[i] != '=')
@@ -68,7 +84,12 @@ int	ft_cmp_env_varname(char *env, char *var)
 			return (1);
 		i++;
 	}
-	if (env[i] == var[i])
+	j = i;
+	if (env[i] == '=' || env[i] == '\0')
+		i--;
+	if (var[j] == '=' || var[j] == '\0')
+		j--;
+	if (env[i] == var[j])
 		return (0);
 	return (1);
 }

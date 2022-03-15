@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 16:55:55 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:40:30 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ extern unsigned char	g_ex_status;
 
 # endif
 
-# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$"
+# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_$"
 
 typedef struct s_cmd
 {
@@ -86,6 +86,8 @@ void	ft_free_sorted(char **env);
 char	*ft_strdup_nogc(char *s1);
 char	**ft_sort_env(char **env);
 char	**ft_add_quotes(char **sorted);
+int		parse_env_name(char *varname);
+
 
 //PARSING
 t_cmd	*parser(char *str);
