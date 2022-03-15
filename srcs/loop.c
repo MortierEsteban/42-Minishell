@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:15:34 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:08:19 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*parse_home_path(char *path)
 	if (!path)
 		return (NULL);
 	home_path = getenv("HOME");
-	dprintf(1, "Ret_val of prev = %d\n", g_ex_status);
 	if (!*(path + ft_strlen(home_path)))
 		new = ft_strdup("~");
 	else

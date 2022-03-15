@@ -10,6 +10,7 @@ SRCS	=	main.c									\
 			srcs/builtin/cd.c						\
 			srcs/builtin/exit.c						\
 			srcs/builtin/env.c						\
+			srcs/builtin/unset.c						\
 			srcs/builtin/export/export.c			\
 			srcs/builtin/export/env_manip.c			\
 			srcs/builtin/export/alloc_env.c			\

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 16:28:01 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:55:55 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		cd(const char *str);
 int		ft_export(char ***env, t_cmd cmd);
 int		ft_bexit(char **cmd, char **env);
 int		ft_env(char **env, int fd);
+int		ft_unset(char ***env, t_cmd cmd );
 
 //BUILT-IN-TRASH
 char	**ft_envcpy(char **env);

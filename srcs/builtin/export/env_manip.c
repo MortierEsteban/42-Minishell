@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 16:24:08 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:57:09 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	ft_cmp_env_varname(char *env, char *var)
 			return (1);
 		i++;
 	}
-	return (0);
+	if (env[i] == var[i])
+		return (0);
+	return (1);
 }
 
 int	ft_find_var(char **env, char *var)

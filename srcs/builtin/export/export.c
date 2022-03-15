@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 16:29:19 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:47:56 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,14 @@ void	export_wargs(char ***env, t_cmd cmd)
 	while (cmd.cmd[++i])
 	{
 		pos = ft_find_var(*env, cmd.cmd[i]);
+		dprintf(2, "cmd= %s\n, pos = %d\n", cmd.cmd[i], pos);
 		if (pos >= 0 && ft_strchr(cmd.cmd[i], '='))
 		{
 			free((*env)[pos]);
 			(*env)[pos] = ft_strdup_nogc(cmd.cmd[i]);
 		}
 		else if (pos < 0)
-		{
 			ft_add_env(env, cmd.cmd[i]);
-		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 15:17:30 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:56:19 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_sort_built(t_cmd arg, char ***env)
 {
 	int	status;
 
-	status = 1;
+	status = -1;
 	if (!ft_strcmp(arg.cmd[0], "exit"))
 		status = ft_bexit(arg.cmd, *env);
 	if (!ft_strcmp(arg.cmd[0], "pwd"))
@@ -27,6 +27,10 @@ int	ft_sort_built(t_cmd arg, char ***env)
 		status = cd(arg.cmd[1]);
 	if (!ft_strcmp(arg.cmd[0], "env"))
 		status = ft_env(*env, 1);
+	if (!ft_strcmp(arg.cmd[0], "unset"))
+		status = ft_unset(env, arg);
+	if (status >= 0)
+		g_ex_status = status;
 	return (status);
 }
 
