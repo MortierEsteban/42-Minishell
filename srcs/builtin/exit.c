@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/12 13:09:07 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:06:06 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,18 @@ int	ft_nb_arg(char **cmd)
 	}
 	return (i);
 }
+void ft_exit_free(int	nb, char **env)
+{
+	int	i;
 
-int	ft_atoi_exit(const char *str)
+	i = -1;
+	while (env[++i])
+		free(env[i]);
+	free(env);
+	exit (nb);
+}
+
+int	ft_atoi_exit(const char *str, char **env)
 {
 	int	i;
 	int	nb;
@@ -47,12 +57,12 @@ int	ft_atoi_exit(const char *str)
 		i++;
 	}
 	if (str[i] == '\0')
-		exit (nb * sign);
+		ft_exit_free(nb * sign, env);
 	ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 	return (-1);
 }
 
-int	ft_bexit(char **cmd)
+int	ft_bexit(char **cmd, char **env)
 {
 	int	nb_args;
 
@@ -62,7 +72,7 @@ int	ft_bexit(char **cmd)
 	else if (nb_args == 1)
 		exit(0);
 	else
-		ft_atoi_exit(cmd[1]);
+		ft_atoi_exit(cmd[1], env);
 	g_ex_status = 1;
 	return (0);
 }

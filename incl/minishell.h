@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/14 10:18:27 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/15 12:34:19 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_cmd
 
 //ENV VAR
 char	***create_var_tab(char **env);
+int		ft_find_var(char **env, char *var);
+
 
 // SPLIT
 void	skip_char(char *s, int *i, char *charset);
@@ -74,7 +76,10 @@ int		echo(char *str);
 int		pwd(int fd);
 int		cd(const char *str);
 int		ft_export(char **env, t_cmd cmd);
-int		ft_bexit(char **cmd);
+char	**ft_envcpy(char **env);
+int		ft_bexit(char **cmd, char **env);
+int		ft_env(char **env, int fd);
+
 
 //PARSING
 t_cmd	*parser(char *str);

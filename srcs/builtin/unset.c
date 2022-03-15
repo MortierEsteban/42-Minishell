@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 12:25:43 by emortier         ###   ########.fr       */
+/*   Created: 2022/03/15 12:16:37 by emortier          #+#    #+#             */
+/*   Updated: 2022/03/15 12:23:07 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "incl/minishell.h"
+#include "../../incl/minishell.h"
 
-void	ft_ctrlc(int sig)
+void	ft_unset(char **env, t_cmd)
 {
-	(void)sig;
-	printf("minishell>\n");
-}
-
-int	main(int ac, char **av, char **env)
-{
-	(void) 	ac;
-	(void) 	av;
-	char	**env_cpy;
+	char	**new;
+	int		*avoid;
 	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
 	
-	i = -1;
-	env_cpy = ft_envcpy(env);
-	sh_loop(env_cpy);
-	usleep(20);
-	gc_destroy();
-	return (0);
+	
 }

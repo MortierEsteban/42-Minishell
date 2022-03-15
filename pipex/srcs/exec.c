@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/14 10:23:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/14 14:06:32 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_exec(char **args, char **env, int diff)
 	else if (!diff)
 	{
 		waitpid(forks, &stat, 0);
-		// g_ex_status = WEXITSTATUS(stat);
+		g_ex_status = WEXITSTATUS(stat);
 	}
 	return ;
 }
