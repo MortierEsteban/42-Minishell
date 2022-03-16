@@ -6,30 +6,38 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 18:40:42 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:14:47 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/minishell.h"
 
-char	**ft_envcpy(char **env)
+char	**ft_envcpy(char **env, int p_s)
 {
 	char	**cpy;
+	int		pos;
 	int		i;
 
 	i = 0;
 	while (env[i])
 		i++;
+	if (i == 0)
+		return (ft_recreate_env());
 	cpy = malloc(sizeof(char *) * (i + 1));
 	if (!cpy)
 		return (NULL);
-	i = 0;
-	while (env[i])
-	{
+	i = -1;
+	while (env[++i])
 		cpy[i] = ft_strdup_nogc(env[i]);
-		i++;
-	}
 	cpy[i] = NULL;
+	if (p_s)
+	{
+		ft_shlvl(&cpy);
+		pos = ft_find_var(env, "OLDPWD");
+		if (pos >= 0)
+			ft_remove_env(&cpy, pos);
+		ft_add_env(&cpy, "OLDPWD");
+	}
 	return (cpy);
 }
 
@@ -40,7 +48,7 @@ char	**ft_sort_env(char **env)
 	int		i;
 
 	i = 0;
-	sorted = ft_envcpy(env);
+	sorted = ft_envcpy(env, 0);
 	while (sorted[i] && sorted[i + 1])
 	{
 		if (ft_strcmp(sorted[i], sorted[i + 1]) > 0)
@@ -61,14 +69,17 @@ int	parse_env_name(char *varname)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (!varname)
 		return (1);
-	if (ft_isdigit(varname[0]))
+	if (ft_isdigit(varname[0]) || !stop(varname[0], TABLE))
 		return (1);
-	while (varname[++i])
+	while (varname[i] && varname[i] != '=')
+	{
 		if (!stop(varname[i], TABLE))
 			return (1);
+			i++;
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 14:12:20 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:32:53 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_nb_arg(char **cmd)
 	}
 	return (i);
 }
-void ft_exit_free(int	nb, char **env)
+
+void	ft_exit_free(int nb, char **env)
 {
 	int	i;
 
@@ -30,33 +31,43 @@ void ft_exit_free(int	nb, char **env)
 	while (env[++i])
 		free(env[i]);
 	free(env);
+	ft_putstr_fd("exit\n", 1);
 	exit (nb);
 }
 
-int	ft_atol_exit(const char *str, char **env)
+int	ft_sign(char *str, int *i)
 {
-	int			i;
-	long int	nb;
-	int			sign;
+	int	sign;
 
-	i = 0;
 	sign = 1;
-	nb = 0;
-	while (str[i] == ' ' || str[i] == '\n' || \
-		str[i] == '\t' || str[i] == '\v' || \
-			str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (ft_isspace(str[*i]))
+		(*i)++;
+	if (str[*i] == '-' || str[*i] == '+')
 	{
-		if (str[i++] == '-')
+		if (str[(*i)++] == '-')
 			sign *= -1;
 	}
+	return (sign);
+}
+
+int	ft_atol_exit(char *str, char **env)
+{
+	int					i;
+	unsigned long long	nb;
+	unsigned long long	max;
+	int					sign;
+
+	i = 0;
+	nb = 0;
+	sign = ft_sign(str, &i);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
-	if (str[i] == '\0')
+	max = 9223372036854775807;
+	if (str[i] == '\0' && \
+	((nb <= max && sign == 1) || (nb <= max + 1 && sign == -1)))
 		ft_exit_free(nb * sign, env);
 	ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 	return (-1);

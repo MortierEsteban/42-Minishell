@@ -6,29 +6,11 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 18:53:25 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:05:20 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/minishell.h"
-
-void	ft_add_env(char ***env, char *newvar)
-{
-	char	**new_env;
-	int		i;
-
-	i = -1;
-	new_env = ft_resize_env(*env, 1);
-	while ((*env)[++i])
-	{
-		new_env[i] = ft_strdup_nogc((*env)[i]);
-		free((*env)[i]);
-	}
-	new_env[i] = ft_strdup_nogc(newvar);
-	new_env[i + 1] = NULL;
-	free(*env);
-	*env = new_env;
-}
 
 char	*ft_needsquotes(char *sorted)
 {
@@ -68,6 +50,24 @@ char	**ft_add_quotes(char **sorted)
 		}
 	}
 	return (sorted);
+}
+
+void	ft_add_env(char ***env, char *newvar)
+{
+	char	**new_env;
+	int		i;
+
+	i = -1;
+	new_env = ft_resize_env(*env, 1);
+	while ((*env)[++i])
+	{
+		new_env[i] = ft_strdup_nogc((*env)[i]);
+		free((*env)[i]);
+	}
+	new_env[i] = ft_strdup_nogc(newvar);
+	new_env[i + 1] = NULL;
+	free(*env);
+	*env = new_env;
 }
 
 void	export_wargs(char ***env, t_cmd cmd)

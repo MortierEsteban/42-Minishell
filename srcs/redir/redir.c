@@ -6,11 +6,11 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 14:46:39 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:40:54 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "../../incl/minishell.h"
 
 int	*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2])
 {

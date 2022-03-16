@@ -2,31 +2,32 @@ NAME	=	minishell
 CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra -g #-fsanitize=address
 
-SRCS	=	main.c									\
-			srcs/loop.c								\
-			srcs/utils.c							\
-			srcs/builtin/echo.c						\
-			srcs/builtin/pwd.c						\
-			srcs/builtin/cd.c						\
-			srcs/builtin/exit.c						\
-			srcs/builtin/env.c						\
+SRCS	=	main.c										\
+			srcs/loop.c									\
+			srcs/utils.c								\
+			srcs/builtin/echo.c							\
+			srcs/builtin/pwd.c							\
+			srcs/builtin/cd.c							\
+			srcs/builtin/exit.c							\
+			srcs/builtin/env.c							\
 			srcs/builtin/unset.c						\
-			srcs/builtin/export/export.c			\
-			srcs/builtin/export/env_manip.c			\
-			srcs/builtin/export/alloc_env.c			\
-			srcs/parser/parse.c						\
-			srcs/parser/parse_quote.c				\
-			srcs/parser/utils.c						\
-			srcs/parser/join.c						\
-			srcs/parser/redir_utils.c				\
-			srcs/parser/redir.c						\
-			srcs/parser/split.c						\
-			srcs/parser/split_utils.c				\
-			pipex/pipex.c							\
-			pipex/srcs/exec.c						\
-			pipex/srcs/utils.c						\
-			redir/redir.c 							\
-			redir/utils.c 							\
+			srcs/builtin/export/export.c				\
+			srcs/builtin/export/utils_export.c			\
+			srcs/builtin/export/env_manip.c				\
+			srcs/builtin/export/alloc_env.c				\
+			srcs/parser/parse.c							\
+			srcs/parser/parse_quote.c					\
+			srcs/parser/utils.c							\
+			srcs/parser/join.c							\
+			srcs/parser/redir_utils.c					\
+			srcs/parser/redir.c							\
+			srcs/parser/split.c							\
+			srcs/parser/split_utils.c					\
+			srcs/pipex/pipex.c							\
+			srcs/pipex/srcs/exec.c						\
+			srcs/pipex/srcs/utils.c						\
+			srcs/redir/redir.c 							\
+			srcs/redir/utils.c 							\
 
 OBJS	=	${SRCS:.c=.o}
 OBJS_DIR	= objs/
@@ -38,9 +39,9 @@ all: libft $(NAME)
 
 $(OBJS_DIR)%.o:	%.c incl/minishell.h Makefile libft/libft.a
 		@mkdir -p $(OBJS_DIR)
-		@mkdir -p $(OBJS_DIR)pipex
-		@mkdir -p $(OBJS_DIR)pipex/srcs
-		@mkdir -p $(OBJS_DIR)redir
+		@mkdir -p $(OBJS_DIR)srcs/pipex
+		@mkdir -p $(OBJS_DIR)srcs/pipex/srcs
+		@mkdir -p $(OBJS_DIR)srcs/redir
 		@mkdir -p $(OBJS_DIR)srcs
 		@mkdir -p $(OBJS_DIR)srcs/parser
 		@mkdir -p $(OBJS_DIR)srcs/builtin

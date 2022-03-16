@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 18:40:30 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:21:47 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ extern unsigned char	g_ex_status;
 
 # endif
 
-# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_$"
+# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+abcdefghijklmnopqrstuvwxyz0123456789_$"
 
 typedef struct s_cmd
 {
@@ -58,6 +59,12 @@ typedef struct s_cmd
 //ENV VAR
 char	***create_var_tab(char **env);
 int		ft_find_var(char **env, char *var);
+void	ft_add_env(char ***env, char *newvar);
+void	ft_remove_env(char ***env, int pos);
+char	**ft_envcpy(char **env, int p_s);
+char	**ft_sort_env(char **env);
+char	**ft_resize_env(char **env, int nb);
+char	*ft_get_var_str(char ***env, char *var);
 
 // SPLIT
 void	skip_char(char *s, int *i, char *charset);
@@ -73,21 +80,20 @@ char	*parse_home_path(char *path);
 //BUILT-IN
 int		echo(char *str);
 int		pwd(int fd);
-int		cd(const char *str);
+int		cd(char *str, char ***env);
 int		ft_export(char ***env, t_cmd cmd);
 int		ft_bexit(char **cmd, char **env);
 int		ft_env(char **env, int fd);
 int		ft_unset(char ***env, t_cmd cmd );
 
 //BUILT-IN-TRASH
-char	**ft_envcpy(char **env);
-char	**ft_resize_env(char **env, int nb);
 void	ft_free_sorted(char **env);
 char	*ft_strdup_nogc(char *s1);
-char	**ft_sort_env(char **env);
 char	**ft_add_quotes(char **sorted);
 int		parse_env_name(char *varname);
-
+void	ft_shlvl(char ***env);
+char	**ft_recreate_env(void);
+void	ft_shlvl(char ***env);
 
 //PARSING
 t_cmd	*parser(char *str);

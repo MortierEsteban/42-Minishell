@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:16:37 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 18:45:04 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 13:36:49 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,22 @@ void	ft_remove_env(char ***env, int pos)
 	int		j;
 	int		i;
 
-	i = -1;
+	i = 0;
 	j = 0;
+	dprintf(2, "%dDEBUG\n", pos);
 	new_env = ft_resize_env(*env, -1);
-	while ((*env)[++i])
+	while ((*env)[i])
 	{
 		if (i == pos)
 		{
 			j = -1;
 			free((*env)[i]);
+			i++;
 			continue ;
 		}
 		new_env[i + j] = ft_strdup_nogc((*env)[i]);
 		free((*env)[i]);
+		i++;
 	}
 	new_env[i + j] = NULL;
 	free(*env);

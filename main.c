@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:15:27 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 12:45:56 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ void	ft_ctrlc(int sig)
 
 int	main(int ac, char **av, char **env)
 {
+	char	**env_cpy;
+	
 	(void) 	ac;
 	(void) 	av;
-	char	**env_cpy;
-	int		i;
-	
-	i = -1;
-	env_cpy = ft_envcpy(env);
+	env_cpy = ft_envcpy(env, 1);
 	sh_loop(&env_cpy);
 	usleep(20);
 	gc_destroy();

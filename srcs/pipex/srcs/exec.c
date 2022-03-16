@@ -6,11 +6,11 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 14:07:33 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:40:21 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/minishell.h"
+#include "../../../incl/minishell.h"
 
 unsigned char	g_ex_status = 0;
 
