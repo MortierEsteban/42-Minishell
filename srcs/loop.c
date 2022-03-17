@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 14:52:09 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:54:57 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,21 +129,21 @@ void	sh_loop(char ***env)
 			return (free(line));
 		else
 			c_line = parser(line);
+		add_history(line);
 		if (c_line)
 		{
-			add_history(line);
-			// join_args(c_line);
 			while (c_line && c_line[++i].cmd)
 			{
 				parse_list(c_line[i].input);
 				parse_list(c_line[i].output);
 				parse_list(c_line[i].h_doc);
-				// print_debug(c_line, i);
 			}
 			i = -1;
 			pipex_process(c_line, env);
 			free_cmd(c_line);
 		}
+		else
+			ft_putstr_fd("Parse Error\n", 2);
 		free(line);
 		gc_destroy();
 	}

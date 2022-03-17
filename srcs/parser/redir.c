@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 17:44:07 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 13:41:06 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	len_filename(char *str, int i)
 	return (i);
 }
 
-void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
+int	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 {
 	int		i;
 	int		j;
@@ -64,7 +64,6 @@ void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 	char	*tmp;
 
 	i = *k;
-	j = 0;
 	d = 0;
 	if (!cpy_str(str, new, &i) && (str[i] == '<' || str[i] == '>'))
 	{
@@ -73,15 +72,16 @@ void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 			d = str[i++];
 		while (ft_isspace(str[i]))
 			i++;
-		if (str[i] == '<' || str[i] == '>')
-			return (ft_putstr_fd("cassé", 2));
+		if (!str[i] || str[i] == '<' || str[i] == '>')
+			return (1);
 		j = len_filename(str, i);
 		tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");
-		which_case(cmd, tmp, c, d);
+		if (which_case(cmd, tmp, c, d))
+			return (1);
 		i = --j;
 	}
-	d = 0;
 	*k = i;
+	return (0);
 }
 
 char	*redir(char *str, t_cmd *cmd)
@@ -93,8 +93,10 @@ char	*redir(char *str, t_cmd *cmd)
 	new = NULL;
 	while (str[i])
 	{
-		wrap_redir(str, &new, cmd, &i);
-		i++;
+		if (wrap_redir(str, &new, cmd, &i))
+			return (NULL);
+		else
+			i++;
 	}
 	if (new)
 		return (new);

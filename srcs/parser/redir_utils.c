@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 12:15:45 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 13:42:16 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ void	append_case(t_cmd *cmd, char *tmp, t_list *l_tmp)
 	}
 }
 
-void	which_case(t_cmd *cmd, char *tmp, char c, char d)
+int	which_case(t_cmd *cmd, char *tmp, char c, char d)
 {
 	t_list	*l_tmp;
 
 	l_tmp = NULL;
-	if (!ft_strcmp(tmp, ""))
-		return (ft_putstr_fd("cassé", 2));
 	if (c == '<' && !d)
 		input_case(cmd, tmp, l_tmp);
 	else if (c == '<' && d)
@@ -87,4 +85,5 @@ void	which_case(t_cmd *cmd, char *tmp, char c, char d)
 		output_case(cmd, tmp, l_tmp);
 	else if (c == '>' && d)
 		append_case(cmd, tmp, l_tmp);
+	return (0);
 }
