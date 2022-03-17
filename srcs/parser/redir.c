@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:10:49 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 13:41:06 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	wrap_redir(char *str, char **new, t_cmd *cmd, int *k)
 			d = str[i++];
 		while (ft_isspace(str[i]))
 			i++;
-		if (str[i] == '<' || str[i] == '>')
+		if (!str[i] || str[i] == '<' || str[i] == '>')
 			return (1);
 		j = len_filename(str, i);
 		tmp = ft_strtrim(strdup_pimp(str + i, j - i), " ");

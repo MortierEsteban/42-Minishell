@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:41:57 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:10:31 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 13:42:16 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	which_case(t_cmd *cmd, char *tmp, char c, char d)
 	t_list	*l_tmp;
 
 	l_tmp = NULL;
-	if (!ft_strcmp(tmp, ""))
-		return (1);
 	if (c == '<' && !d)
 		input_case(cmd, tmp, l_tmp);
 	else if (c == '<' && d)
