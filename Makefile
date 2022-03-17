@@ -52,7 +52,7 @@ $(OBJS_DIR)%.o:	%.c incl/minishell.h Makefile libft/libft.a
 		printf	"\033[2K\r\033[0;33m[BUILD - $(NAME)]\033[0m $<\e[0m"
 
 $(NAME): $(OBJECTS_PREFIXED)
-		$(CC) $(CFLAGS) $(RL_LIB_DIR) $(OBJECTS_PREFIXED) -l readline -L libft -l ft  -framework CoreFoundation -o $(NAME)
+		$(CC) $(CFLAGS) $(RL_LIB_DIR) $(OBJECTS_PREFIXED) -l readline -L libft -l ft -o $(NAME)
 		@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)\e[0m"
 
 libft:

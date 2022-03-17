@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 18:13:54 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:51:59 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,36 @@ void	print_debug(t_cmd *c_line, int i)
 	print(c_line[i].h_doc);
 }
 
+void	ft_ctrlc(int sig)
+{
+	char	*tmp;
+	char	*prompt;
+
+	(void) sig;
+	rl_on_new_line();
+	tmp = getcwd((char *) NULL, 0);
+	prompt = parse_home_path(tmp);
+	free(tmp);
+	prompt = ft_strjoin(prompt, rl_line_buffer);
+	prompt = ft_strjoin(prompt, "  \b\b\n");
+	ft_putstr_fd(prompt, 2);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	ft_insane(int sig)
+{
+	char	*tmp;
+
+	(void) sig;
+	rl_on_new_line();
+	tmp = ft_strjoin(rl_line_buffer, "  \b\b");
+	dprintf(2, "rl= %s\n", rl_line_buffer);
+	dprintf(2, "tmp= %s\n", tmp);
+	rl_redisplay();
+}
+
 void	sh_loop(char ***env)
 {
 	char	*line;
@@ -130,16 +160,15 @@ void	sh_loop(char ***env)
 	c_line = NULL;
 	while (1)
 	{
+		signal(SIGINT, ft_ctrlc);
+		signal(SIGQUIT, ft_insane);
 		tmp = getcwd((char *) NULL, 0);
 		prompt = parse_home_path(tmp);
 		free(tmp);
 		line = readline(prompt);
 		gc_free(prompt);
-		if (!line || !ft_strcmp("exit", line))
-		{
-			ft_putstr_fd("\b\bexit\n", 1);
+		if (!line)
 			return (free(line));
-		}
 		else
 			c_line = parser(line);
 		add_history(line);
