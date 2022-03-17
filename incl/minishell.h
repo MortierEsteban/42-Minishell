@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 08:01:02 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 13:11:08 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ char	*parse_quote(char *str, int p_s);
 int		shinra_tensei(char *str, int quot, int *i, char **new);
 
 //REDIR
-void	which_case(t_cmd *cmd, char *tmp, char c, char d);
-void	wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
+int		which_case(t_cmd *cmd, char *tmp, char c, char d);
+int		wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
 char	*redir(char *str, t_cmd *cmd);
 char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
@@ -120,7 +120,6 @@ char	**ft_malloc_error(char **tab);
 char	**get_path(void);
 char	*get_env_var(char *var);
 int		count_pipe(char *str);
-int		remove_n(char *str);
 int		is_onlyspace(char *str);
 
 //PIPEX
