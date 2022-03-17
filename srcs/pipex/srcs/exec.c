@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 07:17:48 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 10:31:18 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	ft_exec(char **args, char **env, int diff)
 			if (execve(path, args, env) == -1)
 			{
 				dprintf(2, "minishell: Failed to launch binary\n");
-				g_ex_status = 126;
+				exit (126);
 			}
 		}
 		else
-			exit (0);
+			exit (127);
 	}
 	else if (!diff)
 	{
