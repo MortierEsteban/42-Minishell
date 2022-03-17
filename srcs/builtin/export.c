@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/12 17:04:26 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:52:11 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	ft_export(char **env, t_cmd cmd)
 	int		i;
 
 	(void)cmd;
-	sorted = ft_sort_env(env);
+	sorted = NULL;
+	(void) env;
 	i = -1;
 	while (sorted[++i])
 	{
