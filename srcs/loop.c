@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 18:51:59 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:17:01 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	ft_ctrlc(int sig)
 	prompt = ft_strjoin(prompt, rl_line_buffer);
 	prompt = ft_strjoin(prompt, "  \b\b\n");
 	ft_putstr_fd(prompt, 2);
+	gc_free(prompt);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -179,6 +180,7 @@ void	sh_loop(char ***env)
 				parse_list(c_line[i].input);
 				parse_list(c_line[i].output);
 				parse_list(c_line[i].h_doc);
+				print_debug(c_line, i);
 			}
 			i = -1;
 			pipex_process(c_line, env);

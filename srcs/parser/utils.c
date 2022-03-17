@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:35:29 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:10:58 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ int	check_quote(char *str, int *i)
 	char	c;
 
 	_i = *i;
+	c = 0;
 	if (str[_i] == '"' || str[_i] == '\'')
 	{
 		c = str[_i++];
 		if (_i == ft_strlen(str))
+		{
 			return (1);
+		}
 		while (str && str[_i] && str[_i] != c \
-				&& _i <= ft_strlen(str))
-			if (++_i == ft_strlen(str))
+				&& ++_i <= ft_strlen(str))
+			if (_i == ft_strlen(str))
 				return (1);
 	}
 	*i = _i;
@@ -43,12 +46,12 @@ int	count_pipe(char *str)
 	{
 		if (check_quote(str, &i))
 			return (-2);
-		else if (str[i] == '|')
+		if (str[i] == '|')
 		{
 			while (ft_isspace(str[++i]))
 			{
 			}
-			if (!str[i] || str[i] == '|')
+			if (!str[i] || str[i--] == '|')
 				return (-2);
 			else
 				j++;

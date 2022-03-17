@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 11:32:22 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:14:40 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	echo(char **cmd)
 	while (cmd[i])
 	{
 		ft_putstr_fd(cmd[i], STDOUT);
-		ft_putchar_fd(' ', STDOUT);
+		if (cmd[i + 1])
+			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
 	if (flag != 1)
@@ -95,6 +96,10 @@ char	*inter(char *s1, char *s2)
 	while (s2[++i])
 		wrap_inter(s2, i, &new, table);
 	if (!new || check_n(new + 1))
+	{
+		gc_free(new);
 		return (s1);
+	}
+	gc_free(s1);
 	return (new);
 }
