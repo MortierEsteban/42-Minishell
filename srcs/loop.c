@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 10:21:51 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 11:07:45 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,8 @@ void	sh_loop(char ***env)
 		prompt = parse_home_path(tmp);
 		free(tmp);
 		line = readline(prompt);
-		if (!line || !ft_strcmp("exit", line))
-		{
-			ft_putstr_fd("\b\bexit\n", 1);
+		if (!line)
 			return (free(line));
-		}
 		else
 			c_line = parser(line);
 		if (c_line)

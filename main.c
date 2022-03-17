@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 10:15:55 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 11:23:28 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 void	ft_ctrlc(int sig)
 {
+	char	*tmp;
+	char	*prompt;
+
 	(void)sig;
-	printf("minishell>\n");
+	tmp = getcwd((char *) NULL, 0);
+	prompt = parse_home_path(tmp);
+	free(tmp);
+	prompt = ft_strjoin("\n", prompt);
+	ft_putstr_fd (prompt, 1);
+}
+
+void	ft_insane(int	sig)
+{
+	(void) sig;
+	ft_putstr_fd("\b\b", 1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -25,6 +38,8 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	(void) env;
+	signal(SIGINT, ft_ctrlc);
+	signal(SIGQUIT, ft_insane);
 	env_cpy = ft_envcpy(env, 1);
 	sh_loop(&env_cpy);
 	usleep(20);
