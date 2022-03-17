@@ -1,49 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   alloc_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/12 17:52:11 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:18:16 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/minishell.h"
+#include "../../../incl/minishell.h"
 
-char	**ft_envcpy(char **env)
+char	*ft_strdup_nogc(char *s1)
 {
-	char	**cpy;
+	size_t		i;
+	char		*s2;
+
+	i = 0;
+	s2 = (char *) malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (s2 == NULL)
+		return (NULL);
+	else
+	{
+		while (s1[i])
+		{
+			s2[i] = s1[i];
+			i++;
+		}
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
+void	ft_free_sorted(char **env)
+{
+	int	i;
+
+	i = -1;
+	while (env[++i])
+		gc_free(env[i]);
+	free (env);
+}
+
+char	**ft_resize_env(char **env, int nb)
+{
+	char	**remalloc;
 	int		i;
 
 	i = 0;
 	while (env[i])
 		i++;
-	cpy = gc_malloc(sizeof(char *) * i + 1);
-	if (!cpy)
-		return (NULL);
-	i = -1;
-	while (env[++i])
-		cpy[i] = ft_strdup(env[i]);
-	cpy[i] = NULL;
-	return (cpy);
-}
-
-int	ft_export(char **env, t_cmd cmd)
-{
-	char	**sorted;
-	int		i;
-
-	(void)cmd;
-	sorted = NULL;
-	(void) env;
-	i = -1;
-	while (sorted[++i])
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(sorted[i], 1);
-		ft_putstr_fd("\n", 1);
-	}
-	return (0);
+	remalloc = malloc (sizeof(char *) * (i + 1 + nb));
+	return (remalloc);
 }

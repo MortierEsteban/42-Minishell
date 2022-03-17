@@ -6,11 +6,11 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/10 18:23:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:41:00 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "../../incl/minishell.h"
 
 void	ft_final_doc(int pipes[2], char *filename)
 {

@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/12 17:49:42 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:17:31 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*parse_home_path(char *path)
 	if (!path)
 		return (NULL);
 	home_path = getenv("HOME");
-	dprintf(1, "Ret_val of prev = %d\n", g_ex_status);
 	if (!*(path + ft_strlen(home_path)))
 		new = ft_strdup("~");
 	else
@@ -99,7 +98,7 @@ void	print_debug(t_cmd *c_line, int i)
 	print(c_line[i].h_doc);
 }
 
-void	sh_loop(char **env)
+void	sh_loop(char ***env)
 {
 	char	*line;
 	char	*prompt;

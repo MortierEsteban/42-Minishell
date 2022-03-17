@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 16:35:58 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:30:59 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,19 @@ char	**ft_malloc_error(char **tab)
 		gc_free(tab[i]);
 	gc_free(tab);
 	return (NULL);
+}
+
+int	stop(char c, char *table)
+{
+	int	i;
+
+	i = -1;
+	while (table[++i])
+	{
+		if (c == table[i])
+		{
+			return (1);
+		}
+	}
+	return (0);
 }

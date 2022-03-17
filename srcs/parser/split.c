@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 20:46:08 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/10 17:39:38 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/14 09:16:35 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,12 @@ int	count_w(char *s, char *charset)
 	return (w);
 }
 
-char	**split(char const *s, char c)
+char	**wrap_split(int nb_w, char **splitted, const char *s, char *charset)
 {
-	char		**splitted;
-	char		charset[2];
-	int			nb_w;
-	int			i;
-	int			len;
+	int	i;
+	int	len;
 
-	if (!s)
-		return (NULL);
 	i = -1;
-	charset[0] = c;
-	charset[1] = '\0';
-	nb_w = count_w((char *)s, charset);
-	splitted = (char **) gc_malloc(sizeof(char *) * (nb_w + 1));
-	if (!splitted)
-		return (0);
 	while (++i < nb_w)
 	{
 		while (is_charset((char)*s, charset))
@@ -79,5 +68,23 @@ char	**split(char const *s, char c)
 		s += len;
 	}
 	splitted[nb_w] = 0;
+	return (splitted);
+}
+
+char	**split(char const *s, char c)
+{
+	char		**splitted;
+	char		charset[2];
+	int			nb_w;
+
+	if (!s)
+		return (NULL);
+	charset[0] = c;
+	charset[1] = '\0';
+	nb_w = count_w((char *)s, charset);
+	splitted = (char **) gc_malloc(sizeof(char *) * (nb_w + 1));
+	if (!splitted)
+		return (0);
+	splitted = wrap_split(nb_w, splitted, s, charset);
 	return (splitted);
 }
