@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/09 17:03:38 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:19:26 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ char	**get_path(void)
 {
 	char	**path;
 	char	*str;
-	int		i;
 
-	i = -1;
 	str = getenv("PATH");
 	path = ft_split(str, ':');
 	if (!path)

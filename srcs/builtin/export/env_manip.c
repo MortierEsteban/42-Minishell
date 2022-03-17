@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/16 14:14:47 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 08:37:26 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	parse_env_name(char *varname)
 	{
 		if (!stop(varname[i], TABLE))
 			return (1);
-			i++;
+		i++;
 	}
 	return (0);
 }

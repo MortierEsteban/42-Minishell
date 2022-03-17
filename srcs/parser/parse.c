@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/14 11:27:18 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 08:15:42 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	parse_pipe(t_cmd *s_cmd_line, char *str)
 	{
 		init_lst(s_cmd_line, i);
 		cmd_line[i] = redir(cmd_line[i], &s_cmd_line[i]);
-		dprintf(2, "REDIR : %s\n", cmd_line[i]);
 		cmd_line[i] = pre_parse_quote(cmd_line[i]);
 		s_cmd_line[i].cmd = split(cmd_line[i], ' ');
 		if (!s_cmd_line[i].cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/16 14:21:47 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 08:01:02 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
 
 //BUILT-IN
-int		echo(char *str);
+int		echo(char **cmd);
 int		pwd(int fd);
 int		cd(char *str, char ***env);
 int		ft_export(char ***env, t_cmd cmd);
@@ -94,6 +94,7 @@ int		parse_env_name(char *varname);
 void	ft_shlvl(char ***env);
 char	**ft_recreate_env(void);
 void	ft_shlvl(char ***env);
+char	*inter(char *s1, char *s2);
 
 //PARSING
 t_cmd	*parser(char *str);

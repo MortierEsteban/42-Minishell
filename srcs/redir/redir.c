@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/16 15:40:54 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 07:19:50 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2])
 {
 	int	*final_fd;
-	int	i;
 
-	i = -1;
 	final_fd = ft_redirects(cmd, memory);
 	if (final_fd[0] == -1)
 		final_fd[0] = *pipe_exit;

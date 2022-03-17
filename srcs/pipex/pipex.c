@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/16 15:40:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 08:35:19 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_sort_built(t_cmd arg, char ***env)
 	int	status;
 
 	status = -1;
+	if (!ft_strcmp(arg.cmd[0], "echo"))
+		status = echo(arg.cmd);
 	if (!ft_strcmp(arg.cmd[0], "exit"))
 		status = ft_bexit(arg.cmd, *env);
 	if (!ft_strcmp(arg.cmd[0], "pwd"))
