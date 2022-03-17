@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 11:25:58 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:52:09 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,15 @@ void	print_debug(t_cmd *c_line, int i)
 	print(c_line[i].h_doc);
 }
 
+void	ft_ctrlc(int sig)
+{
+	(void) sig;
+	ft_putstr_fd("\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 void	sh_loop(char ***env)
 {
 	char	*line;
@@ -109,6 +118,7 @@ void	sh_loop(char ***env)
 	i = -1;
 	(void) env;
 	c_line = NULL;
+	signal(SIGINT, ft_ctrlc);
 	while (1)
 	{
 		tmp = getcwd((char *) NULL, 0);

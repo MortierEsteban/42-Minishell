@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 10:31:18 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 11:37:10 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	ft_closer(redir_fd, pipes);
 }
 
+void	ft_exit_value(int sig)
+{
+	(void) sig;
+	g_ex_status = 130;
+}
+
 void	ft_exec(char **args, char **env, int diff)
 {
 	pid_t	forks;
@@ -61,6 +67,7 @@ void	ft_exec(char **args, char **env, int diff)
 		path = ft_check_path(args);
 		if (path)
 		{
+			signal (SIGKILL, ft_exit_value);
 			if (execve(path, args, env) == -1)
 			{
 				dprintf(2, "minishell: Failed to launch binary\n");
