@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 10:19:49 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 10:20:57 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	echo(char **cmd)
 	{
 		cmd[i] = inter(cmd[i], "-n");
 		if (!ft_strcmp(cmd[i], "-n"))
-		{
-			dprintf(1, "cc");
 			flag = 1;
-		}
 		else
 		{
 			ft_putstr_fd(cmd[i], STDOUT);
