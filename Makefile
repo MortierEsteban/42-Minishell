@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	:=	-Wall -Werror -Wextra  #-g -fsanitize=address 
 
 SRCS	=	main.c										\
 			srcs/loop.c									\
@@ -32,6 +32,8 @@ SRCS	=	main.c										\
 OBJS	=	${SRCS:.c=.o}
 OBJS_DIR	= objs/
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
+RL_LIB_DIR := -L$(shell brew --prefix readline)/lib
+RL_INC_DIR := -I$(shell brew --prefix readline)/include
 
 RM		=	rm -f
 
@@ -46,11 +48,11 @@ $(OBJS_DIR)%.o:	%.c incl/minishell.h Makefile libft/libft.a
 		@mkdir -p $(OBJS_DIR)srcs/parser
 		@mkdir -p $(OBJS_DIR)srcs/builtin
 		@mkdir -p $(OBJS_DIR)srcs/builtin/export
-		$(CC) $(CFLAGS) -c $< -o $@
+		$(CC) $(RL_INC_DIR) $(CFLAGS) -c $< -o $@
 		printf	"\033[2K\r\033[0;33m[BUILD - $(NAME)]\033[0m $<\e[0m"
 
 $(NAME): $(OBJECTS_PREFIXED)
-		$(CC) $(CFLAGS) $(OBJECTS_PREFIXED) -l readline -L libft -l ft -o $(NAME)
+		$(CC) $(CFLAGS) $(RL_LIB_DIR) $(OBJECTS_PREFIXED) -l readline -L libft -l ft  -framework CoreFoundation -o $(NAME)
 		@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)\e[0m"
 
 libft:

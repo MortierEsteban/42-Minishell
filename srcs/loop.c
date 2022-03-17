@@ -6,11 +6,25 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:26:31 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:13:54 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
+
+void	free_lst(t_list *head)
+{
+	t_list	*current;
+
+	if (!head)
+		return ;
+	current = head;
+	while (current)
+	{
+		gc_free(current->content);
+		current = current->next;
+	}		
+}
 
 void	free_cmd(t_cmd	*c_line)
 {
@@ -27,6 +41,9 @@ void	free_cmd(t_cmd	*c_line)
 			gc_free(c_line[i].cmd[j]);
 		c_line[i].state_in = 0;
 		c_line[i].state_out = 0;
+		free_lst(c_line[i].h_doc);
+		free_lst(c_line[i].input);
+		free_lst(c_line[i].output);
 		gc_free(c_line[i].cmd);
 	}
 	gc_free(c_line);
@@ -36,6 +53,7 @@ char	*parse_home_path(char *path)
 {
 	char	*home_path;
 	char	*new;
+	char	*tmp;
 	char	*color;
 
 	if (!path)
@@ -46,9 +64,10 @@ char	*parse_home_path(char *path)
 	else
 		new = ft_strjoin("~", path + ft_strlen(home_path));
 	color = ft_strdup("\033[0;36m");
-	new = ft_strjoin(color, new);
+	tmp = ft_strjoin(color, new);
+	gc_free(new);
 	gc_free(color);
-	new = ft_strjoin(new, " ❯ ");
+	new = ft_strjoin(tmp, " ❯ ");
 	new = ft_strjoin(new, "\033[0m");
 	return (new);
 }
@@ -115,6 +134,7 @@ void	sh_loop(char ***env)
 		prompt = parse_home_path(tmp);
 		free(tmp);
 		line = readline(prompt);
+		gc_free(prompt);
 		if (!line || !ft_strcmp("exit", line))
 		{
 			ft_putstr_fd("\b\bexit\n", 1);

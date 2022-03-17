@@ -6,11 +6,26 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:22:24 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/03 10:04:15 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 18:16:08 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+void	printlst(t_list *head)
+{
+	t_list	*current;
+
+	if (!head)
+		return ;
+	current = head;
+	while (current)
+	{
+		dprintf(1, "LEAK : %s, ADDR : %p\n", (char *)current->content, \
+											current->content);
+		current = current->next;
+	}
+}
 
 static t_list	**gc_get_adrr(void)
 {
@@ -27,6 +42,7 @@ void	gc_destroy(void)
 
 	gc_start = gc_get_adrr();
 	current = *gc_start;
+	printlst(current);
 	while (current)
 	{
 		next = current->next;

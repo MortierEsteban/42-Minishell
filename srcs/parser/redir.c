@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:41:06 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:41:35 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ char	*redir(char *str, t_cmd *cmd)
 			i++;
 	}
 	if (new)
+	{
+		gc_free(str);
 		return (new);
+	}
 	return (str);
 }

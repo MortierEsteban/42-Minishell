@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 13:23:25 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:46:44 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	no_pipe(t_cmd *s_cmd_line, char *str)
 		return (1);
 	while (s_cmd_line[0].cmd[++j])
 		s_cmd_line[0].cmd[j] = parse_quote(s_cmd_line[0].cmd[j], 1);
+	gc_free(str);
 	s_cmd_line[1].cmd = NULL;
 	return (0);
 }
@@ -40,10 +41,27 @@ void	init_lst(t_cmd *cmd, int i)
 	cmd[i].output = NULL;
 }
 
+int	wrap_parse_pipe(t_cmd *s_cmd_line, char **cmd_line, int i)
+{
+	int	j;
+
+	init_lst(s_cmd_line, i);
+	cmd_line[i] = redir(cmd_line[i], &s_cmd_line[i]);
+	if (!cmd_line[i])
+		return (1);
+	cmd_line[i] = pre_parse_quote(cmd_line[i]);
+	s_cmd_line[i].cmd = split(cmd_line[i], ' ');
+	if (!s_cmd_line[i].cmd)
+		return (1);
+	j = -1;
+	while (s_cmd_line[i].cmd[++j])
+		s_cmd_line[i].cmd[j] = parse_quote(s_cmd_line[i].cmd[j], 1);
+	return (0);
+}
+
 int	parse_pipe(t_cmd *s_cmd_line, char *str)
 {
 	int		i;
-	int		j;
 	char	**cmd_line;
 
 	i = -1;
@@ -54,16 +72,10 @@ int	parse_pipe(t_cmd *s_cmd_line, char *str)
 		return (1);
 	while (cmd_line && cmd_line[++i])
 	{
-		init_lst(s_cmd_line, i);
-		cmd_line[i] = redir(cmd_line[i], &s_cmd_line[i]);
-		cmd_line[i] = pre_parse_quote(cmd_line[i]);
-		s_cmd_line[i].cmd = split(cmd_line[i], ' ');
-		if (!s_cmd_line[i].cmd)
+		if (wrap_parse_pipe(s_cmd_line, cmd_line, i))
 			return (1);
-		j = -1;
-		while (s_cmd_line[i].cmd[++j])
-			s_cmd_line[i].cmd[j] = parse_quote(s_cmd_line[i].cmd[j], 1);
 	}
+	free_split(cmd_line);
 	s_cmd_line[i].cmd = NULL;
 	return (0);
 }
