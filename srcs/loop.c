@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 14:54:57 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:44:46 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,31 @@ void	print_debug(t_cmd *c_line, int i)
 
 void	ft_ctrlc(int sig)
 {
+	char	*tmp;
+	char	*prompt;
+
 	(void) sig;
-	ft_putstr_fd("\n", 1);
+	rl_on_new_line();
+	tmp = getcwd((char *) NULL, 0);
+	prompt = parse_home_path(tmp);
+	free(tmp);
+	prompt = ft_strjoin(prompt, rl_line_buffer);
+	prompt = ft_strjoin(prompt, "  \b\b\n");
+	ft_putstr_fd(prompt, 2);
 	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	ft_insane(int sig)
+{
+	char	*tmp;
+
+	(void) sig;
+	rl_on_new_line();
+	tmp = ft_strjoin(rl_line_buffer, "  \b\b");
+	dprintf(2, "rl= %s\n", rl_line_buffer);
+	dprintf(2, "tmp= %s\n", tmp);
 	rl_redisplay();
 }
 
@@ -118,9 +139,10 @@ void	sh_loop(char ***env)
 	i = -1;
 	(void) env;
 	c_line = NULL;
-	signal(SIGINT, ft_ctrlc);
 	while (1)
 	{
+		signal(SIGINT, ft_ctrlc);
+		signal(SIGQUIT, ft_insane);
 		tmp = getcwd((char *) NULL, 0);
 		prompt = parse_home_path(tmp);
 		free(tmp);
