@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 08:37:00 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 10:15:55 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_ctrlc(int sig)
 int	main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
-	char	**test;
 
 	(void) ac;
 	(void) av;
