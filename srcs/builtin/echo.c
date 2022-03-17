@@ -6,13 +6,44 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 10:20:57 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 11:23:27 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-char	*inter(char *s1, char *s2);
+int	check_n(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] != 'n')
+			return (1);
+	return (0);
+}
+
+void	process_args(char **cmd, int *flag, int *i)
+{
+	int	_i;
+
+	_i = *i;
+	while (cmd[_i] && cmd[_i][0] == '-' && \
+		cmd[_i][1] == 'n' && *flag != 2)
+	{
+		cmd[_i] = inter(cmd[_i], "-n");
+		if (!ft_strcmp(cmd[_i], "-n"))
+			*flag = 1;
+		else
+		{
+			ft_putstr_fd(cmd[_i], STDOUT);
+			ft_putchar_fd(' ', STDOUT);
+			*flag = 2;
+		}
+		_i++;
+	}
+	*i = _i;
+}
 
 int	echo(char **cmd)
 {
@@ -21,41 +52,33 @@ int	echo(char **cmd)
 
 	i = 1;
 	flag = 0;
-	while (cmd[i] && cmd[i][0] == '-')
-	{
-		cmd[i] = inter(cmd[i], "-n");
-		if (!ft_strcmp(cmd[i], "-n"))
-			flag = 1;
-		else
-		{
-			ft_putstr_fd(cmd[i], STDOUT);
-			ft_putchar_fd(' ', STDOUT);
-		}
-		i++;
-	}
+	process_args(cmd, &flag, &i);
 	while (cmd[i])
 	{
 		ft_putstr_fd(cmd[i], STDOUT);
 		ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
-	if (!flag)
+	if (!flag || flag == 2)
 		ft_putchar_fd('\n', STDOUT);
 	return (0);
 }
 
-void	wrap_inter(char *s1, int i, char **new)
+void	wrap_inter(char *s, int i, char **new, int *tab)
 {
-	if (!new)
-		*new = strdup_pimp(&s1[i], 1);
-	else
-		*new = ft_strljoin(*new, &s1[i], 1);
+	if (!tab[(unsigned char) s[i]])
+	{
+		if (!*new)
+			*new = strdup_pimp(&s[i], 1);
+		else
+			*new = ft_strljoin(*new, &s[i], 1);
+		tab[(unsigned char) s[i]] = 1;
+	}
 }
 
 char	*inter(char *s1, char *s2)
 {
 	int		i;
-	int		j;
 	char	*new;
 	int		table[255];
 
@@ -65,18 +88,11 @@ char	*inter(char *s1, char *s2)
 	i = -1;
 	new = NULL;
 	while (s1[++i])
-	{
-		j = -1;
-		while (s2[++j])
-		{
-			if (s1[i] == s2[j] && table[(unsigned char) s1[i]] != 1)
-			{
-				wrap_inter(s1, i, &new);
-				table[(unsigned char) s1[i]] = 1;
-			}
-		}
-	}
-	if (!new || !ft_strcmp(new, "-"))
+		wrap_inter(s1, i, &new, table);
+	i = -1;
+	while (s2[++i])
+		wrap_inter(s2, i, &new, table);
+	if (!new || check_n(new + 1))
 		return (s1);
 	return (new);
 }
