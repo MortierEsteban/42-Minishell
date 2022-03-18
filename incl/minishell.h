@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 16:52:00 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/18 11:13:27 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int		w_len(char *str, char *charset);
 // LOOP
 void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
+
+//SIG-HANDLER
+void	ft_ctrlc(int sig);
+void	ft_rm_sig_chars(int sig);
+void	ft_exec_ctrlc(int sig);
+void	ft_quit3(int sig);
 
 //BUILT-IN
 int		echo(char **cmd);

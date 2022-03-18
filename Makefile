@@ -5,6 +5,7 @@ CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
 SRCS	=	main.c										\
 			srcs/loop.c									\
 			srcs/utils.c								\
+			srcs/signals.c								\
 			srcs/builtin/echo.c							\
 			srcs/builtin/pwd.c							\
 			srcs/builtin/cd.c							\

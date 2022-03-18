@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 08:35:19 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/18 12:09:30 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int	ft_sort_built(t_cmd arg, char ***env)
 	return (status);
 }
 
+void	ft_close_fd_process(int memory[2], int pipe_exit)
+{
+	dup2 (memory[0], STDIN);
+	dup2 (memory[1], STDOUT);
+	close (memory[0]);
+	close (memory[1]);
+	if (pipe_exit != 0)
+		close (pipe_exit);
+}
+
 int	pipex_process(t_cmd *args, char ***env)
 {
 	int	memory[2];
@@ -49,17 +59,17 @@ int	pipex_process(t_cmd *args, char ***env)
 	cmdsnb = nb_cmds(args) - 1;
 	pipe_exit = 0;
 	i = -1;
+	signal (SIGINT, ft_exec_ctrlc);
+	signal (SIGQUIT, ft_quit3);
 	while (++i <= cmdsnb)
 	{
 		ft_pipex_dup(i, args, memory, &pipe_exit);
 		if (ft_sort_built(args[i], env))
 			ft_exec(args[i].cmd, *env, cmdsnb - i);
 	}
-	dup2 (memory[0], STDIN);
-	dup2 (memory[1], STDOUT);
-	close (memory[0]);
-	close (memory[1]);
-	if (pipe_exit != 0)
-		close (pipe_exit);
+	i = 0;
+	while (i++ < cmdsnb)
+		wait(NULL);
+	ft_close_fd_process(memory, pipe_exit);
 	return (0);
 }
