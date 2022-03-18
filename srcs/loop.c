@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/18 11:21:10 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/18 13:56:49 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_lst(t_list *head)
 	{
 		gc_free(current->content);
 		current = current->next;
-	}		
+	}
 }
 
 void	free_cmd(t_cmd	*c_line)
@@ -162,7 +162,7 @@ void	sh_loop(char ***env)
 	while (1)
 	{
 		signal(SIGINT, ft_ctrlc);
-		signal(SIGQUIT, ft_insane);
+		signal(SIGQUIT, ft_rm_sig_chars);
 		tmp = getcwd((char *) NULL, 0);
 		prompt = parse_home_path(tmp);
 		free(tmp);

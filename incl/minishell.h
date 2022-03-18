@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 18:52:13 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/18 13:52:41 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ char	**free_split(char **tab);
 // LOOP
 void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
+
+//SIG-HANDLER
+void	ft_ctrlc(int sig);
+void	ft_rm_sig_chars(int sig);
+void	ft_exec_ctrlc(int sig);
+void	ft_quit3(int sig);
 
 //BUILT-IN
 int		echo(char **cmd);

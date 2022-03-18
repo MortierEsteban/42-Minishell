@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 17:46:21 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:04:00 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,20 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	ft_closer(redir_fd, pipes);
 }
 
-static void	ft_exit_value(int sig)
+void	ft_get_exit_stat(pid_t forks)
 {
-	(void) sig;
-	ft_putchar_fd('\n', 2);
-	g_ex_status = 130;
-}
+	int	stat;
 
-static void	ft_quit3(int sig)
-{
-	(void) sig;
-	ft_putstr_fd ("Quit: 3\n", 2);
-	g_ex_status = 131;
+	waitpid(forks, &stat, 0);
+	if (g_ex_status != 130 && g_ex_status != 131)
+		g_ex_status = WEXITSTATUS(stat);
 }
 
 void	ft_exec(char **args, char **env, int diff)
 {
 	pid_t	forks;
 	char	*path;
-	int		stat;
 
-	signal (SIGINT, ft_exit_value);
-	signal (SIGQUIT, ft_quit3);
 	forks = fork();
 	if (forks == 0)
 	{
@@ -87,10 +79,6 @@ void	ft_exec(char **args, char **env, int diff)
 			exit (127);
 	}
 	else if (!diff)
-	{
-		waitpid(forks, &stat, 0);
-		if (g_ex_status != 130 && g_ex_status != 131)
-			g_ex_status = WEXITSTATUS(stat);
-	}
+		ft_get_exit_stat(forks);
 	return ;
 }
