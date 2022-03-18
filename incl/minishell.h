@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/18 11:13:27 by emortier         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/17 18:52:13 by lsidan           ###   ########.fr       */
+>>>>>>> f3c173a0d1321409b2147a718c20b8f2a3e61d86
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +76,7 @@ char	**split(char const *s, char c);
 char	*strdup_pimp(char *str, int len);
 int		is_charset(char c, char *charset);
 int		w_len(char *str, char *charset);
+char	**free_split(char **tab);
 
 // LOOP
 void	sh_loop(char ***env);

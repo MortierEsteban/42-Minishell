@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 10:42:41 by lsidan            #+#    #+#             */
-/*   Updated: 2021/11/08 10:12:53 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 17:54:37 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (new == NULL)
 		return (NULL);
 	new[ft_strlen(new)] = '\0';
+	gc_free((void *) s1);
 	return (new);
 }

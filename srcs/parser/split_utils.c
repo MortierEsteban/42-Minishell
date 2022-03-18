@@ -6,11 +6,25 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 08:37:32 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/02 15:38:49 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/17 17:58:31 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+char	**free_split(char **tab)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		gc_free(tab[i]);
+		i++;
+	}
+	gc_free(tab);
+	return (NULL);
+}
 
 char	*strdup_pimp(char *str, int len)
 {
