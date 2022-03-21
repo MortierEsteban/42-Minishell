@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:16:37 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 13:20:00 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:45:02 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_remove_env(char ***env, int pos)
 	*env = new_env;
 }
 
-int	ft_unset(char ***env, t_cmd cmd )
+int	ft_unset(char ***env, t_cmd cmd)
 {
 	int		i;
 	int		pos;

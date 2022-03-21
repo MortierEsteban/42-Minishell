@@ -6,31 +6,70 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/18 12:09:30 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:58:39 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
 
-int	ft_sort_built(t_cmd arg, char ***env)
+int	ft_fork_bins(char ***env, t_cmd cmd, int (*builtin)(char ***env, t_cmd cmd))
+{
+	pid_t	forks;
+
+	forks = fork();
+	if (forks == 0)
+	{
+		if (builtin(env, cmd) == 1)
+		{
+			ft_putstr_fd("minishell: Builtin Failed\n", 2);
+			exit (126);
+		}
+		exit(0);
+	}
+	else
+		ft_get_exit_stat(forks);
+	return (0);
+}
+
+int	ft_isonlycmd(t_cmd arg , char ***env)
 {
 	int	status;
 
 	status = -1;
-	if (!ft_strcmp(arg.cmd[0], "echo"))
-		status = echo(arg.cmd);
-	if (!ft_strcmp(arg.cmd[0], "exit"))
-		status = ft_bexit(arg.cmd, *env);
-	if (!ft_strcmp(arg.cmd[0], "pwd"))
-		status = pwd(1);
 	if (!ft_strcmp(arg.cmd[0], "export"))
 		status = ft_export(env, arg);
+	if (!ft_strcmp(arg.cmd[0], "exit"))
+		status = ft_bexit(env, arg);
 	if (!ft_strcmp(arg.cmd[0], "cd"))
-		status = cd(arg.cmd[1], env);
-	if (!ft_strcmp(arg.cmd[0], "env"))
-		status = ft_env(*env, 1);
+		status = ft_cd(env, arg);
 	if (!ft_strcmp(arg.cmd[0], "unset"))
 		status = ft_unset(env, arg);
+	if (status >= 0)
+		g_ex_status = status;
+	return (status);
+}
+
+int	ft_sort_built(t_cmd arg, char ***env, int p_s)
+{
+	int	status;
+
+	status = -1;
+	if (!ft_strcmp(arg.cmd[0], "env"))
+		status = ft_fork_bins(env, arg, ft_env);
+	if (!ft_strcmp(arg.cmd[0], "echo"))
+		status = ft_fork_bins(env, arg, ft_echo);
+	if (!ft_strcmp(arg.cmd[0], "pwd"))
+		status = ft_fork_bins(env, arg, ft_pwd);
+	if (p_s == 0)
+		return (ft_isonlycmd(arg, env));
+	if (!ft_strcmp(arg.cmd[0], "export"))
+		status = ft_fork_bins(env, arg, ft_export);
+	if (!ft_strcmp(arg.cmd[0], "exit"))
+		status = ft_fork_bins(env, arg, ft_bexit);
+	if (!ft_strcmp(arg.cmd[0], "cd"))
+		status = ft_fork_bins(env, arg, ft_cd);
+	if (!ft_strcmp(arg.cmd[0], "unset"))
+		status = ft_fork_bins(env, arg, ft_unset);
 	if (status >= 0)
 		g_ex_status = status;
 	return (status);
@@ -64,11 +103,11 @@ int	pipex_process(t_cmd *args, char ***env)
 	while (++i <= cmdsnb)
 	{
 		ft_pipex_dup(i, args, memory, &pipe_exit);
-		if (ft_sort_built(args[i], env))
+		if (ft_sort_built(args[i], env, cmdsnb))
 			ft_exec(args[i].cmd, *env, cmdsnb - i);
 	}
 	i = 0;
-	while (i++ < cmdsnb)
+	while (i++ <= cmdsnb)
 		wait(NULL);
 	ft_close_fd_process(memory, pipe_exit);
 	return (0);

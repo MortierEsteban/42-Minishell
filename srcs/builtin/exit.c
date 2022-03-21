@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 11:10:26 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:43:46 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exit_free(int nb, char **env)
 	while (env[++i])
 		free(env[i]);
 	free(env);
-	ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("exit\n", 2);
 	exit (nb);
 }
 
@@ -73,17 +73,17 @@ int	ft_atol_exit(char *str, char **env)
 	return (-1);
 }
 
-int	ft_bexit(char **cmd, char **env)
+int	ft_bexit(char ***env, t_cmd cmd)
 {
 	int	nb_args;
 
-	nb_args = ft_nb_arg(cmd);
+	nb_args = ft_nb_arg(cmd.cmd);
 	if (nb_args > 2)
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	else if (nb_args == 1)
-		exit(0);
+		ft_exit_free(0, *env);
 	else
-		ft_atol_exit(cmd[1], env);
+		ft_atol_exit(cmd.cmd[1], *env);
 	g_ex_status = 1;
 	return (0);
 }

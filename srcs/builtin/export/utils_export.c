@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/16 14:19:05 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:14:57 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,20 @@ char	**ft_recreate_env(void)
 
 void	ft_shlvl(char ***env)
 {
-	char	*strnb;
+	char	*shlvl;
+	char	*nb_str;
 	int		pos;
 	int		nb;
 
-	strnb = ft_get_var_str(env, "SHLVL");
-	nb = ft_atoi(strnb);
+	shlvl = ft_get_var_str(env, "SHLVL");
+	nb = ft_atoi(shlvl);
+	gc_free(shlvl);
 	nb = nb + 1;
 	pos = ft_find_var(*env, "SHLVL");
-	strnb = ft_strjoin("SHLVL=", ft_itoa(nb));
+	nb_str = ft_itoa(nb);
+	shlvl = ft_strjoin("SHLVL=", nb_str);
+	gc_free(nb_str);
 	free((*env)[pos]);
-	(*env)[pos] = ft_strdup_nogc(strnb);
+	(*env)[pos] = ft_strdup_nogc(shlvl);
+	gc_free(shlvl);
 }

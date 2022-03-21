@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/16 14:20:05 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:05:03 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_get_var_str(char ***env, char *var)
 
 	i = 0;
 	pos = ft_find_var(*env, var);
+	if (pos == -1)
+		return (NULL);
 	while ((*env)[pos][i] && (*env)[pos][i] != '=')
 		i++;
 	if ((*env)[pos][i] == '=')
@@ -46,27 +48,29 @@ char	*ft_go2_olpdwd(char *str, char ***env)
 	return (str);
 }
 
-int	cd(char *str, char ***env)
+int	ft_cd(char ***env, t_cmd cmd)
 {
 	char	*newpwd;
+	char	*str;
 	int		pos;
 
-	str = ft_go2_olpdwd(str, env);
+	str = ft_go2_olpdwd(cmd.cmd[1], env);
 	if (str == NULL)
 		return (0);
 	pos = ft_find_var(*env, "OLDPWD");
+	newpwd = getcwd((char *) NULL, 0);
+	newpwd = ft_strjoin("OLDPWD=", newpwd);
 	if (pos >= 0)
 	{
-		newpwd = getcwd((char *) NULL, 0);
 		free((*env)[pos]);
-		(*env)[pos] = ft_strdup_nogc(ft_strjoin("OLDPWD=", newpwd));
+		(*env)[pos] = ft_strdup_nogc(newpwd);
 	}
+	else
+		ft_add_env(env, newpwd);
+	gc_free(newpwd);
 	if (!str)
-		str = *env[ft_find_var(*env, "HOME")];
+		str = ft_get_var_str(env, "HOME");
 	if (chdir(str) == -1)
-	{
 		ft_putstr_fd("cd : Invalid or incorrect path\n", STDERR);
-		return (0);
-	}
 	return (0);
 }

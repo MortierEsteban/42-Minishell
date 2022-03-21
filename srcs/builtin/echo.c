@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:32:21 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 20:14:40 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:46:55 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,19 @@ void	process_args(char **cmd, int *flag_n, int *i)
 	*i = _i;
 }
 
-int	echo(char **cmd)
+int	ft_echo(char ***env, t_cmd cmd)
 {
 	int	i;
 	int	flag;
 
+	(void) env;
 	i = 1;
 	flag = 0;
-	process_args(cmd, &flag, &i);
-	while (cmd[i])
+	process_args(cmd.cmd, &flag, &i);
+	while (cmd.cmd[i])
 	{
-		ft_putstr_fd(cmd[i], STDOUT);
-		if (cmd[i + 1])
+		ft_putstr_fd(cmd.cmd[i], STDOUT);
+		if (cmd.cmd[i + 1])
 			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
