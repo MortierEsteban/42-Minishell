@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:07:29 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 19:51:07 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:33:48 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	cpy_str(char *str, char **new, int *i)
 	char	c;
 
 	if (!*new && str[*i] != '<' && str[*i] != '>')
-		*new = strdup_pimp(str, 1);
+		*new = strdup_pimp(str + *i, 1);
 	else if (str[*i] != '<' && str[*i] != '>')
 		*new = ft_strljoin(*new, &str[*i], 1);
 	if (str[*i] == '"' || str[*i] == '\'')
