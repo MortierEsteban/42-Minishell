@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 15:43:03 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:21:55 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ int	ft_isonlycmd(t_cmd arg, char ***env)
 	int	status;
 
 	status = -1;
+	if (!ft_strcmp(arg.cmd[0], "env"))
+		status = ft_env(env, arg);
+	if (!ft_strcmp(arg.cmd[0], "echo"))
+		status = ft_echo(env, arg);
+	if (!ft_strcmp(arg.cmd[0], "pwd"))
+		status = ft_pwd(env, arg);
 	if (!ft_strcmp(arg.cmd[0], "export"))
 		status = ft_export(env, arg);
 	if (!ft_strcmp(arg.cmd[0], "exit"))
@@ -54,15 +60,14 @@ int	ft_sort_built(t_cmd arg, char ***env, int p_s)
 	int	status;
 
 	status = -1;
+	if (p_s == 0)
+		return (ft_isonlycmd(arg, env));
 	if (!ft_strcmp(arg.cmd[0], "env"))
 		status = ft_fork_bins(env, arg, ft_env);
 	if (!ft_strcmp(arg.cmd[0], "echo"))
 		status = ft_fork_bins(env, arg, ft_echo);
 	if (!ft_strcmp(arg.cmd[0], "pwd"))
 		status = ft_fork_bins(env, arg, ft_pwd);
-	if (p_s == 0)
-		return (ft_isonlycmd(arg, env));
-	dprintf(2, "didn4t use onlycmd");
 	if (!ft_strcmp(arg.cmd[0], "export"))
 		status = ft_fork_bins(env, arg, ft_export);
 	if (!ft_strcmp(arg.cmd[0], "exit"))

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/21 16:05:03 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:03:48 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*ft_go2_olpdwd(char *str, char ***env)
 			g_ex_status = 1;
 			return (0);
 		}
-		str = ft_strjoin(str, "/");
 	}
 	return (str);
 }
@@ -55,8 +54,6 @@ int	ft_cd(char ***env, t_cmd cmd)
 	int		pos;
 
 	str = ft_go2_olpdwd(cmd.cmd[1], env);
-	if (str == NULL)
-		return (0);
 	pos = ft_find_var(*env, "OLDPWD");
 	newpwd = getcwd((char *) NULL, 0);
 	newpwd = ft_strjoin("OLDPWD=", newpwd);
