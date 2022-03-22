@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 15:55:00 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:53:34 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,11 @@ int	is_onlyspace(char *str)
 	if (i == ft_strlen(str))
 		return (1);
 	return (0);
+}
+
+void	process_parse(char *str, char **new, int i, int quot)
+{
+	if ((str[i] == '\"' && quot == 1) || (str[i] == '\'' && quot == 2) \
+		|| (str[i] != '\"' && str[i] != '\''))
+		*new = ft_strljoin(*new, &str[i], 1);
 }

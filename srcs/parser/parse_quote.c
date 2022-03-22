@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/14 10:29:56 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/22 08:52:09 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ int	shinra_tensei(char *str, int quot, int *i, char **new)
 	char	*tmp;
 	char	*tmp2;
 
-	tmp = NULL;
 	tmp2 = NULL;
 	if (str[*i] == '$' && (quot == 0 || quot == 2))
 	{
+		if (str[*i + 1] == ' ' || !str[*i + 1])
+			return (0);
 		if (str[*i + 1] == '?')
 		{
-			*new = ft_strjoin(*new, ft_itoa(g_ex_status));
+			tmp = ft_itoa(g_ex_status);
+			*new = ft_strjoin(*new, tmp);
+			gc_free(tmp);
 			*i += 2;
 			return (1);
 		}
@@ -110,13 +113,15 @@ char	*parse_quote(char *str, int p_s)
 	while (str && str[i])
 	{
 		if (p_s && str[i] == '~' && quot == 0)
+		{
 			new = ft_strjoin(new, getenv("HOME"));
+			i++;
+			continue ;
+		}
 		else if (p_s && shinra_tensei(str, quot, &i, &new))
 			continue ;
 		s_machine_quote(&quot, str, i);
-		if ((str[i] == '\"' && quot == 1) || (str[i] == '\'' && quot == 2)
-			|| (str[i] != '\"' && str[i] != '\''))
-			new = ft_strljoin(new, &str[i], 1);
+		process_parse(str, &new, i, quot);
 		i++;
 	}
 	gc_free(str);

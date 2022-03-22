@@ -4,6 +4,7 @@ CFLAGS	:=	-Wall -Werror -Wextra  -g -fsanitize=address
 
 SRCS	=	main.c										\
 			srcs/loop.c									\
+			srcs/free.c									\
 			srcs/utils.c								\
 			srcs/signals.c								\
 			srcs/builtin/echo.c							\
@@ -36,7 +37,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 RL_LIB_DIR := -L$(shell brew --prefix readline)/lib
 RL_INC_DIR := -I$(shell brew --prefix readline)/include
 
-RM		=	rm -f
+RM		=	rm -rf
 
 all: libft $(NAME)
 
@@ -61,7 +62,7 @@ libft:
 
 clean :
 		@make -C ./libft/ clean
-		${RM} ${OBJS} ${OBJS_BONUS}
+		${RM} ${OBJS} ${OBJS_DIR}
 		@printf "\033[2K\r\033[0;31m.o files deleted.\n\e[0m"
 
 fclean : clean

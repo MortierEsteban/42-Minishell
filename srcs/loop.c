@@ -6,48 +6,11 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/21 14:58:20 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/22 08:59:33 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
-void	free_lst(t_list *head)
-{
-	t_list	*current;
-
-	if (!head)
-		return ;
-	current = head;
-	while (current)
-	{
-		gc_free(current->content);
-		current = current->next;
-	}
-}
-
-void	free_cmd(t_cmd	*c_line)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	if (!c_line)
-		return ;
-	while (c_line[++i].cmd)
-	{
-		j = -1;
-		while (c_line[i].cmd[++j])
-			gc_free(c_line[i].cmd[j]);
-		c_line[i].state_in = 0;
-		c_line[i].state_out = 0;
-		free_lst(c_line[i].h_doc);
-		free_lst(c_line[i].input);
-		free_lst(c_line[i].output);
-		gc_free(c_line[i].cmd);
-	}
-	gc_free(c_line);
-}
 
 char	*parse_home_path(char *path)
 {
@@ -86,35 +49,29 @@ void	parse_list(t_list *head)
 	}	
 }
 
-void	print(t_list *head)
+void	loop_lst(t_cmd *c_line)
 {
-	t_list	*current;
+	int	i;
 
-	if (!head)
-		return ;
-	current = head;
-	while (current)
+	i = -1;
+	while (c_line && c_line[++i].cmd)
 	{
-		dprintf(1, "%s\n", (char *)current->content);
-		current = current->next;
-	}
+		parse_list(c_line[i].input);
+		parse_list(c_line[i].output);
+		parse_list(c_line[i].h_doc);
+	}	
 }
 
-void	print_debug(t_cmd *c_line, int i)
+void	check_cmd(t_cmd *c_line, char ***env)
 {
-	int	j;
-
-	j = 0;
-	dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-	while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-		dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j++]);
-	j = 0;
-	dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-	print(c_line[i].input);
-	dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-	print(c_line[i].output);
-	dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-	print(c_line[i].h_doc);
+	if (c_line)
+	{
+		loop_lst(c_line);
+		pipex_process(c_line, env);
+		free_cmd(c_line);
+	}
+	else
+		ft_putstr_fd("Parse Error\n", 2);
 }
 
 void	sh_loop(char ***env)
@@ -123,9 +80,7 @@ void	sh_loop(char ***env)
 	char	*prompt;
 	char	*tmp;
 	t_cmd	*c_line;
-	int		i;
 
-	i = -1;
 	(void) env;
 	c_line = NULL;
 	while (1)
@@ -142,21 +97,7 @@ void	sh_loop(char ***env)
 		else
 			c_line = parser(line);
 		add_history(line);
-		if (c_line)
-		{
-			while (c_line && c_line[++i].cmd)
-			{
-				parse_list(c_line[i].input);
-				parse_list(c_line[i].output);
-				parse_list(c_line[i].h_doc);
-				print_debug(c_line, i);
-			}
-			i = -1;
-			pipex_process(c_line, env);
-			free_cmd(c_line);
-		}
-		else
-			ft_putstr_fd("Parse Error\n", 2);
+		check_cmd(c_line, env);
 		free(line);
 		gc_destroy();
 	}

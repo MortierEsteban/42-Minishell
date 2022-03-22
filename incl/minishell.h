@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/18 13:52:41 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:52:29 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
 char	*pre_parse_quote(char *str);
 char	*parse_quote(char *str, int p_s);
 int		shinra_tensei(char *str, int quot, int *i, char **new);
+void	process_parse(char *str, char **new, int i, int quot);
 
 //REDIR
 int		which_case(t_cmd *cmd, char *tmp, char c, char d);
