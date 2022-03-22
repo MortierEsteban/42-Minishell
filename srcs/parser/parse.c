@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 20:11:47 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:13:42 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_cmd	*parser(char *str)
 		if (no_pipe(s_cmd_line, str))
 			return (NULL);
 	}
-	else if (c_p == -2)
+	else if (c_p == -2 || check_pipe(str))
 		return (NULL);
 	else
 	{

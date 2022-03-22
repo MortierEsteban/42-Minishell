@@ -6,11 +6,23 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 20:10:58 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:13:47 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+int	check_pipe(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}
 
 int	check_quote(char *str, int *i)
 {

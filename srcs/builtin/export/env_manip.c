@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/17 08:37:26 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:34:27 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	parse_env_name(char *varname)
 	i = 0;
 	if (!varname)
 		return (1);
-	if (ft_isdigit(varname[0]) || !stop(varname[0], TABLE))
+	if (ft_isdigit(varname[0]) || !stop(varname[0], TABLE2))
 		return (1);
 	while (varname[i] && varname[i] != '=')
 	{
-		if (!stop(varname[i], TABLE))
+		if (!stop(varname[i], TABLE2))
 			return (1);
 		i++;
 	}
