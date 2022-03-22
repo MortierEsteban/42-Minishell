@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/18 13:52:41 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:00:24 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ void	ft_exec_ctrlc(int sig);
 void	ft_quit3(int sig);
 
 //BUILT-IN
-int		echo(char **cmd);
-int		pwd(int fd);
-int		cd(char *str, char ***env);
+int		ft_cd(char ***env, t_cmd cmd);
+int		ft_pwd(char ***env, t_cmd cmd);
+int		ft_echo(char ***env, t_cmd cmd);
 int		ft_export(char ***env, t_cmd cmd);
-int		ft_bexit(char **cmd, char **env);
-int		ft_env(char **env, int fd);
+int		ft_bexit(char ***env, t_cmd cmd);
+int		ft_env(char ***env, t_cmd cmd);
 int		ft_unset(char ***env, t_cmd cmd );
 
 //BUILT-IN-TRASH
@@ -98,6 +98,7 @@ void	ft_free_sorted(char **env);
 char	*ft_strdup_nogc(char *s1);
 char	**ft_add_quotes(char **sorted);
 int		parse_env_name(char *varname);
+void	ft_exit_free(int nb, char **env);
 void	ft_shlvl(char ***env);
 char	**ft_recreate_env(void);
 void	ft_shlvl(char ***env);
@@ -127,6 +128,7 @@ char	**ft_malloc_error(char **tab);
 char	**get_path(void);
 char	*get_env_var(char *var);
 int		count_pipe(char *str);
+void	ft_get_exit_stat(pid_t forks);
 int		is_onlyspace(char *str);
 
 //PIPEX

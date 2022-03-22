@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:37:46 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/18 13:51:36 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/18 14:24:51 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	main(int ac, char **av, char **env)
 	sh_loop(&env_cpy);
 	usleep(20);
 	gc_destroy();
+	ft_exit_free(1 ,env_cpy);
 	return (0);
 }

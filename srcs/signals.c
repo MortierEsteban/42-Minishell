@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 11:03:12 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/18 13:46:08 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:42:33 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_ctrlc(int sig)
 	prompt = ft_strjoin(prompt, rl_line_buffer);
 	prompt = ft_strjoin(prompt, "  \b\b\n");
 	ft_putstr_fd(prompt, 2);
+	g_ex_status = 1;
+	gc_free(prompt);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();

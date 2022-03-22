@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/17 20:10:58 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:00:21 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ int	check_quote(char *str, int *i)
 	}
 	*i = _i;
 	return (0);
+}
+
+void	gc_destroy_env(char	**env)
+{
+	static char	**save = NULL;
+	int			i;
+
+	if (env)
+	{
+		save = env;
+		return ;
+	}
+	i = -1;
 }
 
 int	count_pipe(char *str)
