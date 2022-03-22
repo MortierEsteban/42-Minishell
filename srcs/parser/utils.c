@@ -6,11 +6,27 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:33:39 by lsidan            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/21 11:00:21 by emortier         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/22 09:13:47 by lsidan           ###   ########lyon.fr   */
+>>>>>>> 1258d037715e943679173952672a5f709a4442e1
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
+
+int	check_pipe(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}
 
 int	check_quote(char *str, int *i)
 {

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/21 16:00:24 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:42:07 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ extern unsigned char	g_ex_status;
 # endif
 
 # define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-abcdefghijklmnopqrstuvwxyz0123456789_$"
+abcdefghijklmnopqrstuvwxyz0123456789_$!#?"
+
+# define TABLE2 "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+abcdefghijklmnopqrstuvwxyz0123456789_"
 
 typedef struct s_cmd
 {
@@ -113,6 +116,8 @@ char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
 char	*pre_parse_quote(char *str);
 char	*parse_quote(char *str, int p_s);
 int		shinra_tensei(char *str, int quot, int *i, char **new);
+void	process_parse(char *str, char **new, int i, int quot);
+int		check_pipe(char *str);
 
 //REDIR
 int		which_case(t_cmd *cmd, char *tmp, char c, char d);
