@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 10:41:55 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:46:08 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ void	sh_loop(char ***env)
 		line = readline(prompt);
 		gc_free(prompt);
 		if (!line)
-		{
-			ft_putstr_fd("exit", 2);
-			return (free(line));
-		}
+			return (ft_exit_free(1, *env));
 		else
 			c_line = parser(line);
 		add_history(line);

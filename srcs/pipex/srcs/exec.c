@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/18 12:04:00 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:48:29 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,20 @@ void	ft_get_exit_stat(pid_t forks)
 		g_ex_status = WEXITSTATUS(stat);
 }
 
-void	ft_exec(char **args, char **env, int diff)
+int	ft_perror(void)
+{
+	ft_putstr_fd("minishell: fork: Resource temporarily unavailable\n", 2);
+	return (1);
+}
+
+int	ft_exec(char **args, char **env, int diff)
 {
 	pid_t	forks;
 	char	*path;
 
 	forks = fork();
+	if (forks < 0)
+		ft_perror();
 	if (forks == 0)
 	{
 		path = ft_check_path(args);
@@ -80,5 +88,5 @@ void	ft_exec(char **args, char **env, int diff)
 	}
 	else if (!diff)
 		ft_get_exit_stat(forks);
-	return ;
+	return (0);
 }

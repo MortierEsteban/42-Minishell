@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/21 15:43:46 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:37:25 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_exit_free(int nb, char **env)
 	while (env[++i])
 		free(env[i]);
 	free(env);
+	gc_destroy();
 	ft_putstr_fd("exit\n", 2);
 	exit (nb);
 }
@@ -66,10 +67,10 @@ int	ft_atol_exit(char *str, char **env)
 		i++;
 	}
 	max = 9223372036854775807;
-	if (str[i] == '\0' && \
-	((nb <= max && sign == 1) || (nb <= max + 1 && sign == -1)))
+	if ((nb <= max && sign == 1) || (nb <= max + 1 && sign == -1))
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+	if (str[i] == '\0')
 		ft_exit_free(nb * sign, env);
-	ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 	return (-1);
 }
 

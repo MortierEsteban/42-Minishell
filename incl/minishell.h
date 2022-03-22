@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 10:42:07 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:43:48 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_cmd
 	int		state_in;
 	t_list	*input;
 	t_list	*h_doc;
+	int		hdoc_fd;
 	int		state_out;
 	t_list	*output;
 }	t_cmd;
@@ -86,6 +87,7 @@ void	ft_ctrlc(int sig);
 void	ft_rm_sig_chars(int sig);
 void	ft_exec_ctrlc(int sig);
 void	ft_quit3(int sig);
+void	ft_ctrlc_hdoc(int sig);
 
 //BUILT-IN
 int		ft_cd(char ***env, t_cmd cmd);
@@ -122,6 +124,7 @@ int		check_pipe(char *str);
 //REDIR
 int		which_case(t_cmd *cmd, char *tmp, char c, char d);
 int		wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
+int		ft_heredoc(t_cmd arg, int memory[2]);
 char	*redir(char *str, t_cmd *cmd);
 char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
@@ -137,8 +140,8 @@ void	ft_get_exit_stat(pid_t forks);
 int		is_onlyspace(char *str);
 
 //PIPEX
+int		ft_exec(char **args, char **env, int diff);
 void	pipes_error(void);
-void	ft_exec(char **args, char **env, int diff);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 char	*ft_check_path(char **args);
 int		nb_cmds(t_cmd *args);

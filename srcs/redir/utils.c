@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/21 16:29:04 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:52:36 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,19 @@ int	ft_heredoc(t_cmd arg, int memory[2])
 	if (pipe(pipes) == -1)
 		pipes_error();
 	forks = fork();
+	if (forks < 0)
+	{
+		ft_putstr_fd("minishell: fork: Resource temporarily unavailable\n", 2);
+		return (-1);
+	}
 	if (forks == 0)
 	{
 		dup2(memory[0], STDIN);
 		dup2(memory[1], STDOUT);
 		ft_pre_hdoc(arg);
 		ft_final_doc (pipes, ft_lstlast(arg.h_doc)->content);
+		if (arg.hdoc_fd == -1)
+			exit (1);
 		exit (0);
 	}
 	else
@@ -89,13 +96,14 @@ int	*ft_redirects(t_cmd args, int memory[2])
 {
 	int	*fds;
 
+	(void) memory;
 	fds = gc_malloc(sizeof(int) * 2);
 	fds[0] = -1;
 	fds[1] = -1;
 	if (args.state_in == 1)
 		fds[0] = open((ft_lstlast(args.input))->content, O_RDONLY);
-	if (args.state_in == 2)
-		fds[0] = ft_heredoc(args, memory);
+	if (args.state_in == 2 && args.hdoc_fd != -1)
+		fds[0] = args.hdoc_fd;
 	while (args.output && args.output->next)
 	{
 		ft_touch_files(args.output->content);
