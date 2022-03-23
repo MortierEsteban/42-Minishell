@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 13:19:35 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:16:29 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		check_pipe(char *str);
 //REDIR-PARSE
 int		which_case(t_cmd *cmd, char *tmp, char c, char d);
 int		wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
-int		ft_heredoc(t_cmd arg, int memory[2]);
+int		ft_heredoc(t_cmd arg, int memory[2], char **env);
 char	*redir(char *str, t_cmd *cmd);
 char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
@@ -147,6 +147,7 @@ int		is_onlyspace(char *str);
 int		nothing(char *str);
 
 //PIPEX
+int		ft_wrap_hdoc(t_cmd *args, int memory[2], char **env);
 int		ft_exec(char **args, char **env, int diff);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 char	*ft_check_path(char **args);

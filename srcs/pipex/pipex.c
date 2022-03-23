@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 14:08:12 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:19:56 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ int	pipex_process(t_cmd *args, char ***env)
 	pipe_exit = 0;
 	g_ex_status = 0;
 	i = -1;
-	ft_wrap_hdoc()
+	if (ft_wrap_hdoc(args, memory, *env))
+		return (1);
 	signal (SIGINT, ft_exec_sig);
 	signal (SIGQUIT, ft_exec_sig);
 	while (++i <= cmdsnb)
