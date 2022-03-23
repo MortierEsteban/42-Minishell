@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 16:35:05 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/23 08:33:23 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ char	***create_var_tab(char **env)
 	var[i] = 0;
 	i = -1;
 	while (env[++i])
-	{
 		var[i] = ft_split(env[i], '=');
-		// dprintf(1, "%s\n", *var[i]);
-	}
 	return (var);
 }
 

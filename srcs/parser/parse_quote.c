@@ -6,26 +6,11 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 16:48:19 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/23 11:18:07 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/minishell.h"
-
-int	s_machine_quote(char *str, int i);
-
-int	s_machine_quote(char *str, int i)
-{
-	static int	_q = 0;
-
-	if (str[i] == '\'' && !_q)
-		_q = 1;
-	else if (str[i] == '\"' && !_q)
-		_q = 2;
-	else if ((str[i] == '\"' && _q == 2) || (str[i] == '\'' && _q == 1))
-		_q = 0;
-	return (_q);
-}
 
 char	*pre_parse_quote(char *str, char **env)
 {
@@ -66,6 +51,21 @@ char	*get_env_name(char *str, int *j)
 	return (tmp);
 }
 
+int	dollar_ex_status(char *str, int *i, char **new)
+{
+	char	*tmp;
+
+	if (str[*i + 1] == '?')
+	{
+		tmp = ft_itoa(g_ex_status);
+		*new = ft_strjoin(*new, tmp);
+		gc_free(tmp);
+		*i += 2;
+		return (1);
+	}
+	return (0);
+}
+
 int	shinra_tensei(char *str, int *i, char **new, char **env)
 {
 	char	*tmp;
@@ -78,18 +78,16 @@ int	shinra_tensei(char *str, int *i, char **new, char **env)
 	{
 		if (str[*i + 1] == ' ' || !str[*i + 1])
 			return (0);
-		if (str[*i + 1] == '?')
-		{
-			tmp = ft_itoa(g_ex_status);
-			*new = ft_strjoin(*new, tmp);
-			gc_free(tmp);
-			*i += 2;
+		if (dollar_ex_status(str, i, new))
 			return (1);
-		}
 		tmp = get_env_name(str, i);
 		tmp2 = ft_get_var_str(&env, tmp);
 		if (tmp2)
+		{
+			*new = ft_strjoin("\"", *new);
 			*new = ft_strjoin(*new, tmp2);
+			*new = ft_strjoin(*new, "\"");
+		}
 		gc_free(tmp);
 		gc_free(tmp2);
 		return (1);

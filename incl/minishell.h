@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 16:44:05 by lsidan           ###   ########.fr       */
+/*   Updated: 2022/03/23 10:44:17 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ extern unsigned char	g_ex_status;
 
 # endif
 
-# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+# ifndef TABLE
+#  define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
 abcdefghijklmnopqrstuvwxyz0123456789_$!#?"
+# endif
 
-# define TABLE2 "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+# ifndef TABLE2
+#  define TABLE2 "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
 abcdefghijklmnopqrstuvwxyz0123456789_"
+# endif
 
 typedef struct s_cmd
 {
@@ -81,6 +85,7 @@ char	**free_split(char **tab);
 // LOOP
 void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
+void	loop_lst(t_cmd *c_line, char **env);
 
 //SIG-HANDLER
 void	ft_ctrlc(int sig);
@@ -138,6 +143,7 @@ char	*get_env_var(char *var);
 int		count_pipe(char *str);
 void	ft_get_exit_stat(pid_t forks);
 int		is_onlyspace(char *str);
+int		nothing(char *str);
 
 //PIPEX
 int		ft_exec(char **args, char **env, int diff);
