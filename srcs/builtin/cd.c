@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 13:54:37 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:23:51 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_go2_olpdwd(char *str, char ***env)
 		{
 			tmp = getcwd((char *) NULL, 0);
 			p_s = ft_strdup(tmp);
-			free (tmp); 
+			free (tmp);
 			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			g_ex_status = 1;
 			return (p_s);
