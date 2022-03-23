@@ -6,12 +6,30 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 11:56:47 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:09:23 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/minishell.h"
 
+void	ft_wrap_hdoc(t_cmd *args, int memory[2], char **env)
+	{
+		int	i;
+		int	cmdsnb;
+
+		i = -1;
+		cmdsnb = ft_nb_cmd()
+		i = -1;
+	while (++i <= cmdsnb)
+	{
+		args[i].hdoc_fd = -1;
+		if (args[i].state_in == 2)
+		{
+			args[i].hdoc_fd = ft_heredoc(args[i], memory);
+			if (args[i].hdoc_fd == -1)
+				return (1);
+		}
+	}}
 int	nb_cmds(t_cmd *args)
 {
 	int	i;

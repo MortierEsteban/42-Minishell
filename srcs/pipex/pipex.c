@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 13:19:26 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:08:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,7 @@ int	pipex_process(t_cmd *args, char ***env)
 	pipe_exit = 0;
 	g_ex_status = 0;
 	i = -1;
-	while (++i <= cmdsnb)
-	{
-		args[i].hdoc_fd = -1;
-		if (args[i].state_in == 2)
-		{
-			args[i].hdoc_fd = ft_heredoc(args[i], memory);
-			if (args[i].hdoc_fd == -1)
-				return (1);
-		}
-	}
-	i = -1;
+	ft_wrap_hdoc()
 	signal (SIGINT, ft_exec_sig);
 	signal (SIGQUIT, ft_exec_sig);
 	while (++i <= cmdsnb)
@@ -132,7 +122,6 @@ int	pipex_process(t_cmd *args, char ***env)
 			if (ft_exec(args[i].cmd, *env, cmdsnb - i))
 				return (ft_close_fd_process(memory, pipe_exit, args));
 	}
-	i = 0;
 	ft_close_fd_process(memory, pipe_exit, args);
 	while (i != -1)
 		i = wait(NULL);

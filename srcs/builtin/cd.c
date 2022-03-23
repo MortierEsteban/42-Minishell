@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:45:28 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 16:03:48 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:54:37 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,20 @@ char	*ft_get_var_str(char ***env, char *var)
 
 char	*ft_go2_olpdwd(char *str, char ***env)
 {
+	char	*tmp;
+	char	*p_s;
+
 	if (!ft_strcmp(str, "-"))
 	{
 		str = ft_get_var_str(env, "OLDPWD");
 		if (!str)
 		{
+			tmp = getcwd((char *) NULL, 0);
+			p_s = ft_strdup(tmp);
+			free (tmp); 
 			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			g_ex_status = 1;
-			return (0);
+			return (p_s);
 		}
 	}
 	return (str);
@@ -51,12 +57,13 @@ int	ft_cd(char ***env, t_cmd cmd)
 {
 	char	*newpwd;
 	char	*str;
+	char	*p_s;
 	int		pos;
 
 	str = ft_go2_olpdwd(cmd.cmd[1], env);
 	pos = ft_find_var(*env, "OLDPWD");
-	newpwd = getcwd((char *) NULL, 0);
-	newpwd = ft_strjoin("OLDPWD=", newpwd);
+	p_s = getcwd((char *) NULL, 0);
+	newpwd = ft_strjoin("OLDPWD=", p_s);
 	if (pos >= 0)
 	{
 		free((*env)[pos]);
@@ -65,6 +72,7 @@ int	ft_cd(char ***env, t_cmd cmd)
 	else
 		ft_add_env(env, newpwd);
 	gc_free(newpwd);
+	free(p_s);
 	if (!str)
 		str = ft_get_var_str(env, "HOME");
 	if (chdir(str) == -1)
