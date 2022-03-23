@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 10:46:08 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:47:04 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ char	*parse_home_path(char *path)
 		new = ft_strdup("~");
 	else
 		new = ft_strjoin("~", path + ft_strlen(home_path));
-	color = ft_strdup("\033[0;36m");
+	color = ft_strdup("");
 	tmp = ft_strjoin(color, new);
 	gc_free(new);
 	gc_free(color);
 	new = ft_strjoin(tmp, " ❯ ");
-	new = ft_strjoin(new, "\033[0m");
+	new = ft_strjoin(new, "");
 	return (new);
 }
 
-void	parse_list(t_list *head)
+void	parse_list(t_list *head, char **env)
 {
 	t_list	*current;
 
@@ -44,21 +44,21 @@ void	parse_list(t_list *head)
 	current = head;
 	while (current)
 	{
-		current->content = parse_quote(current->content, 0);
+		current->content = parse_quote(current->content, 0, env);
 		current = current->next;
 	}	
 }
 
-void	loop_lst(t_cmd *c_line)
+void	loop_lst(t_cmd *c_line, char **env)
 {
 	int	i;
 
 	i = -1;
 	while (c_line && c_line[++i].cmd)
 	{
-		parse_list(c_line[i].input);
-		parse_list(c_line[i].output);
-		parse_list(c_line[i].h_doc);
+		parse_list(c_line[i].input, env);
+		parse_list(c_line[i].output, env);
+		parse_list(c_line[i].h_doc, env);
 	}	
 }
 
@@ -66,12 +66,24 @@ void	check_cmd(t_cmd *c_line, char ***env)
 {
 	if (c_line)
 	{
-		loop_lst(c_line);
+		loop_lst(c_line, *env);
 		pipex_process(c_line, env);
 		free_cmd(c_line);
 	}
 	else
 		ft_putstr_fd("Parse Error\n", 2);
+}
+
+int	nothing(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
 }
 
 void	sh_loop(char ***env)
@@ -94,10 +106,12 @@ void	sh_loop(char ***env)
 		gc_free(prompt);
 		if (!line)
 			return (ft_exit_free(1, *env));
-		else
-			c_line = parser(line);
-		add_history(line);
-		check_cmd(c_line, env);
+		else if (!nothing(line))
+		{
+			c_line = parser(line, *env);
+			add_history(line);
+			check_cmd(c_line, env);
+		}
 		free(line);
 		gc_destroy();
 	}

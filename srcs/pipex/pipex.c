@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 15:43:03 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:17:09 by lsidan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_sort_built(t_cmd arg, char ***env, int p_s)
 		status = ft_fork_bins(env, arg, ft_pwd);
 	if (p_s == 0)
 		return (ft_isonlycmd(arg, env));
-	dprintf(2, "didn4t use onlycmd");
+	// dprintf(2, "didn4t use onlycmd");
 	if (!ft_strcmp(arg.cmd[0], "export"))
 		status = ft_fork_bins(env, arg, ft_export);
 	if (!ft_strcmp(arg.cmd[0], "exit"))
