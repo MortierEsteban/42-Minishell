@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 16:21:55 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:57:31 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int	pipex_process(t_cmd *args, char ***env)
 	pipe_exit = 0;
 	g_ex_status = 0;
 	i = -1;
-	signal(SIGINT, ft_ctrlc_hdoc);
 	while (++i <= cmdsnb)
 	{
 		args[i].hdoc_fd = -1;
@@ -124,8 +123,8 @@ int	pipex_process(t_cmd *args, char ***env)
 		}
 	}
 	i = -1;
-	signal (SIGINT, ft_exec_ctrlc);
-	signal (SIGQUIT, ft_quit3);
+	signal (SIGINT, ft_exec_sig);
+	signal (SIGQUIT, ft_exec_sig);
 	while (++i <= cmdsnb)
 	{
 		ft_pipex_dup(i, args, memory, &pipe_exit);

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 15:48:29 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 11:57:17 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	int	*redir_fd;
 
 	if (pipe(pipes) == -1)
-		pipes_error ();
+		write (1, "There was an error while trying to use pipe.\n", 45);
 	redir_fd = redir_handler(args[i], pipe_exit, memory);
 	cmdsnb = nb_cmds(args) -1;
 	dup2(redir_fd[0], STDIN);
@@ -71,7 +71,7 @@ int	ft_exec(char **args, char **env, int diff)
 
 	forks = fork();
 	if (forks < 0)
-		ft_perror();
+		return (ft_perror());
 	if (forks == 0)
 	{
 		path = ft_check_path(args);

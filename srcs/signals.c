@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 11:03:12 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 15:50:13 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:03:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,13 @@ void	ft_ctrlc(int sig)
 	rl_redisplay();
 }
 
-void	ft_ctrlc_hdoc(int sig)
+void	ft_sig_hdoc(int sig)
 {
-	char	c;
-
-	(void) sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	if (rl_point == ft_strlen(rl_line_buffer))
+	if (sig == SIGINT)
 	{
-		rl_redisplay();
-		write(2, "  \b\b", 4);
+		g_ex_status = 1;
+		exit (g_ex_status);
 	}
-	else if (rl_point == ft_strlen(rl_line_buffer) - 1)
-	{
-		rl_redisplay();
-		c = rl_line_buffer[rl_point];
-		write(2, &c, 1);
-		write(2, " \b\b", 3);
-	}	
-	ft_putchar_fd(-1, 0);
-	g_ex_status = 1;
 }
 
 void	ft_rm_sig_chars(int sig)
@@ -78,16 +64,22 @@ void	ft_rm_sig_chars(int sig)
 	rl_redisplay();
 }
 
-void	ft_exec_ctrlc(int sig)
+void	ft_do_endl(int sig)
 {
 	(void) sig;
 	ft_putchar_fd('\n', 2);
-	g_ex_status = 130;
 }
 
-void	ft_quit3(int sig)
+void	ft_exec_sig(int sig)
 {
-	(void) sig;
-	ft_putstr_fd ("Quit: 3\n", 2);
-	g_ex_status = 131;
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd ("Quit: 3\n", 2);
+		g_ex_status = 131;
+	}
+	else
+	{
+		ft_putchar_fd('\n', 2);
+		g_ex_status = 130;
+	}
 }

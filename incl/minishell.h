@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 15:43:48 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:11:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 	int		hdoc_fd;
 	int		state_out;
 	t_list	*output;
+	int		lastcmd;
 }	t_cmd;
 
 //ENV VAR
@@ -82,12 +83,12 @@ char	**free_split(char **tab);
 void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
 
-//SIG-HANDLER
+//SIGNAL-HANDLER
 void	ft_ctrlc(int sig);
 void	ft_rm_sig_chars(int sig);
-void	ft_exec_ctrlc(int sig);
-void	ft_quit3(int sig);
-void	ft_ctrlc_hdoc(int sig);
+void	ft_exec_sig(int sig);
+void	ft_sig_hdoc(int sig);
+void	ft_do_endl(int sig);
 
 //BUILT-IN
 int		ft_cd(char ***env, t_cmd cmd);
@@ -121,7 +122,7 @@ int		shinra_tensei(char *str, int quot, int *i, char **new);
 void	process_parse(char *str, char **new, int i, int quot);
 int		check_pipe(char *str);
 
-//REDIR
+//REDIR-PARSE
 int		which_case(t_cmd *cmd, char *tmp, char c, char d);
 int		wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
 int		ft_heredoc(t_cmd arg, int memory[2]);
@@ -141,14 +142,13 @@ int		is_onlyspace(char *str);
 
 //PIPEX
 int		ft_exec(char **args, char **env, int diff);
-void	pipes_error(void);
 void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 char	*ft_check_path(char **args);
 int		nb_cmds(t_cmd *args);
 int		pipex_process(t_cmd *args, char ***env);
 int		stop(char c, char *table);
 
-//REDIR
+//REDIR-EXEC
 void	ft_touch_files(char *filename);
 int		*redir_handler(t_cmd cmd, int *pipe_exit, int memory[2]);
 int		*ft_redirects(t_cmd args, int memory[2]);
