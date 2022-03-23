@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 13:14:42 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:19:20 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_final_doc(int pipes[2], char *filename)
 		line = tmp;
 		if (ft_strcmp(line, filename))
 		{
-			line = pre_parse_quote(line);
+			line = pre_parse_quote(line, 0);
 			ft_putstr_fd(line, pipes[1]);
 			ft_putchar_fd('\n', pipes[1]);
 		}

@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/22 08:53:34 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/23 08:33:23 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ char	***create_var_tab(char **env)
 	var[i] = 0;
 	i = -1;
 	while (env[++i])
-	{
 		var[i] = ft_split(env[i], '=');
-		dprintf(1, "%s\n", *var[i]);
-	}
 	return (var);
 }
 
@@ -64,8 +61,11 @@ int	is_onlyspace(char *str)
 	return (0);
 }
 
-void	process_parse(char *str, char **new, int i, int quot)
+void	process_parse(char *str, char **new, int i)
 {
+	int	quot;
+
+	quot = s_machine_quote(str, i);
 	if ((str[i] == '\"' && quot == 1) || (str[i] == '\'' && quot == 2) \
 		|| (str[i] != '\"' && str[i] != '\''))
 		*new = ft_strljoin(*new, &str[i], 1);

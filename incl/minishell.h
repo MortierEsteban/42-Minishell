@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 13:11:12 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:19:35 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ extern unsigned char	g_ex_status;
 
 # endif
 
-# define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+# ifndef TABLE
+#  define TABLE "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
 abcdefghijklmnopqrstuvwxyz0123456789_$!#?"
+# endif
 
-# define TABLE2 "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+# ifndef TABLE2
+#  define TABLE2 "ABCDEFGHIJKLMNOPQRSTUVWXYZ\
 abcdefghijklmnopqrstuvwxyz0123456789_"
+# endif
 
 typedef struct s_cmd
 {
@@ -82,6 +86,7 @@ char	**free_split(char **tab);
 // LOOP
 void	sh_loop(char ***env);
 char	*parse_home_path(char *path);
+void	loop_lst(t_cmd *c_line, char **env);
 
 //SIGNAL-HANDLER
 void	ft_ctrlc(int sig);
@@ -111,15 +116,15 @@ void	ft_shlvl(char ***env);
 char	*inter(char *s1, char *s2);
 
 //PARSING
-t_cmd	*parser(char *str);
+t_cmd	*parser(char *str, char **env);
 void	join_args(t_cmd *s_cmd_line);
-void	s_machine_quote(int *quot, char *str, int i);
+int		s_machine_quote(char *str, int i);
 void	init_lst(t_cmd *cmd, int i);
 char	*process_join_arg(t_cmd *cmd, int i, int j, char *txt);
-char	*pre_parse_quote(char *str);
-char	*parse_quote(char *str, int p_s);
-int		shinra_tensei(char *str, int quot, int *i, char **new);
-void	process_parse(char *str, char **new, int i, int quot);
+char	*pre_parse_quote(char *str, char **env);
+char	*parse_quote(char *str, int p_s, char **env);
+int		shinra_tensei(char *str, int *i, char **new, char **env);
+void	process_parse(char *str, char **new, int i);
 int		check_pipe(char *str);
 
 //REDIR-PARSE
@@ -139,6 +144,7 @@ char	*get_env_var(char *var);
 int		count_pipe(char *str);
 void	ft_get_exit_stat(pid_t forks);
 int		is_onlyspace(char *str);
+int		nothing(char *str);
 
 //PIPEX
 int		ft_exec(char **args, char **env, int diff);
