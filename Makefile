@@ -26,11 +26,13 @@ SRCS	=	main.c										\
 			srcs/parser/redir.c							\
 			srcs/parser/split.c							\
 			srcs/parser/split_utils.c					\
+			srcs/pipex/norm_utils.c						\
 			srcs/pipex/pipex.c							\
-			srcs/pipex/srcs/exec.c						\
-			srcs/pipex/srcs/utils.c						\
+			srcs/pipex/exec.c							\
+			srcs/pipex/utils.c							\
 			srcs/redir/redir.c 							\
-			srcs/redir/utils.c 							\
+			srcs/redir/Czech.c 							\
+			srcs/redir/heredoc.c 						\
 
 OBJS	=	${SRCS:.c=.o}
 OBJS_DIR	= objs/

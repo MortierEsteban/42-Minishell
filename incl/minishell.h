@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 14:16:29 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:02:02 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_shlvl(char ***env);
 char	**ft_recreate_env(void);
 void	ft_shlvl(char ***env);
 char	*inter(char *s1, char *s2);
+void	ft_norm_pdup(int *redir[2], int memory[2], int pipes[2], int diff);
 
 //PARSING
 t_cmd	*parser(char *str, char **env);
@@ -132,9 +133,10 @@ int		which_case(t_cmd *cmd, char *tmp, char c, char d);
 int		wrap_redir(char *str, char **new, t_cmd *cmd, int *k);
 int		ft_heredoc(t_cmd arg, int memory[2], char **env);
 char	*redir(char *str, t_cmd *cmd);
-char	*redir(char *str, t_cmd *cmd);
 int		len_filename(char *str, int i);
 int		cpy_str(char *str, char **new, int *i);
+int		ft_path_exists(t_list *output);
+int		ft_isadir(char *cmd);
 
 //UTILS
 void	free_cmd(t_cmd	*c_line);
@@ -149,7 +151,7 @@ int		nothing(char *str);
 //PIPEX
 int		ft_wrap_hdoc(t_cmd *args, int memory[2], char **env);
 int		ft_exec(char **args, char **env, int diff);
-void	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
+int		ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
 char	*ft_check_path(char **args);
 int		nb_cmds(t_cmd *args);
 int		pipex_process(t_cmd *args, char ***env);
