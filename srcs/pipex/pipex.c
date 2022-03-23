@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 14:13:36 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/23 14:22:07 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	pipex_process(t_cmd *args, char ***env)
 	pipe_exit = 0;
 	g_ex_status = 0;
 	i = -1;
+	if (ft_wrap_hdoc(args, memory, *env))
+		return (1);
 	signal (SIGINT, ft_exec_sig);
 	signal (SIGQUIT, ft_exec_sig);
 	while (++i <= cmdsnb)
