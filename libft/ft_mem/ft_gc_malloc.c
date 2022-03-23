@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:22:24 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 13:59:18 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:22:35 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*gc_malloc(unsigned long size)
 	t_list	*new_elem;
 
 	buff = malloc(size);
-	if (buff)
+	if (!buff)
 	{
 		gc_destroy();
 		return (0);
