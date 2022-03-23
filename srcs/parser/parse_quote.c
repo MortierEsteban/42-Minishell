@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 11:18:07 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/23 14:05:48 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	shinra_tensei(char *str, int *i, char **new, char **env)
 		tmp2 = ft_get_var_str(&env, tmp);
 		if (tmp2)
 		{
-			*new = ft_strjoin("\"", *new);
+			tmp2 = ft_strjoin("\"", tmp2);
 			*new = ft_strjoin(*new, tmp2);
 			*new = ft_strjoin(*new, "\"");
 		}

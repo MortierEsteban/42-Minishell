@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:37 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 11:13:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/23 11:35:46 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ int	no_pipe(t_cmd *s_cmd_line, char *str, char **env)
 	str = redir(str, &s_cmd_line[0]);
 	if (!str)
 		return (1);
+	str = pre_parse_quote(str, env);
+	dprintf(1, "%s\n", str);
 	s_cmd_line[0].cmd = split(str, ' ');
 	if (!s_cmd_line[0].cmd)
 		return (1);
 	while (s_cmd_line[0].cmd[++j])
-	{
-		s_cmd_line[0].cmd[j] = pre_parse_quote(s_cmd_line[0].cmd[j], env);
 		s_cmd_line[0].cmd[j] = parse_quote(s_cmd_line[0].cmd[j], 1, env);
-	}
 	gc_free(str);
 	s_cmd_line[1].cmd = NULL;
 	return (0);
