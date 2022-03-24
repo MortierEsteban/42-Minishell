@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 08:43:54 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 13:13:39 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:19:10 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	s_machine_quote(char *str, int i)
 	return (_q);
 }
 
-void	parse_list(t_list *head, char **env)
+void	parse_list(t_list *head, char **env, int p_s)
 {
 	t_list	*current;
 
@@ -46,7 +46,7 @@ void	parse_list(t_list *head, char **env)
 	current = head;
 	while (current)
 	{
-		current->content = parse_quote(current->content, 0, env);
+		current->content = parse_quote(current->content, p_s, env);
 		current = current->next;
 	}	
 }
@@ -89,9 +89,9 @@ void	loop_lst(t_cmd *c_line, char **env)
 	i = -1;
 	while (c_line && c_line[++i].cmd)
 	{
-		parse_list(c_line[i].input, env);
-		parse_list(c_line[i].output, env);
-		parse_list(c_line[i].h_doc, env);
+		parse_list(c_line[i].input, env, 1);
+		parse_list(c_line[i].output, env, 1);
+		parse_list(c_line[i].h_doc, env, 0);
 		print_debug(c_line, i);
 	}	
 }
