@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 14:16:29 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:35:04 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@
 
 extern unsigned char	g_ex_status;
 
+# endif
+
+# ifndef COLOR
+#  define COLOR "\033[94m"
+#  define END_COLOR "\033[0m"
 # endif
 
 # ifndef TABLE
