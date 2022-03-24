@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 14:33:16 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 16:29:06 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-char	*parse_home_path(char *path)
+char	*parse_home_path(char *path, char **env)
 {
 	char	*home_path;
 	char	*new;
@@ -21,9 +21,9 @@ char	*parse_home_path(char *path)
 
 	if (!path)
 		return (NULL);
-	home_path = getenv("HOME");
-	if (!*(path + ft_strlen(home_path)))
-		new = ft_strdup("~");
+	home_path = ft_get_var_str(&env, "HOME");
+	if (ft_strlen(path) < ft_strlen(home_path))
+			new = path;
 	else
 		new = ft_strjoin("~", path + ft_strlen(home_path));
 	color = ft_strdup(COLOR);
@@ -44,7 +44,7 @@ void	check_cmd(t_cmd *c_line, char ***env)
 		free_cmd(c_line);
 	}
 	else
-		ft_putstr_fd("Parse Error\n", 2);
+		ft_putstr_fd("Syntaxe Error\n", 2);
 }
 
 void	wrap_loop(t_cmd *c_line, char ***env, char *line)
@@ -71,7 +71,7 @@ void	sh_loop(char ***env)
 		signal(SIGINT, ft_ctrlc);
 		signal(SIGQUIT, ft_rm_sig_chars);
 		tmp = getcwd((char *) NULL, 0);
-		prompt = parse_home_path(tmp);
+		prompt = parse_home_path(tmp, *env);
 		free(tmp);
 		line = readline(prompt);
 		gc_free(prompt);

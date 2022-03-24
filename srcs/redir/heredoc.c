@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 09:26:25 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 14:19:08 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:20:32 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,23 @@ void	ft_pre_hdoc(t_cmd arg)
 
 void	ft_hdoc_norm(t_cmd arg, int memory[2], int pipes[2], char **env)
 {
-	signal(SIGQUIT, ft_rm_sig_chars);
 	signal(SIGINT, ft_sig_hdoc);
+	signal(SIGQUIT, ft_rm_sig_chars);
 	dup2(memory[0], STDIN);
 	dup2(memory[1], STDOUT);
 	ft_pre_hdoc(arg);
 	ft_final_doc (pipes, ft_lstlast(arg.h_doc)->content, env);
-	if (arg.hdoc_fd == -1)
-		exit (1);
 	exit (0);
+}
+
+int	ft_normanfaitdesvidos(pid_t forks, int pipes[2])
+{
+	int	stat;
+
+	waitpid(forks, &stat, 0);
+	close (pipes[1]);
+	stat = WEXITSTATUS(stat);
+	return (stat);
 }
 
 int	ft_heredoc(t_cmd arg, int memory[2], char **env)
@@ -83,8 +91,8 @@ int	ft_heredoc(t_cmd arg, int memory[2], char **env)
 		ft_hdoc_norm(arg, memory, pipes, env);
 	else
 	{
-		waitpid(forks, NULL, 0);
-		close (pipes[1]);
+		if (ft_normanfaitdesvidos(forks, pipes))
+			return (-1);
 		return (pipes[0]);
 	}
 	return (1);

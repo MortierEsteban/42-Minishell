@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/15 19:05:20 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 16:24:01 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	export_wargs(char ***env, t_cmd cmd)
 		if (parse_env_name(cmd.cmd[i]))
 		{
 			error = ft_strjoin("minishell: export: `", cmd.cmd[i]);
-			error = ft_strjoin(error, "'`: not a valid identifier\n");
+			error = ft_strjoin(error, "': not a valid identifier\n");
 			ft_putstr_fd(error, 2);
 			gc_free (error);
 			continue ;

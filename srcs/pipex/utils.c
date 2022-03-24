@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 13:17:19 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:53:20 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,23 @@ char	*ft_check_path(char **args, char ***env)
 	i = -1;
 	path = NULL;
 	path = get_path(env);
-	if (path == NULL)
-		return (NULL);
-	if (!ft_strncmp("./", args[0], 2))
-		return (ft_here_type(args[0]));
-	while (path[++i])
-	{
-		path[i] = ft_strjoin(path[i], "/");
-		path[i] = ft_strjoin(path[i], args[0]);
-	}
-	i = -1;
-	while (path[++i])
-	{
-		if (!access(path[i], F_OK | R_OK | X_OK))
-			return (path[i]);
+	if (path)
+	{	
+		if (!ft_strncmp("./", args[0], 2))
+			return (ft_here_type(args[0]));
+		while (path[++i])
+		{
+			path[i] = ft_strjoin(path[i], "/");
+			path[i] = ft_strjoin(path[i], args[0]);
+		}
+		i = -1;
+		while (path[++i])
+			if (!access(path[i], F_OK | R_OK | X_OK))
+				return (path[i]);
 	}
 	if (!access(args[0], F_OK | R_OK | X_OK))
 		return (ft_strdup(args[0]));
-	ft_putstr_fd("minishell: command not found\n", 2);
+	if (args[0][0] != '>' && args[0][0] != '<')
+		ft_putstr_fd("minishell: command not found\n", 2);
 	return (NULL);
 }

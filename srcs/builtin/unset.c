@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:16:37 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/21 15:45:02 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 16:23:45 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_unset(char ***env, t_cmd cmd)
 		if (parse_env_name(cmd.cmd[i]))
 		{
 			error = ft_strjoin("minishell: unset: `", cmd.cmd[i]);
-			error = ft_strjoin(error, "'`: not a valid identifier\n");
+			error = ft_strjoin(error, "': not a valid identifier\n");
 			ft_putstr_fd(error, 2);
 			gc_free (error);
 			continue ;

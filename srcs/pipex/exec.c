@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 12:59:58 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 17:51:12 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_closer(int *redir, int pipes[2])
 {
 	close (pipes[1]);
 	close (pipes[0]);
-	close (redir[1]);
+	if (redir[1] != pipes[1])
+		close (redir[1]);
 	gc_free (redir);
 }
 
@@ -37,6 +38,7 @@ int	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	dup2(redir_fd[0], STDIN);
 	if (redir_fd[0] != 0)
 		close (redir_fd[0]);
+	dprintf(2, "fct = %s\npipes_exit = %d\n pipes[0] = %d, pipes[1] = %d\n",args[i].cmd[0],*pipe_exit,pipes[0],pipes[1]);
 	if (*pipe_exit != 0)
 		close (*pipe_exit);
 	*pipe_exit = dup (pipes[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 10:43:52 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 17:47:15 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ int	ft_close_fd_process(int memory[2], int pipe_exit, t_cmd *args)
 {
 	int	i;
 
+	i = 0;
+	while (i >= 0)
+		i = wait(NULL);
 	i = -1;
 	while (args[++i].cmd)
 		if (args[i].hdoc_fd != -1)
@@ -93,9 +96,6 @@ int	ft_close_fd_process(int memory[2], int pipe_exit, t_cmd *args)
 	dup2 (memory[1], STDOUT);
 	close (memory[0]);
 	close (memory[1]);
-	i = 0;
-	while (i != -1)
-		i = wait(NULL);
 	if (pipe_exit != 0)
 		close (pipe_exit);
 	return (1);

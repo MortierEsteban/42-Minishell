@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 08:43:54 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 13:19:10 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:52:45 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,37 +51,6 @@ void	parse_list(t_list *head, char **env, int p_s)
 	}	
 }
 
-void	print(t_list *head)
-{
-	t_list	*current;
-
-	if (!head)
-		return ;
-	current = head;
-	while (current)
-	{
-		dprintf(1, "%s\n", (char *)current->content);
-		current = current->next;
-	}
-}
-
-void	print_debug(t_cmd *c_line, int i)
-{
-	int	j;
-
-	j = 0;
-	dprintf(1, ">>>>>>>>> CMD %d : <<<<<<<<<\n", i);
-	while (c_line && c_line[i].cmd && c_line[i].cmd[j])
-		dprintf(1, "SPLITTED = %s\n", c_line[i].cmd[j++]);
-	j = 0;
-	dprintf(1, ">>>>>>>>> INPUT %d : <<<<<<<<<\n", i);
-	print(c_line[i].input);
-	dprintf(1, ">>>>>>>>> OUTPUT %d : <<<<<<<<<\n", i);
-	print(c_line[i].output);
-	dprintf(1, ">>>>>>>>> H_DOC %d : <<<<<<<<<\n", i);
-	print(c_line[i].h_doc);
-}
-
 void	loop_lst(t_cmd *c_line, char **env)
 {
 	int	i;
@@ -92,6 +61,5 @@ void	loop_lst(t_cmd *c_line, char **env)
 		parse_list(c_line[i].input, env, 1);
 		parse_list(c_line[i].output, env, 1);
 		parse_list(c_line[i].h_doc, env, 0);
-		print_debug(c_line, i);
 	}	
 }

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 13:05:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 17:02:16 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ abcdefghijklmnopqrstuvwxyz0123456789_"
 
 typedef struct s_cmd
 {
-	char	**cmd;
 	int		state_in;
-	t_list	*input;
-	t_list	*h_doc;
 	int		hdoc_fd;
 	int		state_out;
-	t_list	*output;
 	int		lastcmd;
+	char	**cmd;
+	t_list	*input;
+	t_list	*h_doc;
+	t_list	*output;
 }	t_cmd;
 
 //ENV VAR
@@ -90,7 +90,7 @@ char	**free_split(char **tab);
 
 // LOOP
 void	sh_loop(char ***env);
-char	*parse_home_path(char *path);
+char	*parse_home_path(char *path, char **env);
 void	loop_lst(t_cmd *c_line, char **env);
 
 //SIGNAL-HANDLER

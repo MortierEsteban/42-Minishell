@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 13:04:55 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 16:11:54 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*parse_quote(char *str, int p_s, char **env)
 		quot = s_machine_quote(str, i);
 		if (p_s && str[i] == '~' && quot == 0)
 		{
-			new = ft_strjoin(new, getenv("HOME"));
+			new = ft_strjoin(new, ft_get_var_str(&env, "HOME"));
 			i++;
 			continue ;
 		}

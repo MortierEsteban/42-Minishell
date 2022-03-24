@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 11:03:12 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 11:46:23 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 14:18:56 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 void	ft_ctrlc(int sig)
 {
-	char	*tmp;
 	char	*prompt;
 
 	(void) sig;
-	rl_on_new_line();
-	tmp = getcwd((char *) NULL, 0);
-	prompt = parse_home_path(tmp);
-	free(tmp);
-	prompt = ft_strjoin(prompt, rl_line_buffer);
-	prompt = ft_strjoin(prompt, "  \b\b\n");
+	prompt = ft_strjoin(rl_prompt, rl_line_buffer);
+	prompt = ft_strjoin(prompt, "  \b\b");
 	ft_putstr_fd(prompt, 2);
+	ft_putchar_fd('\n', 2);
 	g_ex_status = 1;
 	gc_free(prompt);
 	rl_replace_line("", 0);

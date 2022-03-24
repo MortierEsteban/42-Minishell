@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:34:01 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 14:37:25 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:37:50 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,14 @@ int	ft_atol_exit(char *str, char **env)
 		i++;
 	}
 	max = 9223372036854775807;
-	if ((nb <= max && sign == 1) || (nb <= max + 1 && sign == -1))
+	if ((nb > max && sign == 1) || \
+	(nb > max + 1 && sign == -1) || (str[i] != '\0'))
+	{
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
-	if (str[i] == '\0')
-		ft_exit_free(nb * sign, env);
+		nb = 255;
+		sign = 1;
+	}
+	ft_exit_free(nb * sign, env);
 	return (-1);
 }
 
@@ -80,11 +84,13 @@ int	ft_bexit(char ***env, t_cmd cmd)
 
 	nb_args = ft_nb_arg(cmd.cmd);
 	if (nb_args > 2)
+	{
+		g_ex_status = 1;
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+	}
 	else if (nb_args == 1)
 		ft_exit_free(0, *env);
 	else
 		ft_atol_exit(cmd.cmd[1], *env);
-	g_ex_status = 1;
 	return (0);
 }

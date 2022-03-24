@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 12:59:07 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:56:33 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,6 @@ char	**get_path(char ***env)
 	if (!path)
 		return (NULL);
 	return (path);
-}
-
-char	*get_env_var(char *var)
-{
-	char	*str;
-
-	str = getenv(var);
-	gc_free(var);
-	return (str);
 }
 
 char	***create_var_tab(char **env)
