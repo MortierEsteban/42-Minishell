@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 20:46:08 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/14 09:16:35 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 13:00:45 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	count_w(char *s, char *charset)
 		}
 		i++;
 	}
-	if (s[i - 1] != charset[0])
+	if (i > 0 && s[i - 1] != charset[0])
 		w++;
 	return (w);
 }

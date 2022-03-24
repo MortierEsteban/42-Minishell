@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 10:44:00 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 10:56:07 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ extern unsigned char	g_ex_status;
 # endif
 
 # ifndef COLOR
-#  define COLOR "\033[94m"
-#  define END_COLOR "\033[0m"
+#  define COLOR ""
+#  define END_COLOR ""
 # endif
 
 # ifndef TABLE
