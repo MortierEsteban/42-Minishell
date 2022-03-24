@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 08:43:54 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 11:06:02 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 13:13:39 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	parse_list(t_list *head, char **env)
 	current = head;
 	while (current)
 	{
-		current->content = parse_quote(current->content, 1, env);
+		current->content = parse_quote(current->content, 0, env);
 		current = current->next;
 	}	
 }
