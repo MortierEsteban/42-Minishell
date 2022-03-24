@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 15:09:12 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:02:43 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ char	*ft_here_type(char *cmd)
 	return (NULL);
 }
 
-char	*ft_check_path(char **args)
+char	*ft_check_path(char **args, char ***env)
 {
 	int		i;
 	char	**path;
 
 	i = -1;
 	path = NULL;
-	path = get_path();
+	path = get_path(env);
 	if (path == NULL)
 		return (NULL);
 	if (!ft_strncmp("./", args[0], 2))
@@ -102,6 +102,8 @@ char	*ft_check_path(char **args)
 		if (!access(path[i], F_OK | R_OK | X_OK))
 			return (path[i]);
 	}
+	if (!access(args[0], F_OK | R_OK | X_OK))
+		return (ft_strdup(args[0]));
 	ft_putstr_fd("minishell: command not found\n", 2);
 	return (NULL);
 }

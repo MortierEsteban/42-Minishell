@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:53:03 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 08:33:23 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 12:59:07 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-char	**get_path(void)
+char	**get_path(char ***env)
 {
 	char	**path;
 	char	*str;
 
-	str = getenv("PATH");
+	str = ft_get_var_str(env, "PATH");
 	path = ft_split(str, ':');
 	if (!path)
 		return (NULL);

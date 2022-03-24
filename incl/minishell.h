@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 16:02:02 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:59:50 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		ft_isadir(char *cmd);
 //UTILS
 void	free_cmd(t_cmd	*c_line);
 char	**ft_malloc_error(char **tab);
-char	**get_path(void);
+char	**get_path(char ***env);
 char	*get_env_var(char *var);
 int		count_pipe(char *str);
 void	ft_get_exit_stat(pid_t forks);
@@ -152,7 +152,7 @@ int		nothing(char *str);
 int		ft_wrap_hdoc(t_cmd *args, int memory[2], char **env);
 int		ft_exec(char **args, char **env, int diff);
 int		ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit);
-char	*ft_check_path(char **args);
+char	*ft_check_path(char **arg, char ***env);
 int		nb_cmds(t_cmd *args);
 int		pipex_process(t_cmd *args, char ***env);
 int		stop(char c, char *table);

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:52:48 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 16:47:19 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:51:42 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	ft_path_exists(t_list *output)
 	char	*path;
 
 	path = ft_redir_path(output->content);
-	dprintf(2, "PATH = %s\n", path);
 	if (!path)
 	{
 		output = output->next;
