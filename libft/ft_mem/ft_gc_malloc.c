@@ -6,7 +6,7 @@
 /*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:22:24 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 14:30:01 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 10:43:56 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*gc_malloc(unsigned long size)
 	t_list	*new_elem;
 
 	buff = malloc(size);
-	if (!buff)
+	if (buff)
 	{
 		gc_destroy();
 		return (0);
