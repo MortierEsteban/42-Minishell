@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 09:01:35 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/23 13:58:35 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:33:16 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ char	*parse_home_path(char *path)
 		new = ft_strdup("~");
 	else
 		new = ft_strjoin("~", path + ft_strlen(home_path));
-	color = ft_strdup("");
+	color = ft_strdup(COLOR);
 	tmp = ft_strjoin(color, new);
 	gc_free(new);
 	gc_free(color);
 	new = ft_strjoin(tmp, " ❯ ");
-	new = ft_strjoin(new, "");
+	new = ft_strjoin(new, END_COLOR);
 	return (new);
 }
 

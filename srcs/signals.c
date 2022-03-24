@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 11:03:12 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/23 13:03:12 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:46:23 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_sig_hdoc(int sig)
 	if (sig == SIGINT)
 	{
 		g_ex_status = 1;
-		exit (g_ex_status);
+		exit (1);
 	}
 }
 

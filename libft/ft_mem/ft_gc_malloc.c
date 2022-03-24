@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:22:24 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 12:52:11 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:05:53 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	printlst(t_list *head)
 	current = head;
 	while (current)
 	{
-		dprintf(1, "LEAK : %s, ADDR : %p\n", (char *)current->content, \
-											current->content);
+		// dprintf(1, "LEAK : %s, ADDR : %p\n", (char *)current->content, \
+		// 									current->content);
 		current = current->next;
 	}
 }

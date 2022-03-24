@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 08:38:44 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 12:59:50 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:05:43 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@
 
 extern unsigned char	g_ex_status;
 
+# endif
+
+# ifndef COLOR
+#  define COLOR ""
+#  define END_COLOR ""
 # endif
 
 # ifndef TABLE
