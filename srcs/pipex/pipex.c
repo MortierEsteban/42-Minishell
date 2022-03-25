@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:10:04 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 17:47:15 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:30:44 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,11 @@ int	ft_close_fd_process(int memory[2], int pipe_exit, t_cmd *args)
 	while (args[++i].cmd)
 		if (args[i].hdoc_fd != -1)
 			close(args[i].hdoc_fd);
+	close (pipe_exit);
 	dup2 (memory[0], STDIN);
 	dup2 (memory[1], STDOUT);
 	close (memory[0]);
 	close (memory[1]);
-	if (pipe_exit != 0)
-		close (pipe_exit);
 	return (1);
 }
 
