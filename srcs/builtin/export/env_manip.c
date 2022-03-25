@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 13:54:19 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/22 10:34:27 by lsidan           ###   ########lyon.fr   */
+/*   Updated: 2022/03/25 10:40:30 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	ft_cmp_env_varname(char *env, char *var)
 	int	j;
 
 	i = 0;
+	if (!var)
+		return (1);
 	while (env[i] && var[i] && var[i] != '=' && env[i] != '=')
 	{
 		if (env[i] != var[i])

@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:37:51 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/24 15:53:20 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/25 10:32:21 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_check_path(char **args, char ***env)
 	i = -1;
 	path = NULL;
 	path = get_path(env);
-	if (path)
+	if (path && args[0])
 	{	
 		if (!ft_strncmp("./", args[0], 2))
 			return (ft_here_type(args[0]));
