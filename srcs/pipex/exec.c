@@ -6,7 +6,7 @@
 /*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:36:50 by emortier          #+#    #+#             */
-/*   Updated: 2022/03/25 09:51:43 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/25 09:59:36 by emortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ int	ft_pipex_dup(int i, t_cmd *args, int memory[2], int *pipe_exit)
 	dup2(redir_fd[0], STDIN);
 	if (redir_fd[0] != 0)
 		close (redir_fd[0]);
-	if (*pipe_exit != 0 && *pipe_exit != redir_fd[0])
-	{
-		dprintf(2, "Closed : %d\n", *pipe_exit);
+	if (*pipe_exit != 0)
 		close (*pipe_exit);
-	}
 	*pipe_exit = dup (pipes[0]);
 	ft_norm_pdup(&redir_fd, memory, pipes, cmdsnb - i);
 	dup2(redir_fd[1], STDOUT);
