@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emortier <emortier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsidan <lsidan@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:39:45 by lsidan            #+#    #+#             */
-/*   Updated: 2022/03/24 16:11:54 by emortier         ###   ########.fr       */
+/*   Updated: 2022/03/25 09:52:41 by lsidan           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ char	*get_env_name(char *str, int *j)
 
 	tmp = NULL;
 	_j = *j;
+	_j++;
 	while (str && str[_j] && stop(str[_j], TABLE))
 	{
 		if (!tmp)
-			tmp = ft_strdup("");
+			tmp = strdup_pimp(&str[_j], 1);
 		else
 			tmp = ft_strljoin(tmp, &str[_j], 1);
 		_j++;
